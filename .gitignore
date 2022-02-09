@@ -4,7 +4,6 @@
 /ecomerce-front/tmp
 /ecomerce-front/out-tsc
 /ecomerce-front/bazel-out
-/ecomerce-front/
 /ecomerce-front/# Node
 /ecomerce-front/node_modules
 /ecomerce-front/npm-debug.log
