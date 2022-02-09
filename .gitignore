@@ -8,7 +8,6 @@
 /ecomerce-front/node_modules
 /ecomerce-front/npm-debug.log
 /ecomerce-front/yarn-error.log
-/ecomerce-front/
 /ecomerce-front/# IDEs and editors
 /ecomerce-front/.idea/
 /ecomerce-front/.project
@@ -17,7 +16,6 @@
 /ecomerce-front/*.launch
 /ecomerce-front/.settings/
 /ecomerce-front/*.sublime-workspace
-/ecomerce-front/
 /ecomerce-front/# Visual Studio Code
 /ecomerce-front/.vscode/*
 /ecomerce-front/!.vscode/settings.json
@@ -25,7 +23,6 @@
 /ecomerce-front/!.vscode/launch.json
 /ecomerce-front/!.vscode/extensions.json
 /ecomerce-front/.history/*
-/ecomerce-front/
 /ecomerce-front/# Miscellaneous
 /ecomerce-front/.angular/cache
 /ecomerce-front/.sass-cache/
