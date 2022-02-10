@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BodegaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
@@ -31,14 +32,18 @@ Route::prefix('categorias')->group( function (){
 });
 Route::prefix('marcas')->group( function (){
     Route::get('/' ,[MarcaController::class,'index']);
+    Route::post('/' ,[MarcaController::class,'store']);
 });
 Route::prefix('empresas')->group( function (){
     Route::get('/' ,[EmpresaController::class,'index']);
 });
 Route::prefix('bodegas')->group( function (){
     Route::get('/' ,[BodegaController::class,'index']);
+    Route::post('/',[BodegaController::class,'store']);
 });
 Route::prefix('clientes')->group( function (){
     Route::get('/' ,[ClienteController::class,'index']);
 });
 
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login',[AuthController::class,'login']);

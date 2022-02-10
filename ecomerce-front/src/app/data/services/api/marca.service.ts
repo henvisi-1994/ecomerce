@@ -1,3 +1,4 @@
+import { IMarca } from './../../../modules/config/marca/marca.metadata';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -10,5 +11,8 @@ export class MarcaService {
   constructor(private http: HttpClient) { }
   getallMarcas(){
     return this.http.get(`${this.API_URI}marcas`);
+  }
+  saveMarca(newMarca: IMarca){
+    return this.http.post(`${this.API_URI}marcas`,newMarca);
   }
 }

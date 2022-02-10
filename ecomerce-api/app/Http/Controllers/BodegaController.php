@@ -16,7 +16,7 @@ class BodegaController extends Controller
     public function index()
     {
         $bodegas = DB::table('bodega as b')
-            ->join('direcion', 'b.id_direcion', '=', 'direcion.id_direcion')
+            ->join('direccion', 'b.id_direccion', '=', 'direccion.id_direccion')
             ->join('ciudad', 'b.id_ciudad', '=', 'ciudad.id_ciudad')
             ->orderBy('b.id_bod', 'desc')
             ->get();

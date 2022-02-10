@@ -114,9 +114,11 @@ export class BodegaComponent implements OnInit {
 
   }
   public storeBodega() {
-    this.bodegas.push(this.bodega);
-    this.limpiar();
-    this.modalBodega.dismissAll();
+    this.bodegaservice.saveBodega(this.bodega).subscribe((res: any) =>{
+      this.modalBodega.dismissAll();
+      this.bodegas.push(this.bodega);
+      this.limpiar();
+     })
   }
   private limpiar(){
     this.bodega.id_bod = 0;

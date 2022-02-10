@@ -1,4 +1,4 @@
-import { MarcaService } from './../../../data/services/api/marca.service';
+import { MarcaService } from '../../../data/services/api/marca.service';
 import { IMarca } from './marca.metadata';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -65,9 +65,11 @@ public updateMarca() {
 
 }
 public storeMarca() {
-  this.marcas.push(this.marca);
-  this.limpiar();
-  this.modalCategoria.dismissAll();
+  this.marcaservice.saveMarca(this.marca).subscribe((res: any) =>{
+    this.modalCategoria.dismissAll();
+    this.marcas.push(this.marca);
+    this.limpiar();
+   })
 }
 private limpiar(){
   this.marca.id_marca = 0;
