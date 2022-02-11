@@ -15,4 +15,10 @@ export class MarcaService {
   saveMarca(newMarca: IMarca){
     return this.http.post(`${this.API_URI}marcas`,newMarca);
   }
+  updateMarca(newMarca: IMarca){
+    return this.http.put(`${this.API_URI}marcas/${newMarca.id_marca}`,newMarca);
+  }
+  deleteMarca(id_marca:number){
+    return this.http.delete(`${this.API_URI}marcas/${id_marca}`);
+  }
 }

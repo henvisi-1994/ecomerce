@@ -54,20 +54,29 @@ export class CategoriaComponent implements OnInit {
     this.open(this.modal);
   }
   public borrarCategoria(id_cat: number) {
-
+    this.categoriasaservice.deleteCategoria(id_cat).subscribe((res: any) => {
+      this.modalCategoria.dismissAll();
+      this.getCategorias();
+      this.limpiar();
+    })
   }
   public saveCategoria() {
     (this.edit ? this.updateCategoria() : this.storeCategoria());
   }
   public updateCategoria() {
-    this.limpiar();
-    this.modalCategoria.dismissAll();
+    this.categoriasaservice.updateCategoria(this.categoria).subscribe((res: any) => {
+      this.modalCategoria.dismissAll();
+      this.getCategorias();
+      this.limpiar();
+    })
 
   }
   public storeCategoria() {
-    this.categorias.push(this.categoria);
-    this.limpiar();
-    this.modalCategoria.dismissAll();
+    this.categoriasaservice.saveCategoria(this.categoria).subscribe((res: any) => {
+      this.modalCategoria.dismissAll();
+      this.getCategorias();
+      this.limpiar();
+    })
   }
   private limpiar(){
     this.categoria.id_cat = 0;

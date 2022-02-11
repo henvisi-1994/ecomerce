@@ -67,19 +67,28 @@ export class EmpresaComponent implements OnInit {
     this.open(this.modal)
   }
   public borrarEmpresa(id_empresa: number) {
-
+    this.empresaservice.deleteEmpresa(id_empresa).subscribe((res: any) => {
+      this.modalEmpresa.dismissAll();
+      this.geEmpresas();
+      this.limpiar();
+    })
   }
   public saveEmpresa() {
     this.edit ? this.updateEmpresa() : this.storeEmpresa()
   }
   public updateEmpresa() {
-    this.limpiar()
-    this.modalEmpresa.dismissAll()
+    this.empresaservice.updateEmpresa(this.empresa).subscribe((res: any) => {
+      this.modalEmpresa.dismissAll();
+      this.geEmpresas();
+      this.limpiar();
+    })
   }
   public storeEmpresa() {
-    this.empresas.push(this.empresa)
-    this.limpiar()
-    this.modalEmpresa.dismissAll()
+    this.empresaservice.saveEmpresa(this.empresa).subscribe((res: any) => {
+      this.modalEmpresa.dismissAll();
+      this.geEmpresas();
+      this.limpiar();
+    })
   }
   private limpiar() {
     this.empresa.id_empresa = 0

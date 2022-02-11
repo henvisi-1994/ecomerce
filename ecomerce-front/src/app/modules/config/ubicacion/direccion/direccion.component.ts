@@ -1,3 +1,5 @@
+import { CiudadService } from './../../../../data/services/api/ciudad.service';
+import { DireccionService } from './../../../../data/services/api/direccion.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { IDireccion } from './direccion.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -10,7 +12,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class DireccionComponent implements OnInit {
   closeResult: string | undefined;
   direccion:IDireccion={
-    id_direcion:0,
+    id_direccion:0,
     direcion:'',
     calle:'',
     numero:'',
@@ -20,70 +22,21 @@ export class DireccionComponent implements OnInit {
     estado_direccion:'',
     id_ciudad:0
   }
-  direcciones=[{
-    id_direcion:1,
-    direcion:'direcion 1',
-    calle:'Calle 1',
-    numero:'3ra',
-    piso:'tercero',
-    telefono:'4545454454',
-    movil:'09565656565',
-    estado_direccion:'A',
-    id_ciudad:1
-  },
-  {
-    id_direcion:2,
-    direcion:'direcion 2',
-    calle:'Calle 2',
-    numero:'3ra',
-    piso:'tercero',
-    telefono:'4545454454',
-    movil:'09565656565',
-    estado_direccion:'A',
-    id_ciudad:1
-  }];
-  ciudades=[{
-    id_ciudad:1,
-    nombre_ciudad:'Machala',
-    estado_ciudad:'A',
-    id_provincia:1
-  },
-  {
-    id_ciudad:2,
-    nombre_ciudad:'Pasaje',
-    estado_ciudad:'A',
-    id_provincia:1
-  },
-  {
-    id_ciudad:3,
-    nombre_ciudad:'El Guabo',
-    estado_ciudad:'A',
-    id_provincia:1
-  }];
-  provincias=[
-    {
-    id_provincia:1,
-    nombre_provincia:'El Oro',
-    estado_provincia:'A',
-    id_pais:1
-  },
-  {
-    id_provincia:2,
-    nombre_provincia:'Azuay',
-    estado_provincia:'A',
-    id_pais:1
-  },
-  {
-    id_provincia:2,
-    nombre_provincia:'Pichincha',
-    estado_provincia:'A',
-    id_pais:1
-  }];
+  direcciones:any=[];
+  ciudades:any=[];
   @ViewChild('direccionModal', { static: false }) modal: ElementRef | undefined;
   edit = false;
-  constructor(private modalDireccion: NgbModal) { }
+  constructor(private modalDireccion: NgbModal, private direccionesservice: DireccionService, private ciudadservice:CiudadService) { }
 
   ngOnInit(): void {
+    this.getDireciones();
+    this.getCiudades();
+  }
+  getCiudades() {
+    this.ciudadservice.getallCiudades().subscribe(ciudades => this.ciudades = ciudades);
+  }
+  getDireciones() {
+    this.direccionesservice.getallDirecciones().subscribe(direcciones => this.direcciones = direcciones);
   }
    // Boton para abrir ventana modal
    open(content: any) {
@@ -104,7 +57,7 @@ export class DireccionComponent implements OnInit {
     }
   }
   public editDireccion(direccion: any) {
-    this.direccion.id_direcion = direccion.id_direcion;
+    this.direccion.id_direccion = direccion.id_direccion;
     this.direccion.direcion = direccion.direcion;
     this.direccion.calle = direccion.calle;
     this.direccion.numero = direccion.numero;
@@ -117,30 +70,32 @@ export class DireccionComponent implements OnInit {
     this.open(this.modal);
   }
   public borrarDireccion(id_direcion: number) {
-    const indiceElemento = this.direcciones.findIndex(el => el.id_direcion == id_direcion);
-    let newTodos = [...this.direcciones];
-    newTodos[indiceElemento] = { ...newTodos[indiceElemento],estado_direccion: 'I' };
-    this.direcciones = newTodos;
+    this.direccionesservice.deleteDireccion(id_direcion).subscribe((res: any) => {
+      this.modalDireccion.dismissAll();
+      this.getDireciones();
+      this.limpiar();
+    })
   }
   public saveDireccion() {
     (this.edit ? this.updateDireccion() : this.storeDireccion());
   }
   public updateDireccion() {
-    const indiceElemento = this.direcciones.findIndex(el => el.id_direcion == this.direccion.id_direcion);
-    let newTodos = [...this.direcciones];
-    newTodos[indiceElemento] = { ...newTodos[indiceElemento], direcion: this.direccion.direcion, estado_direccion: this.direccion.estado_direccion };
-    this.direcciones = newTodos;
-    this.limpiar();
-    this.modalDireccion.dismissAll();
+    this.direccionesservice.updateDireccion(this.direccion).subscribe((res: any) => {
+      this.modalDireccion.dismissAll();
+      this.getDireciones();
+      this.limpiar();
+    })
 
   }
   public storeDireccion() {
-    this.direcciones.push(this.direccion);
-    this.limpiar();
-    this.modalDireccion.dismissAll();
+    this.direccionesservice.saveDireccion(this.direccion).subscribe((res: any) => {
+      this.modalDireccion.dismissAll();
+      this.getDireciones();
+      this.limpiar();
+    })
   }
   private limpiar() {
-    this.direccion.id_direcion =0;
+    this.direccion.id_direccion =0;
     this.direccion.direcion = '';
     this.direccion.calle = '';
     this.direccion.numero = '';

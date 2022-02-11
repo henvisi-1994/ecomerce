@@ -12,8 +12,5 @@ class Provincia extends Model
     const CREATED_AT = null;
     protected $table = 'provincia';
     protected $primaryKey = 'id_provincia';
-    protected $fillable = [
-       'nombre_provincia',
-       'id_pais'
-    ];
+    protected $fillable = ['nombre_provincia', 'id_pais', 'estado_prov'];
 }

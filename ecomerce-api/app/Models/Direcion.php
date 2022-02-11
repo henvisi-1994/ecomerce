@@ -10,8 +10,8 @@ class Direcion extends Model
     use HasFactory;
     const UPDATED_AT = null;
     const CREATED_AT = null;
-    protected $table = 'direcion';
-    protected $primaryKey = 'id_direcion';
+    protected $table = 'direccion';
+    protected $primaryKey = 'id_direccion';
     protected $fillable = [
         'direcion',
         'calle',

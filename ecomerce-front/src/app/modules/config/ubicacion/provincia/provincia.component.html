@@ -23,7 +23,7 @@
           </div>
           <div class="form-group">
             <label for="">Estado</label>
-            <select name="provincia" id="" [(ngModel)]="provincia.estado_provincia" class="form-control" >
+            <select name="provincia" id="" [(ngModel)]="provincia.estado_prov" class="form-control" >
               <option value="A">Activo</option>
               <option value="P">Pendiente</option>
               <option value="I">Inactivo</option>
@@ -41,6 +41,7 @@
       <thead class="thead-dark">
         <tr>
           <th scope="col">Nombre</th>
+          <th scope="col">Pais</th>
           <th scope="col">Estado</th>
           <th scope="col">Opciones</th>
         </tr>
@@ -49,10 +50,11 @@
         <!-- Recorre arreglo de aportes almacenándola en variable  producto desde productos -->
         <tr *ngFor="let provincia of provincias">
           <td>{{provincia.nombre_provincia}}</td>
+          <td>{{provincia.nombre_pais}}</td>
           <td>
-            <div *ngIf="provincia.estado_provincia=='I'" class="badge badge-danger">Inactivo</div>
-            <div *ngIf="provincia.estado_provincia=='P'" class="badge badge-warning">Pendiente</div>
-            <div *ngIf="provincia.estado_provincia=='A'"class="badge badge-success">Activo</div>
+            <div *ngIf="provincia.estado_prov=='I'" class="badge badge-danger">Inactivo</div>
+            <div *ngIf="provincia.estado_prov=='P'" class="badge badge-warning">Pendiente</div>
+            <div *ngIf="provincia.estado_prov=='A'"class="badge badge-success">Activo</div>
           </td>
           <td>
             <!-- Envia datos de determinado producto desde arreglo a NgModel de producto -->

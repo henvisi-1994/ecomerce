@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class PaisController extends Controller
 {
+    public function __construct()
+    {
+        //['index','noticias']
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,15 +44,14 @@ class PaisController extends Controller
     {
         $v =$this->validate(request(), [
 
-            'nomb_pais' => 'required',
+            'nombre_pais' => 'required',
             'estado_pais' => 'required'
 
         ]);
         if ($v)
         {
             $paises= new Pais();
-            $paises->nomb_pais=$request->input('nomb_pais');
-            $paises->estado_pais=$request->input('estado_pais');
+            $paises->create($request->all());
             $paises->save();
             return;
         }
@@ -91,17 +95,14 @@ class PaisController extends Controller
     {
         $v =$this->validate(request(), [
 
-            'nomb_pais' => 'required',
+            'nombre_pais' => 'required',
             'estado_pais' => 'required'
         ]);
         if ($v)
         {
-            $nomb_pais=$request->input('nomb_pais');
-            $estado_pais=$request->input('estado_pais');
             DB::table('pais')
             ->where('id_pais', $id)
-            ->update(['nomb_pais' => $nomb_pais, 'estado_pais'=> $estado_pais]
-          );
+            ->update($request->all());
         return;
       }
       else

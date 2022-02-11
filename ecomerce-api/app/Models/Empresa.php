@@ -18,6 +18,7 @@ class Empresa extends Model
        'nombre_comercial',
        'ruc',
        'fecha_inicio',
-       'fecha_fin'
+       'fecha_fin',
+       'estado_empresa'
     ];
 }

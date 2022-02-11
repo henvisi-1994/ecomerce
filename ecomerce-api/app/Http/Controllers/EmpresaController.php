@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmpresaController extends Controller
 {
+    public function __construct()
+    {
+        //['index','noticias']
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +42,19 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $v = $this->validate(request(), [
+            'razon_social' => 'required|string',
+            'codigo_envio' => 'required|string',
+            'nombre_comercial' => 'required|string',
+            'ruc' => 'required|string|max:13',
+        ]);
+        if ($v) {
+            $empresa = new Empresa();
+            $empresa->create($request->all());
+            return;
+        } else {
+            return back()->withInput($request->all());
+        }
     }
 
     /**
@@ -70,7 +88,10 @@ class EmpresaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('empresa')
+            ->where('id_empresa', $id)
+            ->update($request->all());
+        return;
     }
 
     /**
@@ -81,6 +102,11 @@ class EmpresaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $estado_empresa='I';
+        DB::table('empresa')
+            ->where('id_empresa', $id)
+            ->update(['estado_empresa' => $estado_empresa]
+          );
+        return;
     }
 }

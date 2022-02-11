@@ -1,5 +1,5 @@
 export interface IDireccion{
-  id_direcion:number;
+  id_direccion:number;
   direcion:string;
   calle:string;
   numero:string;

@@ -1,3 +1,4 @@
+import { ICategoria } from './../../../modules/config/categoria/categoria.metadata';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -10,5 +11,14 @@ export class CategoriaService {
   constructor(private http: HttpClient) { }
   getallCategorias(){
     return this.http.get(`${this.API_URI}categorias`);
+  }
+  saveCategoria(newCategoria: ICategoria){
+    return this.http.post(`${this.API_URI}categorias`,newCategoria);
+  }
+  updateCategoria(newCategoria: ICategoria){
+    return this.http.put(`${this.API_URI}categorias/${newCategoria.id_cat}`,newCategoria);
+  }
+  deleteCategoria(id_cat:number){
+    return this.http.delete(`${this.API_URI}categorias/${id_cat}`);
   }
 }

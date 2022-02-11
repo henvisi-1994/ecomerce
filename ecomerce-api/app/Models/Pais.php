@@ -13,6 +13,6 @@ class Pais extends Model
     protected $table = 'pais';
     protected $primaryKey = 'id_pais';
     protected $fillable = [
-        'nombre_pais'
+        'nombre_pais','estado_pais'
     ];
 }

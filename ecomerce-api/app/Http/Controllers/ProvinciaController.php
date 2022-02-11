@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class ProvinciaController extends Controller
 {
+    public function __construct()
+    {
+        //['index','noticias']
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +22,7 @@ class ProvinciaController extends Controller
     {
         $provincias = DB::table('provincia as p')
         ->join('pais', 'p.id_pais', '=', 'pais.id_pais')
-        ->orderBy("p.id_prov","desc")
+        ->orderBy("p.id_provincia","desc")
         ->get();
         return $provincias;
     }
@@ -40,18 +45,16 @@ class ProvinciaController extends Controller
      */
     public function store(Request $request)
     {
-        $v =$this->validate(request(), [
-
-            'nomb_prov' => 'required',
+         $v =$this->validate(request(), [
+            'nombre_provincia' => 'required',
             'estado_prov' => 'required'
-
         ]);
         if ($v)
         {
             $provincias= new Provincia();
-            $provincias->id_pais=$request->input('id_pais');
-            $provincias->nomb_prov=$request->input('nomb_prov');
-            $provincias->estado_prov=$request->input('estado_prov');
+            $provincias->nombre_provincia = $request->nombre_provincia;
+            $provincias->id_pais = $request->id_pais;
+            $provincias->estado_prov = $request->estado_prov;
             $provincias->save();
             return;
         }
@@ -93,19 +96,14 @@ class ProvinciaController extends Controller
     public function update(Request $request, $id)
     {
         $v =$this->validate(request(), [
-
-            'nomb_prov' => 'required',
+            'nombre_provincia' => 'required',
             'estado_prov' => 'required'
         ]);
         if ($v)
         {
-            $id_pais=$request->input('id_pais');
-            $nomb_prov=$request->input('nomb_prov');
-            $estado_prov=$request->input('estado_prov');
             DB::table('provincia')
-            ->where('id_prov', $id)
-            ->update(['nomb_prov' => $nomb_prov, 'estado_prov' => $estado_prov,'id_pais'=> $id_pais]
-          );
+            ->where('id_provincia', $id)
+            ->update($request->all() );
         return;
       }
       else
@@ -124,7 +122,7 @@ class ProvinciaController extends Controller
     {
         $estado_prov= 'I';
         DB::table('provincia')
-            ->where('id_prov', $id)
+            ->where('id_provincia', $id)
             ->update(['estado_prov' => $estado_prov]
           );
         return;

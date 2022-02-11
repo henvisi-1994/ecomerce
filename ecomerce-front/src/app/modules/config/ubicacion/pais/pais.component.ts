@@ -1,3 +1,4 @@
+import { PaisService } from './../../../../data/services/api/pais.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { IPais } from './pais.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -14,26 +15,13 @@ export class PaisComponent implements OnInit {
     nombre_pais: '',
     estado_pais: '',
   }
-  paises = [{
-    id_pais: 1,
-    nombre_pais: 'Ecuador',
-    estado_pais: 'A',
-  },
-  {
-    id_pais: 2,
-    nombre_pais: 'Colombia',
-    estado_pais: 'A',
-  },
-  {
-    id_pais: 3,
-    nombre_pais: 'Peru',
-    estado_pais: 'A',
-  }];
+  paises:any = [];
   @ViewChild('paisModal', { static: false }) modal: ElementRef | undefined;
   edit = false;
-  constructor(private modalPais: NgbModal) { }
+  constructor(private modalPais: NgbModal, private paisservice:PaisService) { }
 
   ngOnInit(): void {
+    this.getPaises();
   }
   // Boton para abrir ventana modal
   open(content: any) {
@@ -53,6 +41,10 @@ export class PaisComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+  public getPaises(){
+    this.paisservice.getallPaises().subscribe(paises => this.paises = paises);
+  }
+
   public editPais(pais: any) {
     this.pais.id_pais = pais.id_pais;
     this.pais.nombre_pais = pais.nombre_pais;
@@ -61,27 +53,29 @@ export class PaisComponent implements OnInit {
     this.open(this.modal);
   }
   public borrarPais(id_pais: number) {
-    const indiceElemento = this.paises.findIndex(el => el.id_pais == id_pais);
-    let newTodos = [...this.paises];
-    newTodos[indiceElemento] = { ...newTodos[indiceElemento], estado_pais: 'I' };
-    this.paises = newTodos;
+    this.paisservice.deletePais(id_pais).subscribe((res: any) => {
+      this.modalPais.dismissAll();
+      this.getPaises();
+      this.limpiar();
+    })
   }
   public savePais() {
     (this.edit ? this.updatePais() : this.storePais());
   }
   public updatePais() {
-    const indiceElemento = this.paises.findIndex(el => el.id_pais == this.pais.id_pais);
-    let newTodos = [...this.paises];
-    newTodos[indiceElemento] = { ...newTodos[indiceElemento], nombre_pais: this.pais.nombre_pais, estado_pais: this.pais.estado_pais };
-    this.paises = newTodos;
-    this.limpiar();
-    this.modalPais.dismissAll();
+    this.paisservice.updatePais(this.pais).subscribe((res: any) => {
+      this.modalPais.dismissAll();
+      this.getPaises();
+      this.limpiar();
+    })
 
   }
   public storePais() {
-    this.paises.push(this.pais);
-    this.limpiar();
-    this.modalPais.dismissAll();
+    this.paisservice.savePais(this.pais).subscribe((res: any) => {
+      this.modalPais.dismissAll();
+      this.getPaises();
+      this.limpiar();
+    })
   }
   private limpiar() {
     this.pais.id_pais = 0;

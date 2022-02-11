@@ -3,10 +3,14 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BodegaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DirecionController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\PaisController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProvinciaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,13 +33,46 @@ Route::prefix('productos')->group( function (){
 });
 Route::prefix('categorias')->group( function (){
     Route::get('/' ,[CategoriaController::class,'index']);
+    Route::post('/' ,[CategoriaController::class,'store']);
+    Route::put('/{id}' ,[CategoriaController::class,'update']);
+    Route::delete('/{id}' ,[CategoriaController::class,'destroy']);
 });
 Route::prefix('marcas')->group( function (){
     Route::get('/' ,[MarcaController::class,'index']);
     Route::post('/' ,[MarcaController::class,'store']);
+    Route::put('/{id}' ,[MarcaController::class,'update']);
+    Route::delete('/{id}' ,[MarcaController::class,'destroy']);
 });
 Route::prefix('empresas')->group( function (){
     Route::get('/' ,[EmpresaController::class,'index']);
+    Route::post('/' ,[EmpresaController::class,'store']);
+    Route::put('/{id}' ,[EmpresaController::class,'update']);
+    Route::delete('/{id}' ,[EmpresaController::class,'destroy']);
+});
+Route::prefix('pais')->group( function (){
+    Route::get('/' ,[PaisController::class,'index']);
+    Route::post('/' ,[PaisController::class,'store']);
+    Route::put('/{id}' ,[PaisController::class,'update']);
+    Route::delete('/{id}' ,[PaisController::class,'destroy']);
+});
+Route::prefix('provincia')->group( function (){
+    Route::get('/' ,[ProvinciaController::class,'index']);
+    Route::post('/' ,[ProvinciaController::class,'store']);
+    Route::put('/{id}' ,[ProvinciaController::class,'update']);
+    Route::delete('/{id}' ,[ProvinciaController::class,'destroy']);
+});
+
+Route::prefix('ciudad')->group( function (){
+    Route::get('/' ,[CiudadController::class,'index']);
+    Route::post('/' ,[CiudadController::class,'store']);
+    Route::put('/{id}' ,[CiudadController::class,'update']);
+    Route::delete('/{id}' ,[CiudadController::class,'destroy']);
+});
+Route::prefix('direccion')->group( function (){
+    Route::get('/' ,[DirecionController::class,'index']);
+    Route::post('/' ,[DirecionController::class,'store']);
+    Route::put('/{id}' ,[DirecionController::class,'update']);
+    Route::delete('/{id}' ,[DirecionController::class,'destroy']);
 });
 Route::prefix('bodegas')->group( function (){
     Route::get('/' ,[BodegaController::class,'index']);

@@ -15,5 +15,6 @@ class Ciudad extends Model
     protected $fillable = [
        'nombre_ciudad',
        'id_provincia',
+       'estado_ciudad'
     ];
 }

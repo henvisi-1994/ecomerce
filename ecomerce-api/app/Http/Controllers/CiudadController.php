@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class CiudadController extends Controller
 {
+    public function __construct()
+    {
+        //['index','noticias']
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +20,10 @@ class CiudadController extends Controller
      */
     public function index()
     {
-        $ciudades = DB::select('SELECT ciudad.id_ciu,ciudad.nomb_ciu,ciudad.estado_ciu,ciudad.fechaini_ciu,ciudad.fechafin_ciu,ciudad.observ_ciu,provincia.nomb_prov,provincia.id_prov FROM ciudad
-                                              INNER JOIN provincia ON ciudad.id_prov=provincia.id_prov');
+       $ciudades = DB::table('ciudad as c')
+        ->join('provincia', 'c.id_provincia', '=', 'provincia.id_provincia')
+        ->orderBy("c.id_ciudad","desc")
+        ->get();
         return $ciudades;
     }
 
@@ -39,16 +46,15 @@ class CiudadController extends Controller
     public function store(Request $request)
     {
         $v = $this->validate(request(), [
-            'nomb_ciu' => 'required',
-            'estado_ciu' => 'required',
-            'observ_ciu' => 'required',
+            'nombre_ciudad' => 'required',
+            'estado_ciudad' => 'required',
+            'id_provincia' => 'required',
         ]);
         if ($v) {
             $ciudad = new Ciudad();
-            $ciudad->nomb_ciu = $request->input('nomb_ciu');
-            $ciudad->estado_ciu = $request->input('estado_ciu');
-            $ciudad->observ_ciu = $request->input('observ_ciu');
-            $ciudad->id_prov = $request->input('id_prov');
+            $ciudad->nombre_ciudad = $request->input('nombre_ciudad');
+            $ciudad->estado_ciudad = $request->input('estado_ciudad');
+            $ciudad->id_provincia = $request->input('id_provincia');
             $ciudad->save();
             return;
         } else {
@@ -87,16 +93,9 @@ class CiudadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $nomb_ciu = $request->input('nomb_ciu');
-        $estado_ciu = $request->input('estado_ciu');
-        $observ_ciu = $request->input('observ_ciu');
         DB::table('ciudad')
-            ->where('id_ciu', $id)
-            ->update([
-                'nomb_ciu' => $nomb_ciu,
-                'estado_ciu' => $estado_ciu,
-                'observ_ciu' => $observ_ciu,
-            ]);
+            ->where('id_ciudad', $id)
+            ->update($request->all());
         return;
     }
 
@@ -110,8 +109,8 @@ class CiudadController extends Controller
     {
         $estado_ciudad = 'I';
         DB::table('ciudad')
-            ->where('id_ciu', $id)
-            ->update(['estado_ciu' => $estado_ciudad]);
+            ->where('id_ciudad', $id)
+            ->update(['estado_ciudad' => $estado_ciudad]);
         return;
     }
 }
