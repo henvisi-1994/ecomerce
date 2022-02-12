@@ -1,6 +1,7 @@
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { ICargo } from './cargo.metadata'
+import { CargoService } from '@data/services/api/cargo.service'
 
 @Component({
   selector: 'app-cargo',
@@ -18,40 +19,17 @@ export class CargoComponent implements OnInit {
     fechaini_cargo: '',
     fechafin_cargo: '',
   }
-  cargos = [
-    {
-      id_cargo: 1,
-      id_emp: '',
-      nomb_cargo: 'Cargo 1',
-      observ_cargo: '',
-      estado_cargo: 'A',
-      fechaini_cargo: '',
-      fechafin_cargo: '',
-    },
-    {
-      id_cargo: 2,
-      id_emp: '',
-      nomb_cargo: 'Cargo 2',
-      observ_cargo: '',
-      estado_cargo: 'A',
-      fechaini_cargo: '',
-      fechafin_cargo: '',
-    },
-    {
-      id_cargo: 3,
-      id_emp: '',
-      nomb_cargo: 'Cargo 3',
-      observ_cargo: '',
-      estado_cargo: 'A',
-      fechaini_cargo: '',
-      fechafin_cargo: '',
-    },
-  ]
+  cargos:any = []
   @ViewChild('cargoModal', { static: false }) modal: ElementRef | undefined
   edit = false
-  constructor(private modalCargo: NgbModal) {}
+  constructor(private modalCargo: NgbModal, private cargoservice:CargoService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getCargos();
+  }
+  getCargos() {
+    this.cargoservice.getallCargos().subscribe(cargos => this.cargos = cargos);
+  }
   // Boton para abrir ventana modal
   open(content: any) {
     this.modalCargo
@@ -86,41 +64,28 @@ export class CargoComponent implements OnInit {
     this.open(this.modal)
   }
   public borrarCargo(id_cargo: number) {
-    const indiceElemento = this.cargos.findIndex(
-      (el) => el.id_cargo == id_cargo,
-    )
-    let newTodos = [...this.cargos]
-    newTodos[indiceElemento] = {
-      ...newTodos[indiceElemento],
-      estado_cargo: 'I',
-    }
-    this.cargos = newTodos
+    this.cargoservice.deleteCargo(id_cargo).subscribe((res: any) => {
+      this.modalCargo.dismissAll();
+      this.getCargos();
+      this.limpiar();
+    })
   }
   public saveCargo() {
     this.edit ? this.updateCargo() : this.storeCargo()
   }
   public updateCargo() {
-    const indiceElemento = this.cargos.findIndex(
-      (el) => el.id_cargo == this.cargo.id_cargo,
-    )
-    let newTodos = [...this.cargos]
-    newTodos[indiceElemento] = {
-      ...newTodos[indiceElemento],
-      nomb_cargo: this.cargo.nomb_cargo,
-      observ_cargo: this.cargo.observ_cargo,
-      fechaini_cargo:this.cargo.fechaini_cargo,
-      fechafin_cargo:this.cargo.fechafin_cargo,
-      estado_cargo: this.cargo.estado_cargo,
-
-    }
-    this.cargos = newTodos
-    this.limpiar()
-    this.modalCargo.dismissAll()
+    this.cargoservice.updateCargo(this.cargo).subscribe((res: any) => {
+      this.modalCargo.dismissAll();
+      this.getCargos();
+      this.limpiar();
+    })
   }
   public storeCargo() {
-    this.cargos.push(this.cargo)
-    this.limpiar()
-    this.modalCargo.dismissAll()
+    this.cargoservice.saveCargo(this.cargo).subscribe((res: any) => {
+      this.modalCargo.dismissAll();
+      this.getCargos();
+      this.limpiar();
+    })
   }
   private limpiar() {
     this.cargo.id_cargo = 0

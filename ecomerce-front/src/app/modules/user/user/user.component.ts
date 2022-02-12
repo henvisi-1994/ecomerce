@@ -1,3 +1,4 @@
+import { UsuarioService } from './../../../data/services/api/usuario.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { IUser } from './user.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -15,21 +16,15 @@ user:IUser={
   email:'',
   password:''
 }
-users=[{
-  id:1,
-  name:'henvis1',
-  email:'henvisi1994@gmail.com',
-},
-{
-  id:2,
-  name:'jperez',
-  email:'jperez@gmail.com',
-}];
+users:any=[];
 @ViewChild('userModal', { static: false }) modal: ElementRef | undefined;
 edit = false;
-constructor(private modalUser: NgbModal) { }
+constructor(private modalUser: NgbModal, private userservice:UsuarioService) { }
 
   ngOnInit(): void {
+  }
+  getUsers(){
+    this.userservice.getallUsuarios().subscribe(users => this.users = users);
   }
   // Boton para abrir ventana modal
   open(content: any) {
@@ -57,24 +52,29 @@ constructor(private modalUser: NgbModal) { }
     this.open(this.modal);
   }
   public borrarUser(id: number) {
-
+    this.userservice.deleteUsuario(id).subscribe((res: any) => {
+      this.modalUser.dismissAll();
+      this.getUsers();
+      this.limpiar();
+    })
   }
   public saveUser() {
     (this.edit ? this.updateUser() : this.storeUser());
   }
   public updateUser() {
-    const indiceElemento = this.users.findIndex(el => el.id == this.user.id );
-    let newTodos = [...this.users];
-    newTodos[indiceElemento] = {...newTodos[indiceElemento], name: this.user.name, email:this.user.email};
-    this.users = newTodos;
-    this.limpiar();
-    this.modalUser.dismissAll();
+    this.userservice.updateUsuario(this.user).subscribe((res: any) => {
+      this.modalUser.dismissAll();
+      this.getUsers();
+      this.limpiar();
+    })
 
   }
   public storeUser() {
-    this.users.push(this.user);
-    this.limpiar();
-    this.modalUser.dismissAll();
+    this.userservice.saveUsuario(this.user).subscribe((res: any) => {
+      this.modalUser.dismissAll();
+      this.getUsers();
+      this.limpiar();
+    })
   }
   private limpiar(){
     this.user.id = 0;

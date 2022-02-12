@@ -15,4 +15,10 @@ export class BodegaService {
   saveBodega(newBodega: IBodega){
     return this.http.post(`${this.API_URI}bodegas`,newBodega);
   }
+  updateBodega(newBodega: IBodega){
+    return this.http.put(`${this.API_URI}bodegas/${newBodega.id_bod}`,newBodega);
+  }
+  deleteBodega(id_bod:number){
+    return this.http.delete(`${this.API_URI}bodegas/${id_bod}`);
+  }
 }

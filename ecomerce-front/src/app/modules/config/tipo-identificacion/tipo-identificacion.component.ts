@@ -1,3 +1,4 @@
+import { TipoIdentificacionService } from './../../../data/services/api/tipo-identificacion.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ITipoIdentificacion } from './tipoIdentificacion.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -14,21 +15,16 @@ export class TipoIdentificacionComponent implements OnInit {
     nombre_tipo_ident: '',
     estado_tipo_ident: ''
   }
-  tiposIdentificacion = [{
-    id_tipo_ident: 1,
-    nombre_tipo_ident: 'Cedula',
-    estado_tipo_ident: 'A'
-  },
-  {
-    id_tipo_ident: 2,
-    nombre_tipo_ident: 'RUC',
-    estado_tipo_ident: 'A'
-  }]
+  tiposIdentificacion:any = []
   @ViewChild('tipoIdentificacionModal', { static: false }) modal: ElementRef | undefined;
   edit = false;
-  constructor(private modalTipoIdentificacion: NgbModal) { }
+  constructor(private modalTipoIdentificacion: NgbModal,private tipoidentificacionservice:TipoIdentificacionService) { }
 
   ngOnInit(): void {
+    this.getTipoIdentificaciones();
+  }
+  getTipoIdentificaciones() {
+    this.tipoidentificacionservice.getallTipoIdentificaciones().subscribe(tiposIdentificacion => this.tiposIdentificacion = tiposIdentificacion);
   }
   // Boton para abrir ventana modal
   open(content: any) {
@@ -56,27 +52,29 @@ export class TipoIdentificacionComponent implements OnInit {
     this.open(this.modal);
   }
   public borrarTipoIdentificacion(id_tipo_ident: number) {
-    const indiceElemento = this.tiposIdentificacion.findIndex(el => el.id_tipo_ident == id_tipo_ident);
-    let newTodos = [...this.tiposIdentificacion];
-    newTodos[indiceElemento] = { ...newTodos[indiceElemento], estado_tipo_ident: 'I' };
-    this.tiposIdentificacion = newTodos;
+    this.tipoidentificacionservice.deleteTipoIdentificacion(id_tipo_ident).subscribe((res: any) => {
+      this.modalTipoIdentificacion.dismissAll();
+      this.getTipoIdentificaciones();
+      this.limpiar();
+    })
   }
   public saveTipoIdentificacion() {
     (this.edit ? this.updateTipoIdentificacion() : this.storeTipoIdentificacion());
   }
   public updateTipoIdentificacion() {
-    const indiceElemento = this.tiposIdentificacion.findIndex(el => el.id_tipo_ident == this.tipoIdentificacion.id_tipo_ident);
-    let newTodos = [...this.tiposIdentificacion];
-    newTodos[indiceElemento] = { ...newTodos[indiceElemento], nombre_tipo_ident: this.tipoIdentificacion.nombre_tipo_ident, estado_tipo_ident: this.tipoIdentificacion.estado_tipo_ident };
-    this.tiposIdentificacion = newTodos;
-    this.limpiar();
-    this.modalTipoIdentificacion.dismissAll();
+    this.tipoidentificacionservice.updateTipoIdentificacion(this.tipoIdentificacion).subscribe((res: any) => {
+      this.modalTipoIdentificacion.dismissAll();
+      this.getTipoIdentificaciones();
+      this.limpiar();
+    })
 
   }
   public storeTipoIdentificacion() {
-    this.tiposIdentificacion.push(this.tipoIdentificacion);
-    this.limpiar();
-    this.modalTipoIdentificacion.dismissAll();
+    this.tipoidentificacionservice.saveTipoIdentificacion(this.tipoIdentificacion).subscribe((res: any) => {
+      this.modalTipoIdentificacion.dismissAll();
+      this.getTipoIdentificaciones();
+      this.limpiar();
+    })
   }
   private limpiar() {
     this.tipoIdentificacion.id_tipo_ident = 0;

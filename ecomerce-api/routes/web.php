@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BodegaController;
+use App\Http\Controllers\CargoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\ClienteController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProvinciaController;
+use App\Http\Controllers\TipoIdentificacionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,9 +77,29 @@ Route::prefix('direccion')->group( function (){
     Route::put('/{id}' ,[DirecionController::class,'update']);
     Route::delete('/{id}' ,[DirecionController::class,'destroy']);
 });
+Route::prefix('usuario')->group( function (){
+    Route::get('/' ,[UserController::class,'index']);
+    Route::post('/' ,[UserController::class,'store']);
+    Route::put('/{id}' ,[UserController::class,'update']);
+    Route::delete('/{id}' ,[UserController::class,'destroy']);
+});
+Route::prefix('cargos')->group( function (){
+    Route::get('/' ,[CargoController::class,'index']);
+    Route::post('/' ,[CargoController::class,'store']);
+    Route::put('/{id}' ,[CargoController::class,'update']);
+    Route::delete('/{id}' ,[CargoController::class,'destroy']);
+});
+Route::prefix('tipoIdent')->group( function (){
+    Route::get('/' ,[TipoIdentificacionController::class,'index']);
+    Route::post('/' ,[TipoIdentificacionController::class,'store']);
+    Route::put('/{id}' ,[TipoIdentificacionController::class,'update']);
+    Route::delete('/{id}' ,[TipoIdentificacionController::class,'destroy']);
+});
 Route::prefix('bodegas')->group( function (){
     Route::get('/' ,[BodegaController::class,'index']);
     Route::post('/',[BodegaController::class,'store']);
+    Route::put('/{id}' ,[BodegaController::class,'update']);
+    Route::delete('/{id}' ,[BodegaController::class,'destroy']);
 });
 Route::prefix('clientes')->group( function (){
     Route::get('/' ,[ClienteController::class,'index']);
