@@ -25,7 +25,7 @@ cliente:ICliente={
   estado_cli: '',
   id_persona: 0,
   id_empresa: 0,
-  id_direcion: 0
+  id_direccion: 0
 }
 clientes:any=[];
 persona:IPersona={

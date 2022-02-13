@@ -16,14 +16,14 @@
               placeholder="Ingrese nombre de la user">
           </div>
           <div class="form-group">
-            <label for="">Nombre</label>
+            <label for="">Password</label>
             <input type="password" name="name" [(ngModel)]="user.password" class="form-control"
-              placeholder="Ingrese nombre de la user">
+              placeholder="Ingrese password de la user">
           </div>
           <div class="form-group">
-            <label for="">Descripción</label>
+            <label for="">Email</label>
             <input type="email" name="apellido" [(ngModel)]="user.email" class="form-control"
-              placeholder="Ingrese Observacion">
+              placeholder="Ingrese email">
           </div>
 
         </form>
@@ -38,7 +38,7 @@
       <thead class="thead-dark">
         <tr>
           <th scope="col">Nombre</th>
-          <th scope="col">Observación</th>
+          <th scope="col">Email</th>
           <th scope="col">Estado</th>
           <th scope="col">Opciones</th>
         </tr>
@@ -48,6 +48,11 @@
         <tr *ngFor="let user of users">
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
+          <td>
+            <div *ngIf="user.estado_user=='I'" class="badge badge-danger">Inactivo</div>
+            <div *ngIf="user.estado_user=='P'" class="badge badge-warning">Pendiente</div>
+            <div *ngIf="user.estado_user=='A'"class="badge badge-success">Activo</div>
+          </td>
           <td>
             <!-- Envia datos de determinado producto desde arreglo a NgModel de producto -->
             <button class="btn btn-warning" (click)="editUser(user)"><i class="fa fa-edit"></i></button>

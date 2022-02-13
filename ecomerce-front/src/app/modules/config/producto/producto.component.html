@@ -21,6 +21,13 @@
               placeholder="Ingrese nombre de la producto">
           </div>
           <div class="form-group">
+            <label for="">Imagen</label>
+            <div class="col-md-8 imagen">
+              <input type="file" (change)="onFileChange($event)" name="file" accept="image/*" class="text-justify" />
+              <img *ngIf="image" class="img-fluid img-thumbnail img " src="{{ image }}">
+            </div>
+          </div>
+          <div class="form-group">
             <label for="">Descripcion</label>
             <input type="text" name="descripcion_prod" [(ngModel)]="producto.descripcion_prod" class="form-control"
               placeholder="Ingrese nombre de la producto">
@@ -66,11 +73,11 @@
               placeholder="Ingrese nombre de la producto">
           </div>
           <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="producto.aplicaiva_prod	">
+            <input type="checkbox" class="form-check-input" id="aplicaiva_prod" name="aplicaiva_prod" [(ngModel)]="producto.aplicaiva_prod	">
             <label class="form-check-label" for="exampleCheck1">IVA</label>
           </div>
           <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="producto.aplicaice_prod	">
+            <input type="checkbox" class="form-check-input" id="aplicaice_prod" name="aplicaice_prod" [(ngModel)]="producto.aplicaice_prod	">
             <label class="form-check-label" for="exampleCheck1">ICE</label>
           </div>
           <div class="form-group">

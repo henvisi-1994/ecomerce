@@ -18,6 +18,6 @@ class Cliente extends Model
        'fecha_fin',
        'id_persona',
        'id_empresa',
-       'id_direcion'
+       'id_direccion'
     ];
 }

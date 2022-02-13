@@ -10,15 +10,15 @@ export class UsuarioService {
   API_URI = environment.uri; // URL de Backend
   constructor(private http: HttpClient) { }
   getallUsuarios(){
-    return this.http.get(`${this.API_URI}usuarios`);
+    return this.http.get(`${this.API_URI}usuario`);
   }
   saveUsuario(newUsuario: IUser){
-    return this.http.post(`${this.API_URI}usuarios`,newUsuario);
+    return this.http.post(`${this.API_URI}usuario`,newUsuario);
   }
   updateUsuario(newUsuario: IUser){
-    return this.http.put(`${this.API_URI}usuarios/${newUsuario.id}`,newUsuario);
+    return this.http.put(`${this.API_URI}usuario/${newUsuario.id}`,newUsuario);
   }
   deleteUsuario(id:number){
-    return this.http.delete(`${this.API_URI}usuarios/${id}`);
+    return this.http.delete(`${this.API_URI}usuario/${id}`);
   }
 }

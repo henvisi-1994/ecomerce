@@ -10,6 +10,8 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
 })
 export class ProductoComponent implements OnInit {
   closeResult: string | undefined
+  file: any;
+  image: any = '../../../../../assets/images/upload.png';
   producto: IProducto = {
     id_prod: 0,
     codigo_prod: '',
@@ -19,7 +21,7 @@ export class ProductoComponent implements OnInit {
     precio_prod: 0,
     stockmin_prod: 0,
     stockmax_prod: 0,
-    stock_prod:0,
+    stock_prod: 0,
     fechaing_prod: '',
     fechaelab_prod: '',
     fechacad_prod: '',
@@ -35,7 +37,7 @@ export class ProductoComponent implements OnInit {
     id_cat: 0,
     id_empresa: 0,
   }
-  productos :any=[];
+  productos: any = [];
 
   bodegas = [
     {
@@ -158,10 +160,25 @@ export class ProductoComponent implements OnInit {
   ]
   @ViewChild('productoModal', { static: false }) modal: ElementRef | undefined
   edit = false
-  constructor(private modalProducto: NgbModal, private productService:ProductoService) {}
+  constructor(private modalProducto: NgbModal, private productService: ProductoService) { }
 
   ngOnInit(): void {
     this.getProductos();
+  }
+  public onFileChange(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      if (file.type.includes('image')) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.image = reader.result;
+        }
+        this.file = file;
+      } else {
+        console.log('ha ocurrido un error');
+      }
+    }
   }
   // Boton para abrir ventana modal
   open(content: any) {
@@ -188,54 +205,68 @@ export class ProductoComponent implements OnInit {
   }
   public editProducto(producto: any) {
     this.producto.id_prod = producto.id_prod,
-    this.producto.codigo_prod = producto.codigo_prod,
-    this.producto.estado_prod = producto.estado_prod,
-    this.producto.codbarra_prod = producto.codbarra_prod,
-    this.producto.descripcion_prod = producto.descripcion_prod,
-    this.producto.present_prod = producto.present_prod,
-    this.producto.precio_prod = producto.precio_prod,
-    this.producto.stockmin_prod = producto.stockmin_prod,
-    this.producto.stockmax_prod = producto.stockmax_prod,
-    this.producto.stock_prod = producto.stock_prod,
-     this.producto.fechaing_prod = producto.fechaing_prod,
-    this.producto.fechaelab_prod = producto.fechaelab_prod,
-    this.producto.fechacad_prod = producto.fechacad_prod,
-    this.producto.aplicaiva_prod = producto.aplicaiva_prod,
-    this.producto.aplicaice_prod = producto.aplicaice_prod,
-    this.producto.util_prod = producto.util_prod,
-    this.producto.comision_prod = producto.comision_prod,
-    this.producto.imagen_prod = producto.imagen_prod,
-    this.producto.observ_prod = producto.observ_prod,
-    this.producto.id_bod = producto.id_bod,
-    this.producto.id_marca = producto.id_marca,
-    this.producto.id_cat = producto.id_cat,
-    this.producto.id_empresa = producto.id_empresa,
-    this.edit = true
+      this.producto.codigo_prod = producto.codigo_prod,
+      this.producto.estado_prod = producto.estado_prod,
+      this.producto.codbarra_prod = producto.codbarra_prod,
+      this.producto.descripcion_prod = producto.descripcion_prod,
+      this.producto.present_prod = producto.present_prod,
+      this.producto.precio_prod = producto.precio_prod,
+      this.producto.stockmin_prod = producto.stockmin_prod,
+      this.producto.stockmax_prod = producto.stockmax_prod,
+      this.producto.stock_prod = producto.stock_prod,
+      this.producto.fechaing_prod = producto.fechaing_prod,
+      this.producto.fechaelab_prod = producto.fechaelab_prod,
+      this.producto.fechacad_prod = producto.fechacad_prod,
+      this.producto.aplicaiva_prod = producto.aplicaiva_prod,
+      this.producto.aplicaice_prod = producto.aplicaice_prod,
+      this.producto.util_prod = producto.util_prod,
+      this.producto.comision_prod = producto.comision_prod,
+      this.producto.imagen_prod = producto.imagen_prod,
+      this.producto.observ_prod = producto.observ_prod,
+      this.producto.id_bod = producto.id_bod,
+      this.producto.id_marca = producto.id_marca,
+      this.producto.id_cat = producto.id_cat,
+      this.producto.id_empresa = producto.id_empresa,
+      this.edit = true
     this.open(this.modal)
   }
-  public getProductos(){
-    console.log('Ingreso')
-    this.productService.getallProductos().subscribe(r=>{
-
-        this.productos= r;
-
-    })
+  public getProductos() {
+    this.productService.getallProductos().subscribe(r => { this.productos = r; })
   }
   public borrarProducto(id_prod: number) {
-
+    this.productService.deleteProducto(id_prod).subscribe((res: any) => {
+      this.modalProducto.dismissAll();
+      this.getProductos();
+      this.limpiar();
+    })
   }
   public saveProducto() {
     this.edit ? this.updateProducto() : this.storeProducto()
   }
   public updateProducto() {
-
-    this.limpiar()
-    this.modalProducto.dismissAll()
+    this.producto.aplicaiva_prod = this.convertir(this.producto.aplicaiva_prod);
+    this.producto.aplicaice_prod = this.convertir(this.producto.aplicaice_prod);
+    this.productService.updateProducto(this.producto, this.file).subscribe((res: any) => {
+      this.modalProducto.dismissAll();
+      this.getProductos();
+      this.limpiar();
+    })
   }
   public storeProducto() {
-
-    this.limpiar()
-    this.modalProducto.dismissAll()
+    this.producto.aplicaiva_prod = this.convertir(this.producto.aplicaiva_prod);
+    this.producto.aplicaice_prod = this.convertir(this.producto.aplicaice_prod);
+    this.productService.saveProducto(this.producto, this.file).subscribe((res: any) => {
+      this.modalProducto.dismissAll();
+      this.getProductos();
+      this.limpiar();
+    })
+  }
+  convertir(value: string) {
+    if (value) {
+      return '1';
+    } else {
+      return '0';
+    }
   }
   private limpiar() {
     this.producto.id_prod = 0
@@ -244,7 +275,7 @@ export class ProductoComponent implements OnInit {
     this.producto.codbarra_prod = ''
     this.producto.descripcion_prod = ''
     this.producto.present_prod = ''
-    this.producto.precio_prod =0
+    this.producto.precio_prod = 0
     this.producto.stockmin_prod = 0
     this.producto.stockmax_prod = 0
     this.producto.stock_prod = 0
@@ -253,7 +284,7 @@ export class ProductoComponent implements OnInit {
     this.producto.fechacad_prod = ''
     this.producto.aplicaiva_prod = ''
     this.producto.aplicaice_prod = ''
-    this.producto.util_prod =0
+    this.producto.util_prod = 0
     this.producto.comision_prod = 0
     this.producto.imagen_prod = ''
     this.producto.observ_prod = ''

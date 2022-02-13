@@ -52,7 +52,7 @@ class ClienteController extends Controller
         if ($v) {
             $clientes = new Cliente();
             $clientes->id_empresa = $request->input('id_empresa');
-            $clientes->id_direcion = $request->input('id_direcion	');
+            $clientes->id_direccion = $request->input('id_direccion');
             $clientes->id_persona = $request->input('id_persona');
             $clientes->tipo_cli = $request->input('tipo_cli');
             $clientes->estado_cli = $request->input('estado_cli');

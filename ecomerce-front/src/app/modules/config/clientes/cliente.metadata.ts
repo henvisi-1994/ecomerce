@@ -7,5 +7,5 @@ export interface ICliente {
   estado_cli: string;
   id_persona: number;
   id_empresa: number;
-  id_direcion: number;
+  id_direccion: number;
 }

@@ -22,6 +22,7 @@ edit = false;
 constructor(private modalUser: NgbModal, private userservice:UsuarioService) { }
 
   ngOnInit(): void {
+    this.getUsers();
   }
   getUsers(){
     this.userservice.getallUsuarios().subscribe(users => this.users = users);
