@@ -1,3 +1,5 @@
+import { EmpresaService } from './../../../data/services/api/empresa.service';
+import { EmpleadoService } from './../../../data/services/api/empleado.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { ICargo } from './cargo.metadata'
@@ -16,19 +18,24 @@ export class CargoComponent implements OnInit {
     nomb_cargo: '',
     observ_cargo: '',
     estado_cargo: '',
-    fechaini_cargo: '',
-    fechafin_cargo: '',
+    fecha_inicio: '',
+    fecha_fin: '',
   }
-  cargos:any = []
+  cargos:any = [];
+  empresas:any = [];
   @ViewChild('cargoModal', { static: false }) modal: ElementRef | undefined
   edit = false
-  constructor(private modalCargo: NgbModal, private cargoservice:CargoService) {}
+  constructor(private modalCargo: NgbModal, private cargoservice:CargoService, private empresaservice:EmpresaService) {}
 
   ngOnInit(): void {
     this.getCargos();
+    this.getEmpresas();
   }
   getCargos() {
     this.cargoservice.getallCargos().subscribe(cargos => this.cargos = cargos);
+  }
+  getEmpresas(){
+    this.empresaservice.getallEmpresas().subscribe(empresas=> this.empresas=empresas);
   }
   // Boton para abrir ventana modal
   open(content: any) {
@@ -57,8 +64,8 @@ export class CargoComponent implements OnInit {
     this.cargo.id_cargo = cargo.id_cargo
     this.cargo.nomb_cargo = cargo.nomb_cargo
    this.cargo.observ_cargo = cargo.observ_cargo
-   this.cargo.fechaini_cargo=cargo.fechaini_cargo
-   this.cargo.fechafin_cargo=cargo.fechafin_cargo
+   this.cargo.fecha_inicio=cargo.fecha_inicio
+   this.cargo.fecha_fin=cargo.fecha_fin
     this.cargo.estado_cargo = cargo.estado_cargo
     this.edit = true
     this.open(this.modal)
@@ -91,8 +98,8 @@ export class CargoComponent implements OnInit {
     this.cargo.id_cargo = 0
     this.cargo.nomb_cargo = ''
     this.cargo.observ_cargo = ''
-    this.cargo.fechaini_cargo=''
-    this.cargo.fechafin_cargo=''
+    this.cargo.fecha_inicio=''
+    this.cargo.fecha_fin=''
     this.cargo.estado_cargo = ''
   }
 }

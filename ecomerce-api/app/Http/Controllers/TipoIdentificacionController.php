@@ -43,7 +43,7 @@ class TipoIdentificacionController extends Controller
     {
         $validateData = $request->validate([
             'nombre_tipo_ident' => 'required|string|max:255',
-            'estado_tipo_ident' => 'required|string|1',
+            'estado_tipo_ident' => 'required|string|max:1',
         ]);
         TipoIdentificacion::create([
             'nombre_tipo_ident' => $validateData['nombre_tipo_ident'],

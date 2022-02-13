@@ -52,15 +52,15 @@ class BodegaController extends Controller
         ]);
         if ($v) {
             $bodegas = new Bodega();
-            $bodegas->id_ciu = $request->input('id_ciu');
+            $bodegas->id_ciudad = $request->input('id_ciudad');
             $bodegas->nombre_bod = $request->input('nombre_bod');
-            $bodegas->id_direcion = $request->input('id_direcion');
+            $bodegas->id_direccion = $request->input('id_direcion');
             $bodegas->telef_bod = $request->input('telef_bod');
             $bodegas->cel_bod = $request->input('cel_bod');
             $bodegas->estado_bod = $request->input('estado_bod');
             $bodegas->nomb_contac_bod = $request->input('nomb_contac_bod');
-            $bodegas->fechaini_bod = $request->input('fechaini_bod');
-            $bodegas->fechafin_bod = $request->input('fechafin_bod');
+            $bodegas->fecha_inicio = $request->input('fechaini_bod');
+            $bodegas->fecha_fin = $request->input('fechafin_bod');
             $bodegas->save();
             return;
         } else {
@@ -110,7 +110,7 @@ class BodegaController extends Controller
             'fechafin_bod' => 'required',
         ]);
         if ($v) {
-            $id_ciu = $request->input('id_ciu');
+            $id_ciudad = $request->input('id_ciudad');
             $nombre_bod = $request->input('nombre_bod');
             $id_direcion = $request->input('id_direcion');
             $telef_bod = $request->input('telef_bod');
@@ -130,7 +130,7 @@ class BodegaController extends Controller
                     'nomb_contac_bod' => $nomb_contac_bod,
                     'fechaini_bod' => $fechaini_bod,
                     'fechafin_bod' => $fechafin_bod,
-                    'id_ciu' => $id_ciu,
+                    'id_ciudad' => $id_ciudad,
                 ]);
             return;
         } else {

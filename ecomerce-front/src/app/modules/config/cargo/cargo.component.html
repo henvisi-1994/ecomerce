@@ -21,13 +21,19 @@
               placeholder="Ingrese Observacion">
           </div>
           <div class="form-group">
+            <label for="">Empresa</label>
+            <select name="empresa" id="" [(ngModel)]="cargo.id_emp" class="form-control" >
+              <option  *ngFor="let empresa of empresas" value="{{empresa.id_empresa}}">{{empresa.nombre_comercial		}}</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="">Fecha de Inicio</label>
-            <input type="date" name="fechaini_cargo" [(ngModel)]="cargo.fechaini_cargo" class="form-control"
+            <input type="date" name="fechaini_cargo" [(ngModel)]="cargo.fecha_inicio" class="form-control"
               placeholder="Ingrese fecha de inicio">
           </div>
           <div class="form-group">
             <label for="">Fecha de Fin</label>
-            <input type="date" name="fechafin_cargo" [(ngModel)]="cargo.fechafin_cargo" class="form-control"
+            <input type="date" name="fechafin_cargo" [(ngModel)]="cargo.fecha_fin" class="form-control"
               placeholder="Ingrese fecha de fin">
           </div>
           <div class="form-group">

@@ -7,9 +7,11 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DirecionController;
+use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PaisController;
+use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\TipoIdentificacionController;
@@ -101,8 +103,19 @@ Route::prefix('bodegas')->group( function (){
     Route::put('/{id}' ,[BodegaController::class,'update']);
     Route::delete('/{id}' ,[BodegaController::class,'destroy']);
 });
-Route::prefix('clientes')->group( function (){
+Route::prefix('empleado')->group( function (){
+    Route::get('/' ,[EmpleadoController::class,'index']);
+    Route::post('/',[EmpleadoController::class,'store']);
+    Route::put('/{id}' ,[EmpleadoController::class,'update']);
+    Route::delete('/{id}' ,[EmpleadoController::class,'destroy']);
+});
+Route::post('persona',[PersonaController::class,'store']);
+Route::prefix('cliente')->group( function (){
     Route::get('/' ,[ClienteController::class,'index']);
+    Route::post('/',[ClienteController::class,'store']);
+    Route::put('/{id}' ,[ClienteController::class,'update']);
+    Route::delete('/{id}' ,[ClienteController::class,'destroy']);
+
 });
 
 Route::post('/register',[AuthController::class,'register']);

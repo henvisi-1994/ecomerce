@@ -1,8 +1,13 @@
+import { TipoIdentificacionService } from './../../../data/services/api/tipo-identificacion.service';
+import { PersonaService } from './../../../data/services/api/persona.service';
+import { DireccionService } from './../../../data/services/api/direccion.service';
+import { EmpresaService } from './../../../data/services/api/empresa.service';
 import { ClienteService } from './../../../data/services/api/cliente.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { IPersona } from './../../../data/interfaces/persona.metadata';
 import { ICliente } from './cliente.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-clientes',
@@ -16,6 +21,7 @@ cliente:ICliente={
   tipo_cli: '',
   fecha_inicio: '',
   fecha_fin: '',
+  email:'',
   estado_cli: '',
   id_persona: 0,
   id_empresa: 0,
@@ -27,107 +33,33 @@ persona:IPersona={
   nombre_persona:'',
   apellido_persona:'',
   dni:'',
+  id_tipo_ident	:0
 }
-empresas = [
-  {
-    id_empresa: 1,
-    razon_social: 'Emp1',
-    codigo_envio: 'EMP001',
-    nombre_comercial: 'Empresa 1',
-    ruc: '074545454545001',
-    fecha_inicio: '2021-02-03',
-    fecha_fin: '2022-02-03',
-    estado_empresa: 'A',
-  },
-  {
-    id_empresa: 2,
-    razon_social: 'Emp2',
-    codigo_envio: 'EMP002',
-    nombre_comercial: 'Empresa 2',
-    ruc: '074545454545001',
-    fecha_inicio: '2021-02-03',
-    fecha_fin: '2022-02-03',
-    estado_empresa: 'A',
-  },
-  {
-    id_empresa: 3,
-    razon_social: 'Emp3',
-    codigo_envio: 'EMP003',
-    nombre_comercial: 'Empresa 3',
-    ruc: '074545454545001',
-    fecha_inicio: '2021-02-03',
-    fecha_fin: '2022-02-03',
-    estado_empresa: 'A',
-  },
-];
-direcciones=[{
-  id_direcion:1,
-  direcion:'direcion 1',
-  calle:'Calle 1',
-  numero:'3ra',
-  piso:'tercero',
-  telefono:'4545454454',
-  movil:'09565656565',
-  estado_direccion:'A',
-  id_ciudad:1
-},
-{
-  id_direcion:2,
-  direcion:'direcion 2',
-  calle:'Calle 2',
-  numero:'3ra',
-  piso:'tercero',
-  telefono:'4545454454',
-  movil:'09565656565',
-  estado_direccion:'A',
-  id_ciudad:1
-}];
-ciudades=[{
-  id_ciudad:1,
-  nombre_ciudad:'Machala',
-  estado_ciudad:'A',
-  id_provincia:1
-},
-{
-  id_ciudad:2,
-  nombre_ciudad:'Pasaje',
-  estado_ciudad:'A',
-  id_provincia:1
-},
-{
-  id_ciudad:3,
-  nombre_ciudad:'El Guabo',
-  estado_ciudad:'A',
-  id_provincia:1
-}];
-provincias=[
-  {
-  id_provincia:1,
-  nombre_provincia:'El Oro',
-  estado_provincia:'A',
-  id_pais:1
-},
-{
-  id_provincia:2,
-  nombre_provincia:'Azuay',
-  estado_provincia:'A',
-  id_pais:1
-},
-{
-  id_provincia:2,
-  nombre_provincia:'Pichincha',
-  estado_provincia:'A',
-  id_pais:1
-}];
+empresas:any = [];
+direcciones:any=[];
+tiposIdentificacion:any=[];
+
 @ViewChild('clienteModal', { static: false }) modal: ElementRef | undefined;
 edit = false;
-constructor(private modalCliente: NgbModal,private clienteservice: ClienteService) { }
+constructor(private modalCliente: NgbModal,private clienteservice: ClienteService, private empresaservice:EmpresaService, private direccionesservice: DireccionService, private personaservice:PersonaService, private tipoidentificacionservice:TipoIdentificacionService) { }
 
 ngOnInit(): void {
   this.getClientes();
+  this.getDireciones();
+  this.getEmpresas();
+  this.getTipoIdentificaciones();
+}
+getTipoIdentificaciones() {
+  this.tipoidentificacionservice.getallTipoIdentificaciones().subscribe(tiposIdentificacion => this.tiposIdentificacion = tiposIdentificacion);
 }
 getClientes(){
   this.clienteservice.getallClientes().subscribe(clientes=> this.clientes=clientes);
+}
+getEmpresas(){
+  this.empresaservice.getallEmpresas().subscribe(empresas=> this.empresas=empresas);
+}
+getDireciones() {
+  this.direccionesservice.getallDirecciones().subscribe(direcciones => this.direcciones = direcciones);
 }
   // Boton para abrir ventana modal
   open(content: any) {
@@ -166,14 +98,26 @@ getClientes(){
     (this.edit ? this.updateCliente() : this.storeCliente());
   }
   public updateCliente() {
-    this.limpiar();
-    this.modalCliente.dismissAll();
+    this.clienteservice.updateCliente(this.cliente).subscribe((res: any) => {
+      this.modalCliente.dismissAll();
+      this.getClientes();
+      this.limpiar();
+    })
 
   }
   public storeCliente() {
 
-    this.limpiar();
-    this.modalCliente.dismissAll();
+    this.personaservice.savePersonas(this.persona).subscribe((res: any) => {
+      this.saveCli(res.id_persona);
+ })
+  }
+  saveCli(id_persona: any) {
+    this.cliente.id_persona= id_persona;
+    this.clienteservice.saveClñiente(this.cliente).subscribe((res: any) => {
+      this.modalCliente.dismissAll();
+      this.getClientes();
+      this.limpiar();
+    })
   }
   private limpiar(){
     this.cliente.id_cliente = 0;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Persona;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
@@ -34,7 +35,25 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $v = $this->validate(request(), [
+
+            'nombre_persona' => 'required',
+            'apellido_persona' => 'required',
+            'dni' => 'required',
+            'id_tipo_ident' => 'required'
+        ]);
+        if ($v) {
+            $persona = new Persona();
+            $persona->id_tipo_ident = $request->input('id_tipo_ident');
+            $persona->nombre_persona = $request->input('nombre_persona');
+            $persona->apellido_persona	 = $request->input('apellido_persona');
+            $persona->dni = $request->input('dni');
+            $persona->save();
+            $data = Persona::latest('id_persona')->first();
+            return $data;
+        } else {
+            return back()->withInput($request->all());
+        }
     }
 
     /**

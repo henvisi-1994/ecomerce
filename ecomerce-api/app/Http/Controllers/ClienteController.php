@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Persona;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends Controller
 {
@@ -16,10 +19,10 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes = DB::table('cliente as c')
-        ->join('empresa', 'c.id_empresa', '=', 'empresa.id_empresa')
-        ->join('persona', 'c.id_persona', '=', 'persona.id_persona')
-        ->orderBy("c.id_cliente","desc")
-        ->get();
+            ->join('empresa', 'c.id_empresa', '=', 'empresa.id_empresa')
+            ->join('persona', 'c.id_persona', '=', 'persona.id_persona')
+            ->orderBy('c.id_cliente', 'desc')
+            ->get();
         return $clientes;
     }
 
@@ -41,28 +44,37 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $v =$this->validate(request(), [
-            'observ_cli' => 'required',
+        $v = $this->validate(request(), [
             'estado_cli' => 'required',
+            'fecha_inicio' => 'required',
             'fecha_fin' => 'required',
-            'fecha_fin' => 'required'
         ]);
-        if ($v)
-        {
-            $clientes= new Cliente();
-            $clientes->id_empresa=$request->input('id_empresa');
-            $clientes->id_direcion	=$request->input('id_direcion	');
-            $clientes->id_persona=$request->input('id_persona');
-            $clientes->tipo_cli=$request->input('tipo_cli');
-            $clientes->estado_cli=$request->input('estado_cli');
-            $clientes->fecha_inicio=$request->input('fecha_inicio');
-            $clientes->fecha_fin=$request->input('fecha_fin');
+        if ($v) {
+            $clientes = new Cliente();
+            $clientes->id_empresa = $request->input('id_empresa');
+            $clientes->id_direcion = $request->input('id_direcion	');
+            $clientes->id_persona = $request->input('id_persona');
+            $clientes->tipo_cli = $request->input('tipo_cli');
+            $clientes->estado_cli = $request->input('estado_cli');
+            $clientes->fecha_inicio = $request->input('fecha_inicio');
+            $clientes->fecha_fin = $request->input('fecha_fin');
             $clientes->save();
+            $persona = Persona::where(
+                'id_persona',
+                $request->id_persona
+            )->first();
+            $nombre = $persona->nombre_persona;
+            $apellido = $persona->apellido_persona;
+            $dni = $persona->dni;
+            $username = $nombre . ' ' . $apellido;
+            User::create([
+                'name' => $username,
+                'email' => $request->email,
+                'password' => Hash::make($dni),
+            ]);
             return;
-        }
-        else
-        {
-          return back()->withInput($request->all());
+        } else {
+            return back()->withInput($request->all());
         }
     }
 
@@ -97,31 +109,34 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $v =$this->validate(request(), [
+        $v = $this->validate(request(), [
             'observ_cli' => 'required',
             'estado_cli' => 'required',
             'fecha_fin' => 'required',
-            'fecha_fin' => 'required'
-         ]);
-         if ($v)
-         {
-             $id_empresa=$request->input('id_empresa');
-             $id_persona=$request->input('id_persona');
-             $observ_cli=$request->input('observ_cli');
-             $estado_cli=$request->input('estado_cli');
-             $fecha_inicio=$request->input('fecha_inicio');
-             $fecha_fin=$request->input('fecha_fin');
+            'fecha_fin' => 'required',
+        ]);
+        if ($v) {
+            $id_empresa = $request->input('id_empresa');
+            $id_persona = $request->input('id_persona');
+            $observ_cli = $request->input('observ_cli');
+            $estado_cli = $request->input('estado_cli');
+            $fecha_inicio = $request->input('fecha_inicio');
+            $fecha_fin = $request->input('fecha_fin');
 
-             DB::table('cliente')
-             ->where('id_cliente', $id)
-             ->update(['observ_cli' => $observ_cli , 'estado_cli' => $estado_cli, 'fecha_inicio' => $fecha_inicio,'fecha_fin'=> $fecha_fin,'id_empresa'=> $id_empresa,'id_persona'=>$id_persona]
-           );
-         return;
-       }
-       else
-         {
-           return back()->withInput($request->all());
-         }
+            DB::table('cliente')
+                ->where('id_cliente', $id)
+                ->update([
+                    'observ_cli' => $observ_cli,
+                    'estado_cli' => $estado_cli,
+                    'fecha_inicio' => $fecha_inicio,
+                    'fecha_fin' => $fecha_fin,
+                    'id_empresa' => $id_empresa,
+                    'id_persona' => $id_persona,
+                ]);
+            return;
+        } else {
+            return back()->withInput($request->all());
+        }
     }
 
     /**
@@ -132,11 +147,10 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        $estado_cli= 'I';
+        $estado_cli = 'I';
         DB::table('cliente')
             ->where('id_cliente', $id)
-            ->update(['estado_cli' => $estado_cli]
-          );
+            ->update(['estado_cli' => $estado_cli]);
         return;
     }
 }

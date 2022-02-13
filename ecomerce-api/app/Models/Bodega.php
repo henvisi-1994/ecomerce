@@ -18,9 +18,9 @@ class Bodega extends Model
         'telef_bod',
         'cel_bod',
         'nomb_contac_bod',
-        'fechaini_bod',
-        'fechafin_bod',
-        'ciudad_id_ciudad',
-        'direcion_id_direcion',
+        'fecha_inicio',
+        'fecha_fin',
+        'id_ciudad',
+        'id_direccion',
     ];
 }

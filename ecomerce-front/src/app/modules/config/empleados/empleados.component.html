@@ -21,13 +21,24 @@
               placeholder="Ingrese apellidos del empleado">
           </div>
           <div class="form-group">
+            <label for="">Tipo de Identificacion</label>
+            <select name="tipoidentificacion" id="" [(ngModel)]="persona.id_tipo_ident" class="form-control" >
+              <option  *ngFor="let tipoIdentificacion  of tiposIdentificacion" value="{{tipoIdentificacion.id_tipo_ident}}">{{tipoIdentificacion.nombre_tipo_ident}}</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="">DNI</label>
             <input type="text" name="dni" [(ngModel)]="persona.dni" class="form-control"
               placeholder="Ingrese numero de dni">
           </div>
           <div class="form-group">
+            <label for="">email</label>
+            <input type="email" name="email" [(ngModel)]="empleado.email" class="form-control"
+              placeholder="Ingrese su email">
+          </div>
+          <div class="form-group">
             <label for="">Empresa</label>
-            <select name="empresa" id="" [(ngModel)]="empleado.id_emp" class="form-control" >
+            <select name="empresa" id="" [(ngModel)]="empleado.id_empresa" class="form-control" >
               <option  *ngFor="let empresa of empresas" value="{{empresa.id_empresa}}">{{empresa.nombre_comercial		}}</option>
             </select>
           </div>

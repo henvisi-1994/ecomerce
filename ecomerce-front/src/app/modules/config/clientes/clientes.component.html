@@ -21,17 +21,43 @@
               placeholder="Ingrese apellidos del cliente">
           </div>
           <div class="form-group">
-            <label for="">Observación</label>
+            <label for="">Tipo de Identificacion</label>
+            <select name="tipoidentificacion" id="" [(ngModel)]="persona.id_tipo_ident" class="form-control" >
+              <option  *ngFor="let tipoIdentificacion  of tiposIdentificacion" value="{{tipoIdentificacion.id_tipo_ident}}">{{tipoIdentificacion.nombre_tipo_ident}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="">DNI</label>
             <input type="text" name="dni" [(ngModel)]="persona.dni" class="form-control"
-              placeholder="Ingrese Observacion">
+              placeholder="Ingrese numero de dni">
+          </div>
+          <div class="form-group">
+            <label for="">email</label>
+            <input type="email" name="email" [(ngModel)]="cliente.email" class="form-control"
+              placeholder="Ingrese su email">
           </div>
           <div class="form-group">
             <label for="">Empresa</label>
-            <select name="empresa" id="" [(ngModel)]="cliente.id_cliente" class="form-control" >
+            <select name="empresa" id="" [(ngModel)]="cliente.id_empresa" class="form-control" >
               <option  *ngFor="let empresa of empresas" value="{{empresa.id_empresa}}">{{empresa.nombre_comercial		}}</option>
             </select>
           </div>
-
+          <div class="form-group">
+            <label for="">Direccion</label>
+            <select name="direccion" id="" [(ngModel)]="cliente.id_direcion" class="form-control" >
+              <option  *ngFor="let direcion of direcciones" value="{{direcion.id_direccion}}">{{direcion.direcion		}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="">Fecha de Inicio</label>
+            <input type="date" name="fechaini_cargo" [(ngModel)]="cliente.fecha_inicio" class="form-control"
+              placeholder="Ingrese fecha de inicio">
+          </div>
+          <div class="form-group">
+            <label for="">Fecha de Fin</label>
+            <input type="date" name="fechafin_cargo" [(ngModel)]="cliente.fecha_fin" class="form-control"
+              placeholder="Ingrese fecha de fin">
+          </div>
           <div class="form-group">
             <label for="">Estado</label>
             <select name="estado_cli" id="" [(ngModel)]="cliente.estado_cli" class="form-control" >

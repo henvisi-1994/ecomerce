@@ -1,8 +1,9 @@
 export interface IEmpleado{
   id_empleado:number;
-  id_emp:number ;
+  id_empresa:number ;
    id_usu:number ;
    id_cargo:number;
-    id_per:number ;
+   id_persona:number ;
    estado_empl:string;
+   email:string;
 }
