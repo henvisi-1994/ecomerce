@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetallePedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DetallePedidoController extends Controller
 {
@@ -34,7 +36,15 @@ class DetallePedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'id_prod' => 'required',
+            'id_pedido' => 'required',
+
+        ]);
+        DetallePedido::create([
+            'id_prod' => $validateData['id_prod'],
+            'id_pedido' => $validateData['id_pedido']
+        ]);
     }
 
     /**
@@ -45,7 +55,13 @@ class DetallePedidoController extends Controller
      */
     public function show($id)
     {
-        //
+        $cart = DB::table('detalle_pedido as dp')
+        ->join('pedido', 'dp.id_pedido', '=', 'pedido.id_pedido')
+        ->join('producto', 'dp.id_prod', '=', 'producto.id_prod')
+        ->where('pedido.id_cliente',$id)
+        ->where('pedido.estado_ped','I')
+        ->get();
+        return $cart;
     }
 
     /**

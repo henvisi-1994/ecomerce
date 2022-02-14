@@ -46,19 +46,11 @@ class ClienteController extends Controller
     {
         $v = $this->validate(request(), [
             'estado_cli' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
             'fecha_inicio' => 'required',
             'fecha_fin' => 'required',
         ]);
         if ($v) {
-            $clientes = new Cliente();
-            $clientes->id_empresa = $request->input('id_empresa');
-            $clientes->id_direccion = $request->input('id_direccion');
-            $clientes->id_persona = $request->input('id_persona');
-            $clientes->tipo_cli = $request->input('tipo_cli');
-            $clientes->estado_cli = $request->input('estado_cli');
-            $clientes->fecha_inicio = $request->input('fecha_inicio');
-            $clientes->fecha_fin = $request->input('fecha_fin');
-            $clientes->save();
             $persona = Persona::where(
                 'id_persona',
                 $request->id_persona
@@ -72,6 +64,17 @@ class ClienteController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($dni),
             ]);
+            $usuario = User::latest('id')->first();
+            $clientes = new Cliente();
+            $clientes->id_empresa = $request->input('id_empresa');
+            $clientes->id_direccion = $request->input('id_direccion');
+            $clientes->id_persona = $request->input('id_persona');
+            $clientes->tipo_cli = $request->input('tipo_cli');
+            $clientes->estado_cli = $request->input('estado_cli');
+            $clientes->fecha_inicio = $request->input('fecha_inicio');
+            $clientes->fecha_fin = $request->input('fecha_fin');
+            $clientes->id_usu = $usuario ->id;
+            $clientes->save();
             return;
         } else {
             return back()->withInput($request->all());

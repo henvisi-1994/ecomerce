@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\Empleado;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,18 +40,33 @@ class AuthController extends Controller
             );
         }
         $user = User::where('email', $request['email'])->first();
-        $empleado = Empleado::where('id_usu',$user->id);
-        $isEmpleado = false;
-        if(count(get_object_vars($empleado))<0){
+        $empleado = Empleado::where('id_usu',$user->id)->get();
+        $cliente = Cliente::where('id_usu',$user->id)->get();
+      $isEmpleado = false;
+        $isCliente=false;
+        $id_empleado=0;
+        $id_cliente=0;
+        if(count($empleado)==1){
             $isEmpleado=true;
+            $id_empleado= $empleado[0]->id_empleado;
         }else{
             $isEmpleado= false;
         }
+        if(count($cliente)==1){
+            $isCliente=true;
+            $id_cliente= $cliente[0]->id_cliente;
+        }else{
+            $isCliente= false;
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
             'is_empleado' => $isEmpleado,
+            'is_cliente' =>$isCliente,
+            'id_empleado' => $id_empleado,
+            'id_cliente'=>  $id_cliente
         ]);
     }
 }

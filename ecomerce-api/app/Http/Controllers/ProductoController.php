@@ -57,10 +57,13 @@ class ProductoController extends Controller
             'comision_prod' => 'required|numeric|between:0,9999.99',
         ]);
         if ($v) {
-            list($type, $imageData) = explode(';', $request->file);
-            list(, $extension) = explode('/', $type);
-            list(, $imageData) = explode(',', $imageData);
-            $name = $request->codbarra_prod . '.' . $extension;
+            $image_name = '';
+            if ($request->hasFile('file')) {
+                return $request->file;
+               /* $image_name =$request->codbarra_prod . $request->file->extension();
+                $request->file->move('profile_images/', $image_name); // /public/profile_images/file.png*/
+            }
+            $name =$image_name;
             $source = fopen($request->file, 'r');
             $destination = fopen(public_path() . '/img/producto/' . $name, 'w');
             stream_copy_to_stream($source, $destination);

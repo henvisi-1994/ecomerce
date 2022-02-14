@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
@@ -34,7 +35,21 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'cantidad' => 'required',
+            'estado_ped' => 'required|string|max:1',
+            'id_cliente' => 'required',
+            'id_formapago' => 'required',
+
+        ]);
+        Pedido::create([
+            'cantidad' => $validateData['cantidad'],
+            'estado_ped' => $validateData['estado_ped'],
+            'id_cliente' => $validateData['id_cliente'],
+            'id_formapago' => $validateData['id_formapago'],
+        ]);
+        $data = Pedido::latest('id_pedido')->first();
+        return $data;
     }
 
     /**

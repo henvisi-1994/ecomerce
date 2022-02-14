@@ -6,11 +6,14 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CiudadController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DetallePedidoController;
 use App\Http\Controllers\DirecionController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\FormaPagoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PaisController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProvinciaController;
@@ -118,7 +121,17 @@ Route::prefix('cliente')->group( function (){
     Route::post('/',[ClienteController::class,'store']);
     Route::put('/{id}' ,[ClienteController::class,'update']);
     Route::delete('/{id}' ,[ClienteController::class,'destroy']);
-
+});
+Route::prefix('pedido')->group( function (){
+    Route::post('/',[PedidoController::class,'store']);
+    Route::get('/{id}' ,[PedidoController::class,'show']);
+    Route::prefix('detalle')->group( function (){
+        Route::get('/{id}' ,[DetallePedidoController::class,'show']);
+        Route::post('/',[DetallePedidoController::class,'store']);
+    });
+});
+Route::prefix('formaPago')->group( function (){
+    Route::get('/',[FormaPagoController::class,'index']);
 });
 
 Route::post('/register',[AuthController::class,'register']);

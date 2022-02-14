@@ -15,9 +15,7 @@ class FormaPagoController extends Controller
      */
     public function index()
     {
-        $formapago = DB::table('formapago as fp')
-            ->orderBy("fp.id_formapago", "des")
-            ->get();
+        $formapago = FormaPago::get();
         return $formapago;
     }
 

@@ -21,9 +21,21 @@
               ${{producto.precio_prod}}
             </h2>
           </div>
+          <div class="form-group">
+            <label for="">Cantidad</label>
+            <input type="text" name="cantidad" [(ngModel)]="pedido.cantidad" class="form-control"
+              placeholder="Ingrese cantidad">
+          </div>
+          <div class="form-group">
+            <label for="">Forma de Pago</label>
+            <select name="formPago" id="" [(ngModel)]="pedido.id_formapago" class="form-control" >
+              <option  *ngFor="let formpago of forpagos" value="{{formpago.id_formapago}}">{{formpago.nomb_formapago	}}</option>
+            </select>
+          </div>
+
 
           <div class="mt-4">
-            <div class="btn btn-primary btn-lg btn-flat">
+            <div class="btn btn-primary btn-lg btn-flat" (click)="savePedido(producto.id_prod)">
               <i class="fas fa-cart-plus fa-lg mr-2"></i>
               Add to Cart
             </div>

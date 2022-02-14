@@ -1,0 +1,33 @@
+<!--start-ckeckout-->
+<div class="ckeckout">
+  <div class="container">
+    <div class="ckeckout-top">
+    <div class=" cart-items heading">
+     <h1>Mis Compras</h1>
+         <div class="in-check" >
+      <ul class="unit">
+        <li><span>Item</span></li>
+        <li><span>Producto</span></li>
+        <li><span>Precio</span></li>
+        <li><span>Cantidad</span></li>
+        <li><span>Detalles</span></li>
+        <li> </li>
+        <div class="clearfix"> </div>
+      </ul>
+      <ul class="cart-header simpleCart_shelfItem" *ngFor="let producto of productos" >
+        <div class="close1"> </div>
+          <li class="ring-in"><a href="single.html" ><img src="{{producto.imagen_prod}}"  class="img-responsive" alt=""></a>
+          </li>
+          <li><span>{{producto.descripcion_prod}}</span></li>
+          <li><span class="item_price">${{producto.precio_prod}}</span></li>
+          <li><span class="item_price">1</span></li>
+          <li> <a href="#" class="add-cart cart-check item_add">Add to cart</a></li>
+        <div class="clearfix"> </div>
+      </ul>
+
+    </div>
+    </div>
+   </div>
+  </div>
+</div>
+<!--end-ckeckout-->

@@ -10,26 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  user:IUser={
-    id:0,
-    name:'',
-    email:'',
-    password:''
+  user: IUser = {
+    id: 0,
+    name: '',
+    email: '',
+    password: ''
   }
-  constructor(private authService:AuthService,private router: Router ) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
   public loginUser() {
-    this.authService.login(this.user).subscribe((res: any) =>{
-         localStorage.setItem('token', res.access_token);
-         if(res.is_empleado){
-          this.router.navigate(['/admin/']);
-         }else{
-          this.router.navigate(['/']);
-         }
+    this.authService.login(this.user).subscribe((res: any) => {
+      localStorage.setItem('token', res.access_token);
+      if (res.is_empleado) {
+        localStorage.setItem('id_empleado', res.id_empleado);
+        this.router.navigate(['/admin/']);
+      } else {
+        localStorage.setItem('id_cliente', res.id_cliente);
+        this.router.navigate(['/']);
+      }
 
-     })
+    })
   }
 
 }
