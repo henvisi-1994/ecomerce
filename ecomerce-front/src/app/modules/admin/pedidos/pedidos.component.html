@@ -1,1 +1,44 @@
-<p>pedidos works!</p>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Pedidos</h1>
+      </div><!-- /.col -->
+
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Cliente</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Monto</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Recorre arreglo de aportes almacenándola en variable  producto desde productos -->
+    <tr *ngFor="let pedido of pedidos">
+      <td>{{pedido.nombre_persona}} {{pedido.apellido_persona}}</td>
+      <td>{{pedido.fecha_inicio}}</td>
+      <td>{{pedido.total}}</td>
+      <td>
+        <div *ngIf="pedido.estado_ped=='I'" class="badge badge-danger">Pendiente</div>
+        <div *ngIf="pedido.estado_ped=='E'" class="badge badge-warning">Enviado</div>
+        <div *ngIf="pedido.estado_ped=='R'"class="badge badge-success">Recivido</div>
+      </td>
+      <td>
+        <!-- Envia datos de determinado producto desde arreglo a NgModel de producto -->
+        <button class="btn btn-info" ><i class="fa fa-info"></i></button>
+        &nbsp;
+        <!-- Elimina producto obteniendo id desde arreglo a NgModel de producto -->
+        <button class="btn btn-warning" ><i class="fa fa-check"></i></button>
+        &nbsp;
+        <button class="btn btn-danger" ><i class="fa fa fa-trash-alt"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

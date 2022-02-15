@@ -24,7 +24,7 @@ select.country {
   -ms-appearance: none;
 }
 select.country:hover{
-color:#EA572D;
+color:#0071BC;
 }
 .footer-grid ul li a {
   font-size: 1em;
@@ -32,7 +32,7 @@ color:#EA572D;
   display: block;
 }
 .footer-grid ul li a:hover {
-  color:#EA572D;
+  color:#0071BC;
 }
 .copy-rights {
   text-align: center;
@@ -46,7 +46,7 @@ color:#EA572D;
   color: #fff;
 }
 .copy-rights p a:hover{
-  color:#EA572D;
+  color:#0071BC;
 }
 .footer-grid-icon ul {
  padding:0px;
@@ -120,13 +120,13 @@ line-height: 0px;
 .footer-grid-icon input[type="submit"] {
   font-size: 1em;
   color: #fff;
-  background: #EA572D;
+  background: #0071BC;
   border: none;
   padding: 0.5em 1em;
   outline: none;
 }
 .footer-grid-icon input[type="submit"]:hover {
-  background:#847057;
+  background:#094293;
    transition: 0.5s all;
 -webkit-transition: 0.5s all;
 -moz-transition: 0.5s all;

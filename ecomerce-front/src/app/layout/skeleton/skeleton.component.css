@@ -37,7 +37,7 @@ a:hover {
 }
 .banner-right h1 {
     font-size: 2.5em;
-    color:#EA572D;
+    color:#094293;
     margin:0.3em 0em 0.5em 0em;
     font-family: 'Oswald', sans-serif;
 }
@@ -79,7 +79,7 @@ span.bann-heart {
 }
 .banner-right h6 {
     font-size: 1em;
-    color:#EA572D;
+    color:#094293;
     margin-top: 1.3em;
 }
 select.bann-size {
@@ -109,7 +109,7 @@ select.bann-size {
     font-family: 'Oswald', sans-serif;
 }
 ul.bann-btns li a:hover {
-	background:#EA572D;
+	background:#094293;
 }
 /*--block-layer2 start here--*/
 .blc-layer2 {
@@ -142,7 +142,7 @@ ul.bann-btns li a:hover {
 }
 .blc-layer3-grids1 h6 {
     font-size: 1em;
-    color:#EA572D;
+    color:#094293;
     margin-bottom: 0.6em;
     font-family: 'Oswald', sans-serif;
 }
@@ -189,7 +189,7 @@ ul.bann-btns li a:hover {
     font-family: 'Oswald', sans-serif;
 }
 .box-grid h3 a{
-	color:#EA572D;
+	color:#094293;
 }
 .box-grid ul {
     padding: 0em;
@@ -245,7 +245,7 @@ ul.bann-btns li a:hover {
     margin-bottom: 3em;
 }
 .home-grid:hover .home-product-bottom{
-	 background:#EA572D;
+	 background:#094293;
 }
 .home-grid:hover .home-product-bottom h3 a{
 	color:#fff;
@@ -280,7 +280,7 @@ ul.bann-btns li a:hover {
     right:-1px;
 }
 .srch span {
-    background:#EA572D;
+    background:#094293;
     color: #fff;
     font-size: 15px;
     font-weight: 400;
@@ -312,7 +312,7 @@ ul.bann-btns li a:hover {
 .tems-top h1 {
     text-align: center;
     font-size: 2.8em;
-    color: #EA572D;
+    color: #094293;
     margin-bottom: 1em;
     font-family: 'Oswald', sans-serif;
 }
@@ -328,7 +328,7 @@ ul.bann-btns li a:hover {
 }
 .tems-top h3 {
 	font-size: 1.5em;
-    color:#EA572D;
+    color:#094293;
     margin: 1em 0em 0.3em 0em ;
 }
 .tems-list {
@@ -348,11 +348,11 @@ ul.terms-lists li a{
     font-family: 'Hind', sans-serif;
 }
 ul.terms-lists li a:hover{
-    color:#EA572D;
+    color:#094293;
 }
 span.glyphicon.glyphicon-share-alt {
     font-size: 1em;
-    color:#EA572D;
+    color:#094293;
 }
 /*--terms end here--*/
 /*--press strat here--*/
@@ -361,7 +361,7 @@ span.glyphicon.glyphicon-share-alt {
 }
 .press-left h1 {
     font-size:2.1em;
-    color: #EA572D;
+    color: #094293;
     font-family: 'Oswald', sans-serif;
 }
 .press-grid {
@@ -387,7 +387,7 @@ span.glyphicon.glyphicon-share-alt {
 }
 .tems-right h3 {
     font-size:2.1em;
-    color: #EA572D;
+    color: #094293;
     margin-bottom: 0.5em;
     font-family: 'Oswald', sans-serif;
 }
@@ -412,7 +412,7 @@ span.glyphicon.glyphicon-share-alt {
     color: #fff;
     padding: 0.51em 2em 0.51em 2em;
     border: none;
-    background: #EA572D;
+    background: #094293;
     outline: none;
     margin: 0em 0em 0em 0em;
 }
@@ -721,7 +721,7 @@ span.glyphicon.glyphicon-share-alt {
 .sky-form .radio:hover i,
 .sky-form .checkbox:hover i,
 .sky-form .toggle:hover i {
-	border-color: #EA572D;
+	border-color: #094293;
 }
 .sky-form .button:hover {
 	opacity: 1;
@@ -733,19 +733,19 @@ span.glyphicon.glyphicon-share-alt {
 .sky-form .radio input:focus + i,
 .sky-form .checkbox input:focus + i,
 .sky-form .toggle input:focus + i {
-	border-color: #EA572D;
+	border-color: #094293;
 }
 /* checked state */
 .sky-form .radio input + i:after {
-	background-color:#EA572D;
+	background-color:#094293;
 }
 .sky-form .checkbox input + i:after {
-	color: #EA572D;
+	color: #094293;
 }
 .sky-form .radio input:checked + i,
 .sky-form .checkbox input:checked + i,
 .sky-form .toggle input:checked + i {
-	border-color: #EA572D;
+	border-color: #094293;
 }
 /* error state */
 .sky-form .state-error input,
@@ -823,7 +823,7 @@ span.glyphicon.glyphicon-share-alt {
 	position: relative;
 }
 .jspDrag {
-    background: #EA572D;
+    background: #094293;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -878,13 +878,13 @@ span.glyphicon.glyphicon-share-alt {
 }
 .single-top-left h1 {
     font-size: 1.6em;
-    color:#EA572D;
+    color:#094293;
     margin-bottom: 0.5em;
     font-family: 'Oswald', sans-serif;
 }
 .single-top-left h3 {
     font-size: 1.6em;
-    color:#EA572D;
+    color:#094293;
     margin-bottom: 0.5em;
     font-family: 'Oswald', sans-serif;
 }
@@ -955,7 +955,7 @@ a.add-cart {
     display: inline-block;
 }
 a.add-cart:hover {
-	background:#EA572D;
+	background:#094293;
 	transition: 0.5s all;
 	-webkit-transition: 0.5s all;
 	-o-transition: 0.5s all;
@@ -980,7 +980,7 @@ background: url('assets/images/close-1.png') no-repeat 0px 0px;
 	margin: 2em 0 2em;
 }
 ul.unit{
-	background:#EA572D;
+	background:#094293;
 	padding:1em;
 }
 ul.unit li {
@@ -1045,7 +1045,7 @@ ul.cart-header li span h6,ul.cart-header1 li span h6,ul.cart-header2 li span h6{
 }
 .signin-main h1{
     font-size: 2em;
-    color:#EA572D;
+    color:#094293;
     font-family: 'Oswald', sans-serif;
         text-align: center;
 }
@@ -1168,7 +1168,7 @@ background: url("assets/images/tick.png") no-repeat 3px 4px;
 }
 .login-main h1 {
     font-size: 2.5em;
-    color: #EA572D;
+    color: #094293;
     margin-bottom: 1.4em;
     font-family: 'Oswald', sans-serif;
     text-align: center;
@@ -1209,7 +1209,7 @@ background: url("assets/images/tick.png") no-repeat 3px 4px;
     color: #fff;
     padding: 0.5em 1.5em;
     border: none;
-    background:#EA572D;
+    background:#094293;
     outline: none;
     display: block;
     margin-top: 1em;
@@ -1232,7 +1232,7 @@ background: url("assets/images/tick.png") no-repeat 3px 4px;
 .login-right a {
     font-size: 1em;
     color: #fff;
-    background:#EA572D;
+    background:#094293;
     padding: 0.5em 1em;
     display: block;
     width: 30%;
@@ -1273,7 +1273,7 @@ ul.nav.nav-pills {
 h3.typo1 {
     text-align: center;
     font-size: 3em;
-    color: #EA572D;
+    color: #094293;
     font-family: 'Oswald', sans-serif;
 }
 .page {
@@ -1295,7 +1295,7 @@ h3.typo1 {
 }
 .contact-top h1 {
   font-size: 2.5em;
-  color: #EA572D;
+  color: #094293;
   margin: 0em 0em 0.1em 0em;
   font-family: 'Oswald', sans-serif;
 }
@@ -1333,7 +1333,7 @@ h3.typo1 {
   color: #fff;
   padding: 0.51em 2em 0.51em 2em;
   border: none;
-  background:#EA572D;
+  background:#094293;
   outline: none;
   margin: 0em 0em 0em 0em;
 }
@@ -1384,7 +1384,7 @@ h3.typo1 {
     color:#847057;
 }
 .contact-left ul li a:hover {
-	color:#EA572D;
+	color:#094293;
 }
 span.glyphicon.glyphicon-map-marker {
     font-size: 1.5em;

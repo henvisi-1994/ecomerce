@@ -1,7 +1,7 @@
 /*--navg--*/
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: #FFF;
-  background-color:#847057;
+  background-color:#094293;
 }
 ul.nav.navbar-nav li a {
   font-size: 0.9em;
@@ -9,7 +9,7 @@ ul.nav.navbar-nav li a {
   font-family: 'Oswald', sans-serif;
 }
 a.nav-link:hover{
-background:#847057;
+background:#094293;
 color:white !important;
 }
 .dropdown-menu {
@@ -73,7 +73,7 @@ nav.navbar.navbar-default {
 }
 .content.title .back-to-article a {
   padding: 10px 20px;
-  background: #f60;
+  background: #0071bc;
   color: #fff;
   text-decoration: none;
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
@@ -14,7 +15,12 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+        $productos = DB::table('pedido as ped')
+            ->join('cliente', 'ped.id_cliente', '=', 'cliente.id_cliente')
+            ->join('persona', 'cliente.id_persona', '=', 'persona.id_persona')
+            ->orderBy("ped.id_pedido", "desc")
+            ->get();
+        return  $productos;
     }
 
     /**

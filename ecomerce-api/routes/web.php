@@ -123,8 +123,9 @@ Route::prefix('cliente')->group( function (){
     Route::delete('/{id}' ,[ClienteController::class,'destroy']);
 });
 Route::prefix('pedido')->group( function (){
-    Route::post('/',[PedidoController::class,'store']);
+    Route::get('/' ,[PedidoController::class,'index']);
     Route::get('/{id}' ,[PedidoController::class,'show']);
+    Route::post('/',[PedidoController::class,'store']);
     Route::prefix('detalle')->group( function (){
         Route::get('/{id}' ,[DetallePedidoController::class,'show']);
         Route::post('/',[DetallePedidoController::class,'store']);

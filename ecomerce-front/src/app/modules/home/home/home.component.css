@@ -27,7 +27,7 @@ a:hover {
 /*--banner strat here--*/
 .banner {
     min-height: 620px;
-    background:rgba(209, 72, 37, 0.26);
+    background:#094293;
 }
 .banner-main {
     padding:4em 0em 3em 0em;
@@ -37,7 +37,7 @@ a:hover {
 }
 .banner-right h1 {
     font-size: 2.5em;
-    color:#EA572D;
+    color:#0061A9;
     margin:0.3em 0em 0.5em 0em;
     font-family: 'Oswald', sans-serif;
 }
@@ -51,7 +51,7 @@ span.bann-heart {
 }
 .banner-right h2 {
     font-size: 1.4em;
-    color:#847057;
+    color:#094293;
     font-family: 'Oswald', sans-serif;
 }
 .banner-right h5 {
@@ -79,7 +79,7 @@ span.bann-heart {
 }
 .banner-right h6 {
     font-size: 1em;
-    color:#EA572D;
+    color:#0061A9;
     margin-top: 1.3em;
 }
 select.bann-size {
@@ -103,13 +103,13 @@ select.bann-size {
     font-size: 1em;
     color: #fff;
     padding:0.83em 1.3em;
-    background:#847057;
+    background:#094293;
     display: block;
     text-align: center;
     font-family: 'Oswald', sans-serif;
 }
 ul.bann-btns li a:hover {
-	background:#EA572D;
+	background:#0061A9;
 }
 /*--block-layer2 start here--*/
 .blc-layer2 {
@@ -142,13 +142,13 @@ ul.bann-btns li a:hover {
 }
 .blc-layer3-grids1 h6 {
     font-size: 1em;
-    color:#EA572D;
+    color:#0061A9;
     margin-bottom: 0.6em;
     font-family: 'Oswald', sans-serif;
 }
 .blc-layer3-grids1 h3 {
     font-size: 1.5em;
-    color:#847057;
+    color:#094293;
     font-family: 'Oswald', sans-serif;
 }
 .blc-layer3-grids1 p {
@@ -168,7 +168,7 @@ ul.bann-btns li a:hover {
 
 .blc-layer3-grids1 ul li h4 {
     font-size: 1.25em;
-    color:#847057;
+    color:#094293;
     font-family: 'Oswald', sans-serif;
 }
 .blc-layer3-grids1 ul li h5 {
@@ -189,7 +189,7 @@ ul.bann-btns li a:hover {
     font-family: 'Oswald', sans-serif;
 }
 .box-grid h3 a{
-	color:#EA572D;
+	color:#0061A9;
 }
 .box-grid ul {
     padding: 0em;
@@ -221,7 +221,7 @@ ul.bann-btns li a:hover {
 }
 .box-grid h5 {
     font-size: 1em;
-    color:#847057;
+    color:#094293;
     margin-bottom: 1.2em;
     font-family: 'Oswald', sans-serif;
 }
@@ -245,7 +245,7 @@ ul.bann-btns li a:hover {
     margin-bottom: 3em;
 }
 .home-grid:hover .home-product-bottom{
-	 background:#EA572D;
+	 background:#0061A9;
 }
 .home-grid:hover .home-product-bottom h3 a{
 	color:#fff;
@@ -280,7 +280,7 @@ ul.bann-btns li a:hover {
     right:-1px;
 }
 .srch span {
-    background:#EA572D;
+    background:#0061A9;
     color: #fff;
     font-size: 15px;
     font-weight: 400;
@@ -289,7 +289,7 @@ ul.bann-btns li a:hover {
 }
 .home-product-bottom {
     padding: 1em 1.5em;
-    background:#847057;
+    background:#094293;
     box-shadow: 0px 0px 1px 0px rgba(204, 204, 204, 0.78);
 }
 .home-product-bottom h3 {
@@ -312,13 +312,13 @@ ul.bann-btns li a:hover {
 .tems-top h1 {
     text-align: center;
     font-size: 2.8em;
-    color: #EA572D;
+    color: #0061A9;
     margin-bottom: 1em;
     font-family: 'Oswald', sans-serif;
 }
 .tems-top h2 {
     font-size: 1.5em;
-    color: #847057;
+    color: #094293;
     margin-bottom: 0.3em;
 }
 .tems-top p{
@@ -328,7 +328,7 @@ ul.bann-btns li a:hover {
 }
 .tems-top h3 {
 	font-size: 1.5em;
-    color:#EA572D;
+    color:#0061A9;
     margin: 1em 0em 0.3em 0em ;
 }
 .tems-list {
@@ -348,11 +348,11 @@ ul.terms-lists li a{
     font-family: 'Hind', sans-serif;
 }
 ul.terms-lists li a:hover{
-    color:#EA572D;
+    color:#0061A9;
 }
 span.glyphicon.glyphicon-share-alt {
     font-size: 1em;
-    color:#EA572D;
+    color:#0061A9;
 }
 /*--terms end here--*/
 /*--press strat here--*/
@@ -361,7 +361,7 @@ span.glyphicon.glyphicon-share-alt {
 }
 .press-left h1 {
     font-size:2.1em;
-    color: #EA572D;
+    color: #0061A9;
     font-family: 'Oswald', sans-serif;
 }
 .press-grid {
@@ -387,7 +387,7 @@ span.glyphicon.glyphicon-share-alt {
 }
 .tems-right h3 {
     font-size:2.1em;
-    color: #EA572D;
+    color: #0061A9;
     margin-bottom: 0.5em;
     font-family: 'Oswald', sans-serif;
 }
@@ -412,12 +412,12 @@ span.glyphicon.glyphicon-share-alt {
     color: #fff;
     padding: 0.51em 2em 0.51em 2em;
     border: none;
-    background: #EA572D;
+    background: #0061A9;
     outline: none;
     margin: 0em 0em 0em 0em;
 }
 .tems-right input[type="submit"]:hover{
-	background: #847057;
+	background: #094293;
 	transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
@@ -520,7 +520,7 @@ span.glyphicon.glyphicon-share-alt {
 	list-style: none;
 }
 .sky-form h1{
-	background: #847057;
+	background: #094293;
 	padding: 15px 20px;
 	color: #fff;
 	text-transform: uppercase;
@@ -529,7 +529,7 @@ span.glyphicon.glyphicon-share-alt {
 	font-family: 'Oswald', sans-serif;
 }
 .sky-form h2{
-	background: #847057;
+	background: #094293;
 	padding: 15px 20px;
 	color: #fff;
 	text-transform: uppercase;
@@ -538,7 +538,7 @@ span.glyphicon.glyphicon-share-alt {
 	font-family: 'Oswald', sans-serif;
 }
 .sky-form h4{
-	background: #847057;
+	background: #094293;
 	padding: 15px 20px;
 	color: #fff;
 	text-transform: uppercase;
@@ -721,7 +721,7 @@ span.glyphicon.glyphicon-share-alt {
 .sky-form .radio:hover i,
 .sky-form .checkbox:hover i,
 .sky-form .toggle:hover i {
-	border-color: #EA572D;
+	border-color: #0061A9;
 }
 .sky-form .button:hover {
 	opacity: 1;
@@ -733,19 +733,19 @@ span.glyphicon.glyphicon-share-alt {
 .sky-form .radio input:focus + i,
 .sky-form .checkbox input:focus + i,
 .sky-form .toggle input:focus + i {
-	border-color: #EA572D;
+	border-color: #0061A9;
 }
 /* checked state */
 .sky-form .radio input + i:after {
-	background-color:#EA572D;
+	background-color:#0061A9;
 }
 .sky-form .checkbox input + i:after {
-	color: #EA572D;
+	color: #0061A9;
 }
 .sky-form .radio input:checked + i,
 .sky-form .checkbox input:checked + i,
 .sky-form .toggle input:checked + i {
-	border-color: #EA572D;
+	border-color: #0061A9;
 }
 /* error state */
 .sky-form .state-error input,
@@ -823,7 +823,7 @@ span.glyphicon.glyphicon-share-alt {
 	position: relative;
 }
 .jspDrag {
-    background: #EA572D;
+    background: #0061A9;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -872,19 +872,19 @@ span.glyphicon.glyphicon-share-alt {
 }
 .single-top-left h2 {
     font-size: 1.1em;
-    color:#847057;
+    color:#094293;
     font-family: 'Oswald', sans-serif;
     margin-bottom: 0.6em;
 }
 .single-top-left h1 {
     font-size: 1.6em;
-    color:#EA572D;
+    color:#0061A9;
     margin-bottom: 0.5em;
     font-family: 'Oswald', sans-serif;
 }
 .single-top-left h3 {
     font-size: 1.6em;
-    color:#EA572D;
+    color:#0061A9;
     margin-bottom: 0.5em;
     font-family: 'Oswald', sans-serif;
 }
@@ -924,7 +924,7 @@ span.glyphicon.glyphicon-share-alt {
 }
 .singlepage-bottom {
     padding: 1em 1em;
-    background: #847057;
+    background: #094293;
 }
 .singlepage-bottom h3 {
     font-size: 1.2em;
@@ -948,14 +948,14 @@ span.glyphicon.glyphicon-share-alt {
 a.add-cart {
     text-decoration: none;
     color: #fff;
-    background: #847057;
+    background: #094293;
     padding: 0.4em 0.8em;
     font-size: 0.9em;
     margin-top: 1.3em;
     display: inline-block;
 }
 a.add-cart:hover {
-	background:#EA572D;
+	background:#0061A9;
 	transition: 0.5s all;
 	-webkit-transition: 0.5s all;
 	-o-transition: 0.5s all;
@@ -980,7 +980,7 @@ a.add-cart:hover {
 	margin: 2em 0 2em;
 }
 ul.unit{
-	background:#EA572D;
+	background:#0061A9;
 	padding:1em;
 }
 ul.unit li {
@@ -1031,7 +1031,7 @@ ul.cart-header li span.no-mar-more,ul.cart-header1 li span.no-mar-more,ul.cart-h
 }
 .cart-items.heading h1 {
     font-size: 1.5em;
-    color:#847057;
+    color:#094293;
     font-family: 'Oswald', sans-serif;
 }
 ul.cart-header li span h6,ul.cart-header1 li span h6,ul.cart-header2 li span h6{
@@ -1045,13 +1045,13 @@ ul.cart-header li span h6,ul.cart-header1 li span h6,ul.cart-header2 li span h6{
 }
 .signin-main h1{
     font-size: 2em;
-    color:#EA572D;
+    color:#0061A9;
     font-family: 'Oswald', sans-serif;
         text-align: center;
 }
 .signin-main h2 {
     font-size: 1.5em;
-    color: #847057;
+    color: #094293;
     margin: 1em 0em;
     font-family: 'Oswald', sans-serif;
 }
@@ -1098,7 +1098,7 @@ ul.cart-header li span h6,ul.cart-header1 li span h6,ul.cart-header2 li span h6{
     margin-top: 2em;
 }
 .signin-main input[type="submit"]:hover {
-	background:#847057;
+	background:#094293;
 	transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
@@ -1168,14 +1168,14 @@ span.checkbox1 {
 }
 .login-main h1 {
     font-size: 2.5em;
-    color: #EA572D;
+    color: #0061A9;
     margin-bottom: 1.4em;
     font-family: 'Oswald', sans-serif;
     text-align: center;
 }
 .login-left h2 {
     font-size: 1.5em;
-    color: #847057;
+    color: #094293;
     font-family: 'Oswald', sans-serif;
     margin-bottom: 1em;
 }
@@ -1209,17 +1209,17 @@ span.checkbox1 {
     color: #fff;
     padding: 0.5em 1.5em;
     border: none;
-    background:#EA572D;
+    background:#0061A9;
     outline: none;
     display: block;
     margin-top: 1em;
 }
 .login-left input[type="submit"]:hover {
-	  background:#847057;
+	  background:#094293;
 }
 .login-right h3 {
     font-size: 1.5em;
-    color: #847057;
+    color: #094293;
     font-family: 'Oswald', sans-serif;
     margin-bottom: 1em;
 }
@@ -1232,7 +1232,7 @@ span.checkbox1 {
 .login-right a {
     font-size: 1em;
     color: #fff;
-    background:#EA572D;
+    background:#0061A9;
     padding: 0.5em 1em;
     display: block;
     width: 30%;
@@ -1240,7 +1240,7 @@ span.checkbox1 {
     margin: 2em 0em 0em 0em;
 }
 .login-right a:hover {
-    background:#847057;
+    background:#094293;
 }
 
 /*--login end here--*/
@@ -1273,7 +1273,7 @@ ul.nav.nav-pills {
 h3.typo1 {
     text-align: center;
     font-size: 3em;
-    color: #EA572D;
+    color: #0061A9;
     font-family: 'Oswald', sans-serif;
 }
 .page {
@@ -1295,7 +1295,7 @@ h3.typo1 {
 }
 .contact-top h1 {
   font-size: 2.5em;
-  color: #EA572D;
+  color: #0061A9;
   margin: 0em 0em 0.1em 0em;
   font-family: 'Oswald', sans-serif;
 }
@@ -1333,12 +1333,12 @@ h3.typo1 {
   color: #fff;
   padding: 0.51em 2em 0.51em 2em;
   border: none;
-  background:#EA572D;
+  background:#0061A9;
   outline: none;
   margin: 0em 0em 0em 0em;
 }
 .contact-right input[type="submit"]:hover {
-  background:#847057;
+  background:#094293;
     transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
@@ -1346,7 +1346,7 @@ h3.typo1 {
 }
 .contact-left h2 {
   font-size: 2em;
-  color: #847057;
+  color: #094293;
   font-family: 'Oswald', sans-serif;
 }
 .contact-left h4 {
@@ -1365,7 +1365,7 @@ h3.typo1 {
 }
 .contact-right h3 {
   font-size: 2em;
-  color:#847057;
+  color:#094293;
   margin-bottom: 0.6em;
   font-family: 'Oswald', sans-serif;
 }
@@ -1381,26 +1381,26 @@ h3.typo1 {
 }
 .contact-left ul li a {
     font-size: 1em;
-    color:#847057;
+    color:#094293;
 }
 .contact-left ul li a:hover {
-	color:#EA572D;
+	color:#0061A9;
 }
 span.glyphicon.glyphicon-map-marker {
     font-size: 1.5em;
-    color:#847057;
+    color:#094293;
     margin-right: 0.4em;
     vertical-align: text-top;
 }
 span.glyphicon.glyphicon-phone {
     font-size: 1.5em;
-    color: #847057;
+    color: #094293;
     margin-right: 0.4em;
     vertical-align: text-top;
 }
 span.glyphicon.glyphicon-envelope {
     font-size: 1.5em;
-    color:#847057;
+    color:#094293;
     margin-right: 0.4em;
     vertical-align: text-top;
 }
@@ -1690,13 +1690,13 @@ h3.typo1 {
 }
 .navbar-default .navbar-toggle {
     border: none;
-    background: #847057;
+    background: #094293;
 }
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #FFF;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-     background: #847057;
+     background: #094293;
 }
 }
 @media(max-width:640px){

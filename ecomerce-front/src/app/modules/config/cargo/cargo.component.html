@@ -1,3 +1,13 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Cargos</h1>
+      </div><!-- /.col -->
+
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
 <button class="btn btn-primary mb-4" (click)="open(cargoModal)">Nuevo</button>
   <br>
   <!—Ventana Modal -->
@@ -68,8 +78,8 @@
         <tr *ngFor="let cargo of cargos">
           <td>{{cargo.nomb_cargo}}</td>
           <td>{{cargo.observ_cargo}}</td>
-          <td>{{cargo.fechaini_cargo}}</td>
-          <td>{{cargo.fechafin_cargo}}</td>
+          <td>{{cargo.fecha_inicio}}</td>
+          <td>{{cargo.fecha_fin}}</td>
           <td>
             <div *ngIf="cargo.estado_cargo=='I'" class="badge badge-danger">Inactivo</div>
             <div *ngIf="cargo.estado_cargo=='P'" class="badge badge-warning">Pendiente</div>

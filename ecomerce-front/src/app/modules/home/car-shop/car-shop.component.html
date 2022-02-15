@@ -6,22 +6,19 @@
      <h1>Mis Compras</h1>
          <div class="in-check" >
       <ul class="unit">
-        <li><span>Item</span></li>
-        <li><span>Producto</span></li>
-        <li><span>Precio</span></li>
+        <li><span class="pr-6">Item</span></li>
+        <li><span class="pl-5">Producto</span></li>
+        <li><span class="pl-5">Precio</span></li>
         <li><span>Cantidad</span></li>
-        <li><span>Detalles</span></li>
-        <li> </li>
         <div class="clearfix"> </div>
       </ul>
       <ul class="cart-header simpleCart_shelfItem" *ngFor="let producto of productos" >
         <div class="close1"> </div>
-          <li class="ring-in"><a href="single.html" ><img src="{{producto.imagen_prod}}"  class="img-responsive" alt=""></a>
+          <li class="ring-in mr-5"><a><img src="{{producto.imagen_prod}}"  class="img-responsive" alt=""></a>
           </li>
-          <li><span>{{producto.descripcion_prod}}</span></li>
+          <li><span class="ml-3">{{producto.descripcion_prod}}</span></li>
           <li><span class="item_price">${{producto.precio_prod}}</span></li>
           <li><span class="item_price">1</span></li>
-          <li> <a href="#" class="add-cart cart-check item_add">Add to cart</a></li>
         <div class="clearfix"> </div>
       </ul>
 

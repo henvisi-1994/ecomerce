@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar-container-admin.component.css']
 })
 export class SidebarContainerAdminComponent implements OnInit {
-
+user:any;
   constructor() { }
 
   ngOnInit(): void {
+    try {
+      let  user = localStorage.getItem('user');
+      this.user= JSON.parse(user+'')
+    } catch (error) {
+
+    }
+
+
   }
 
 }

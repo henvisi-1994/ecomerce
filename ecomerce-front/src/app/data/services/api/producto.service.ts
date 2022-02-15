@@ -3,6 +3,7 @@ import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,8 @@ export class ProductoService {
     form.append('id_marca', newProducto.id_marca.toString());
     form.append('id_cat', newProducto.id_cat.toString());
     form.append('id_empresa', newProducto.id_empresa.toString());
+    form.append('stock_prod', newProducto.stock_prod.toString());
+    form.append('url', this.API_URI);
     form.append('file', file);
     return this.http.post(`${this.API_URI}productos`, form);
   }
@@ -63,7 +66,8 @@ export class ProductoService {
     form.append('id_marca', newProducto.id_marca.toString());
     form.append('id_cat', newProducto.id_cat.toString());
     form.append('id_empresa', newProducto.id_empresa.toString());
-    console.log(file);
+    form.append('stock_prod', newProducto.stock_prod.toString());
+    form.append('url', this.API_URI);
     form.append('file', file);
     return this.http.put(`${this.API_URI}productos/${newProducto.id_prod}`, form);
   }

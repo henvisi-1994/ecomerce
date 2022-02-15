@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('id_cliente', res.id_cliente);
         this.router.navigate(['/']);
       }
+      // Guardo el objeto como un string
+      localStorage.setItem('user', JSON.stringify(res.User));
 
     })
   }

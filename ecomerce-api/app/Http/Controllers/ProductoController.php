@@ -58,20 +58,15 @@ class ProductoController extends Controller
         ]);
         if ($v) {
             $image_name = '';
+            $url = $request->input('url');
             if ($request->hasFile('file')) {
-                return $request->file;
-               /* $image_name =$request->codbarra_prod . $request->file->extension();
-                $request->file->move('profile_images/', $image_name); // /public/profile_images/file.png*/
+                $imagen = $request->file('file');
+                $path_imagen = $imagen->store('public/producto');
+                $path_imagen = str_replace("public/", "", $path_imagen);
+                $image_name = $url.'storage/'.$path_imagen;
             }
-            $name =$image_name;
-            $source = fopen($request->file, 'r');
-            $destination = fopen(public_path() . '/img/producto/' . $name, 'w');
-            stream_copy_to_stream($source, $destination);
-            fclose($source);
-            fclose($destination);
             $producto = new Producto();
-            $producto->id_emp  =  $request->input('id_emp');
-            $producto->id_fec =  $request->input('id_fec');
+            $producto->id_empresa  =  $request->input('id_empresa');
             $producto->id_bod =  $request->input('id_bod');
             $producto->codigo_prod =  $request->input('codigo_prod');
             $producto->codbarra_prod =  $request->input('codbarra_prod');
@@ -80,7 +75,7 @@ class ProductoController extends Controller
             $producto->id_cat =  $request->input('id_cat');
             $producto->present_prod =  $request->input('present_prod');
             $producto->precio_prod =  $request->input('precio_prod');
-            $producto->ubicacion_prod =  $request->input('ubicacion_prod');
+            $producto->stock_prod =  $request->input('stock_prod');
             $producto->stockmin_prod =  $request->input('stockmin_prod');
             $producto->stockmax_prod =  $request->input('stockmax_prod');
             $producto->fechaing_prod =  $request->input('fechaing_prod');
@@ -90,13 +85,11 @@ class ProductoController extends Controller
             $producto->aplicaice_prod =  $request->input('aplicaice_prod');
             $producto->util_prod =  $request->input('util_prod');
             $producto->comision_prod =  $request->input('comision_prod');
-            $producto->imagen_prod =  $name;
+            $producto->imagen_prod =  $image_name;
             $producto->estado_prod =  $request->input('estado_prod');
             $producto->observ_prod =  $request->input('observ_prod');
-            $producto->fechaini_prod =  $request->input('fechaini_prod');
-            $producto->fechafin_prod =  $request->input('fechafin_prod');
             $producto->save();
-            return $name;
+            return;
         } else {
             return back()->withInput($request->all());
         }
@@ -155,19 +148,15 @@ class ProductoController extends Controller
             'comision_prod' => 'required|numeric|between:0,9999.99',
         ]);
         if ($v) {
-
-            list($type, $imageData) = explode(';', $request->imagen_prod);
-            list(, $extension) = explode('/', $type);
-            list(, $imageData) = explode(',', $imageData);
-            $name = $request->codbarra_prod . '.' . $extension;
-            $source = fopen($request->imagen_prod, 'r');
-            $destination = fopen(public_path() . '/img/producto/' . $name, 'w');
-            stream_copy_to_stream($source, $destination);
-            fclose($source);
-            fclose($destination);
-                $imagen_prod = $name;
-
-            $id_emp  =  $request->input('id_emp');
+            $image_name = '';
+            $url = $request->input('url');
+            if ($request->hasFile('file')) {
+                $imagen = $request->file('file');
+                $path_imagen = $imagen->store('public/producto');
+                $path_imagen = str_replace("public/", "", $path_imagen);
+                $image_name = $url.'storage/'.$path_imagen;
+            }
+            $id_empresa  =  $request->input('id_empresa');
             $id_fec =  $request->input('id_fec');
             $id_bod =  $request->input('id_bod');
             $codigo_prod =  $request->input('codigo_prod');
@@ -177,7 +166,7 @@ class ProductoController extends Controller
             $id_cat =  $request->input('id_cat');
             $present_prod =  $request->input('present_prod');
             $precio_prod =  $request->input('precio_prod');
-            $ubicacion_prod =  $request->input('ubicacion_prod');
+            $stock_prod =  $request->input('stock_prod');
             $stockmin_prod =  $request->input('stockmin_prod');
             $stockmax_prod =  $request->input('stockmax_prod');
             $fechaing_prod =  $request->input('fechaing_prod');
@@ -187,20 +176,17 @@ class ProductoController extends Controller
             $aplicaice_prod =  $request->input('aplicaice_prod');
             $util_prod =  $request->input('util_prod');
             $comision_prod =  $request->input('comision_prod');
-            $imagen_prod =  $name;
+            $imagen_prod =   $image_name ;
             $estado_prod =  $request->input('estado_prod');
             $observ_prod =  $request->input('observ_prod');
-            $fechaini_prod =  $request->input('fechaini_prod');
-            $fechafin_prod =  $request->input('fechafin_prod');
             DB::table('producto')
                 ->where('id_prod', $id)
                 ->update(
                     [
-                        'id_emp' => $id_emp, 'id_fec' => $id_fec, 'id_bod' => $id_bod, 'codigo_prod' => $codigo_prod, 'codbarra_prod' => $codbarra_prod,
+                        'id_empresa' => $id_empresa, 'id_fec' => $id_fec, 'id_bod' => $id_bod, 'codigo_prod' => $codigo_prod, 'codbarra_prod' => $codbarra_prod,
                         'descripcion_prod' => $descripcion_prod, 'id_marca' => $id_marca, 'id_cat' => $id_cat, 'present_prod' => $present_prod,  'precio_prod' => $precio_prod,
-                        'ubicacion_prod' => $ubicacion_prod,  'stockmin_prod' => $stockmin_prod,  'stockmax_prod' => $stockmax_prod, 'fechaing_prod'  => $fechaing_prod,  'fechaelab_prod' => $fechaelab_prod, 'fechacad_prod' => $fechacad_prod, 'aplicaiva_prod' => $aplicaiva_prod, 'aplicaice_prod' => $aplicaice_prod, 'util_prod' => $util_prod,  'comision_prod' => $comision_prod, 'imagen_prod' => $imagen_prod,
-                        'observ_prod' => $observ_prod, 'estado_prod' => $estado_prod, 'fechaini_prod' => $fechaini_prod, 'fechafin_prod' => $fechafin_prod
-                    ]
+                        'stock_prod' => $stock_prod,  'stockmin_prod' => $stockmin_prod,  'stockmax_prod' => $stockmax_prod, 'fechaing_prod'  => $fechaing_prod,  'fechaelab_prod' => $fechaelab_prod, 'fechacad_prod' => $fechacad_prod, 'aplicaiva_prod' => $aplicaiva_prod, 'aplicaice_prod' => $aplicaice_prod, 'util_prod' => $util_prod,  'comision_prod' => $comision_prod, 'imagen_prod' => $imagen_prod,
+                        'observ_prod' => $observ_prod, 'estado_prod' => $estado_prod ]
                 );
             return;
         } else {

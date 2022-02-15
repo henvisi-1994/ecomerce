@@ -1,3 +1,5 @@
+import { CategoriaService } from './../../data/services/api/categoria.service';
+import { AuthService } from './../../data/services/api/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private authService: AuthService,private categoriasaservice:CategoriaService) { }
+  isAuth = false;
+  categorias:any = [];
   ngOnInit(): void {
+    this.isAuth=this.authService.estaLogeado();
+    this.getCategorias()
+  }
+  getCategorias(){
+    this.categoriasaservice.getallCategorias().subscribe(categorias=> this.categorias=categorias);
   }
 
 }
