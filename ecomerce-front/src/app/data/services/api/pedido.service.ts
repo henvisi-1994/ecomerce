@@ -1,6 +1,6 @@
 import { IPedido } from './../../../modules/home/product-detail/pedido.metadata';
 import { HttpClient } from '@angular/common/http';
-import { environment } from './../../../../environments/environment';
+import { environment } from './../../../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { ITipoIdentificacion } from './../../../modules/config/tipo-identificacion/tipoIdentificacion.metadata';
 import { HttpClient } from '@angular/common/http';
-import { environment } from './../../../../environments/environment';
+import { environment } from './../../../../environments/environment.prod';
 import { Injectable } from '@angular/core';
 
 @Injectable({
