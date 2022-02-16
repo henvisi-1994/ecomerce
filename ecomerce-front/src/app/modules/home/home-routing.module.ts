@@ -1,3 +1,4 @@
+import { ProductoCategoriaComponent } from './producto-categoria/producto-categoria.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { HomeComponent } from './home/home.component';
 
@@ -9,6 +10,7 @@ import { CarShopComponent } from './car-shop/car-shop.component';
 
 const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'detalle/:id', component: ProductDetailComponent },
+{ path: 'categoria/:id', component: ProductoCategoriaComponent },
 { path: 'cart', component: CarShopComponent }
 ];
 

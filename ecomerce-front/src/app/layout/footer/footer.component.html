@@ -1,13 +1,11 @@
 <div class="footer">
-	<div class="container">
+  <div class="container">
     <div class="row footer-main">
       <div class="col-sm  footer-grid">
         <ul>
-          <li><a href="product.html">Accessories</a></li>
-          <li><a href="product.html">Hand bags</a></li>
-          <li><a href="product.html">Clothing</a></li>
-          <li><a href="product.html">Brands</a></li>
-          <li><a href="product.html">Watches</a></li>
+          <li *ngFor="let categoria of categorias">
+            <a routerLink="/categoria/{{categoria.id_cat}}">{{categoria.nomb_cat}}</a>
+          </li>
         </ul>
       </div>
       <div class="col-sm  footer-grid">
@@ -22,17 +20,17 @@
         <ul>
           <li><a href="terms.html">Website Terms</a></li>
           <li><select class="country">
-                  <option value="select your location">Select Country</option>
-                  <option value="saab">Australia</option>
-                  <option value="fiat">Singapore</option>
-                  <option value="audi">London</option>
-                </select>
+              <option value="select your location">Select Country</option>
+              <option value="saab">Australia</option>
+              <option value="fiat">Singapore</option>
+              <option value="audi">London</option>
+            </select>
 
           </li>
           <li><a href="shortcodes.html">Short Codes</a></li>
         </ul>
       </div>
-      <div class="col-sm footer-grid-icon"  >
+      <div class="col-sm footer-grid-icon">
         <ul>
           <li><a href="#"><span class="u-tub"> </span></a></li>
           <li><a href="#"><span class="instro"> </span></a></li>
@@ -41,8 +39,9 @@
           <li><a href="#"><span class="print"> </span></a></li>
         </ul>
         <form>
-        <input class="email-ftr" type="text" value="Newsletter" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Newsletter';}">
-        <input type="submit" value="Submit">
+          <input class="email-ftr" type="text" value="Newsletter" onfocus="this.value = '';"
+            onblur="if (this.value == '') {this.value = 'Newsletter';}">
+          <input type="submit" value="Submit">
         </form>
       </div>
     </div>

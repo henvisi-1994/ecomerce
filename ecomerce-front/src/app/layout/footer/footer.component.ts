@@ -1,3 +1,4 @@
+import { CategoriaService } from './../../data/services/api/categoria.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-
-  constructor() { }
+  categorias:any = [];
+  constructor(private categoriasaservice:CategoriaService) { }
 
   ngOnInit(): void {
+    this.getCategorias();
+  }
+  getCategorias(){
+    this.categoriasaservice.getallCategorias().subscribe(categorias=> this.categorias=categorias);
   }
 
 }

@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CarShopComponent } from './car-shop/car-shop.component';
+import { ProductoCategoriaComponent } from './producto-categoria/producto-categoria.component';
 
 
 
@@ -14,7 +15,8 @@ import { CarShopComponent } from './car-shop/car-shop.component';
     HomeComponent,
     ProductDetailComponent,
     CarShopComponent,
-    ChatDialogComponent
+    ChatDialogComponent,
+    ProductoCategoriaComponent
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
 

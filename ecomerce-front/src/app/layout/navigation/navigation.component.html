@@ -12,7 +12,7 @@
         <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item" *ngFor="let categoria of categorias">
-        <a class="nav-link" href="#">{{categoria.nomb_cat}}</a>
+        <a class="nav-link" routerLink="/categoria/{{categoria.id_cat}}">{{categoria.nomb_cat}}</a>
       </li>
     </ul>
     <div class="header-right">

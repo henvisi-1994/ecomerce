@@ -16,9 +16,9 @@
         <div class="close1" (click)="deleteDetalle(producto.id_detalle_ped)"> </div>
           <li class="ring-in mr-5"><a><img src="{{producto.imagen_prod}}"  class="img-responsive" alt=""></a>
           </li>
-          <li><span class="ml-3">{{producto.descripcion_prod}}</span></li>
-          <li><span class="item_price">${{producto.precio_prod}}</span></li>
-          <li><span class="item_price">${{producto.cantidad}}</span></li>
+          <li><span class="ml-3">{{producto.present_prod}}</span></li>
+          <li><span class="item_price">${{producto.total_detalle}}</span></li>
+          <li><span class="item_price">{{producto.cantidad}}</span></li>
         <div class="clearfix"> </div>
       </ul>
 

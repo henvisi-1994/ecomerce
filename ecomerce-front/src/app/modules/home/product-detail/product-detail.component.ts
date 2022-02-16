@@ -86,11 +86,17 @@ export class ProductDetailComponent implements OnInit {
       precio_prod = precio;
     }
     this.pedido.total = precio_prod;
-    this.pedidoservice.savePedido(this.pedido).subscribe((res: any) => {
-      let id_pedido = res.id_pedido;
-      localStorage.setItem('id_pedido', id_pedido);
-      this.saveDetallePedido(id_pedido);
-    })
+    let id_pedido_sotorage = parseInt(localStorage.getItem('id_pedido') + ' ');
+    if (localStorage.getItem('id_pedido',) != undefined) {
+      this.saveDetallePedido(id_pedido_sotorage);
+    } else {
+      this.pedidoservice.savePedido(this.pedido).subscribe((res: any) => {
+        let id_pedido = res.id_pedido;
+        localStorage.setItem('id_pedido', id_pedido);
+        this.saveDetallePedido(id_pedido);
+      })
+    }
+    /* */
   }
   calcularIva(precio: number) {
     let iva = precio * 0.12;

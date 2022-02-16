@@ -17,6 +17,9 @@ export class ProductoService {
   getProducto(id: any) {
     return this.http.get(`${this.API_URI}productos/${id}`);
   }
+  getProductoCategoria(id_categoria: any) {
+    return this.http.get(`${this.API_URI}productos/categoria/${id_categoria}`);
+  }
   saveProducto(newProducto: IProducto, file: File) {
     const form = new FormData();
     form.append('codigo_prod', newProducto.codigo_prod);
