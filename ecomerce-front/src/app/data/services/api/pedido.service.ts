@@ -15,4 +15,7 @@ export class PedidoService {
   savePedido(newPedido: IPedido){
     return this.http.post(`${this.API_URI}pedido`,newPedido);
   }
+  enviarPedido(id_pedido:number){
+    return this.http.put(`${this.API_URI}pedido/enviar/${id_pedido}`,null);
+  }
 }

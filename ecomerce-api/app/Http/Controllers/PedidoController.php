@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EstadoPedido;
 use App\Models\Pedido;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -42,19 +44,20 @@ class PedidoController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'cantidad' => 'required',
+            'total' => 'required',
             'estado_ped' => 'required|string|max:1',
             'id_cliente' => 'required',
             'id_formapago' => 'required',
 
         ]);
         Pedido::create([
-            'cantidad' => $validateData['cantidad'],
+            'total' => $validateData['total'],
             'estado_ped' => $validateData['estado_ped'],
             'id_cliente' => $validateData['id_cliente'],
             'id_formapago' => $validateData['id_formapago'],
         ]);
         $data = Pedido::latest('id_pedido')->first();
+        EstadoPedido::create(  ['estado_inicial' => 'P', 'estado_actual' =>'P', 'estado_final' => 'P','fecha_registro'=> Carbon::now(),'id_pedido'=>$data->id_pedido]);
         return $data;
     }
 
@@ -100,6 +103,23 @@ class PedidoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('pedido')
+        ->where('id_pedido', $id)
+        ->update(
+            ['estado_ped' => 'A']
+        );
+    }
+     public function enviar($id)
+    {
+        DB::table('estado_pedido')
+        ->where('id_pedido', $id)
+        ->update(
+            ['estado_inicial' => 'P', 'estado_actual' =>'E', 'estado_final' => 'P']
+        );
+        DB::table('pedido')
+        ->where('id_pedido', $id)
+        ->update(
+            ['estado_ped' => 'E']
+        );
     }
 }

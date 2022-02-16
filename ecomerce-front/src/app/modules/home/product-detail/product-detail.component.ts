@@ -1,11 +1,13 @@
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDetallePedido } from './detalle-pedido.metadata';
 import { DetallePedidoService } from './../../../data/services/api/detalle-pedido.service';
 import { PedidoService } from './../../../data/services/api/pedido.service';
 import { IPedido } from './pedido.metadata';
 import { FormaPagoService } from './../../../data/services/api/forma-pago.service';
 import { ProductoService } from './../../../data/services/api/producto.service';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-product-detail',
@@ -16,18 +18,19 @@ export class ProductDetailComponent implements OnInit {
   producto: any;
   pedido: IPedido = {
     id_pedido: 0,
-    cantidad: 1,
     fecha_inicio: '',
     fecha_ult_mod: '',
     fecha_registro_ped: '',
     estado_ped: '',
     id_cliente: 0,
-    id_formapago: 0
+    id_formapago: 0,
+    total: 0
   }
   detallePedido: IDetallePedido = {
     id_detalle_ped: 0,
     id_prod: 0,
-    id_pedido: 0
+    id_pedido: 0,
+    cantidad: 1,
   }
   forpagos: any = [];
   constructor(
@@ -35,9 +38,12 @@ export class ProductDetailComponent implements OnInit {
     private formaPagoservice: FormaPagoService,
     private pedidoservice: PedidoService,
     private detallePedidoservice: DetallePedidoService,
+    private confirmDialog: NgbModal,
+    private router: Router,
     private route: ActivatedRoute
   ) { }
-
+  closeResult: string | undefined;
+  @ViewChild('ConfirmDialog', { static: false }) modal: ElementRef | undefined;
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       if (params.has('id')) {
@@ -47,25 +53,62 @@ export class ProductDetailComponent implements OnInit {
     })
     this.getFormaPagos();
   }
+  // Boton para abrir ventana modal
+  open(content: any) {
+    this.confirmDialog.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  // Cierra Ventana modal
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
   getFormaPagos() {
     this.formaPagoservice.getallFormaPago().subscribe(r => { this.forpagos = r; })
   }
-  savePedido(id_prod: number) {
+  savePedido(id_prod: number, precio: number, aplica_iva: any) {
     let id_cli = localStorage.getItem('id_cliente');
     this.pedido.id_cliente = Number.parseInt(id_cli + '');
     this.pedido.estado_ped = 'I';
     this.detallePedido.id_prod = id_prod;
+    let precio_prod = 0;
+    if (aplica_iva === 1) {
+      precio_prod = this.calcularIva(precio);
+    } else {
+      precio_prod = precio;
+    }
+    this.pedido.total = precio_prod;
     this.pedidoservice.savePedido(this.pedido).subscribe((res: any) => {
-      let id_pedido=res.id_pedido;
-      localStorage.setItem('id_pedido',id_pedido);
+      let id_pedido = res.id_pedido;
+      localStorage.setItem('id_pedido', id_pedido);
       this.saveDetallePedido(id_pedido);
     })
+  }
+  calcularIva(precio: number) {
+    let iva = precio * 0.12;
+    return precio + iva;
   }
   saveDetallePedido(id_pedido: any) {
     this.detallePedido.id_pedido = id_pedido;
     this.detallePedidoservice.saveDetalle(this.detallePedido).subscribe((res: any) => {
-      alert('pedido creado exitosamente');
+      this.open(this.modal);
     })
+  }
+  continuar(nexCompra: boolean) {
+    if (nexCompra) {
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/cart']);
+      localStorage.removeItem('id_pedido');
+    }
   }
 
 }

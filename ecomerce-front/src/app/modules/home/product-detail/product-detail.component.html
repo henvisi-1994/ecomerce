@@ -23,7 +23,7 @@
           </div>
           <div class="form-group">
             <label for="">Cantidad</label>
-            <input type="text" name="cantidad" [(ngModel)]="pedido.cantidad" class="form-control"
+            <input type="text" name="cantidad" [(ngModel)]="detallePedido.cantidad" class="form-control"
               placeholder="Ingrese cantidad">
           </div>
           <div class="form-group">
@@ -35,7 +35,7 @@
 
 
           <div class="mt-4">
-            <div class="btn btn-primary btn-lg btn-flat" (click)="savePedido(producto.id_prod)">
+            <div class="btn btn-primary btn-lg btn-flat" (click)="savePedido(producto.id_prod,producto.precio_prod,producto.aplicaiva_prod)">
               <i class="fas fa-cart-plus fa-lg mr-2"></i>
               Add to Cart
             </div>
@@ -58,6 +58,18 @@
 
         </div>
       </div>
+      <ng-template #ConfirmDialog let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">¿Desea Continuar Comprando?</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn  btn-primary" (click)="continuar(true)" >Si</button>
+          <button type="button" class="btn  btn-primary" (click)="continuar(false)">No</button>
+        </div>
+      </ng-template>
 
     </div>
     <!-- /.card-body -->

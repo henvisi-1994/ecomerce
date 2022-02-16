@@ -126,9 +126,13 @@ Route::prefix('pedido')->group( function (){
     Route::get('/' ,[PedidoController::class,'index']);
     Route::get('/{id}' ,[PedidoController::class,'show']);
     Route::post('/',[PedidoController::class,'store']);
+    Route::put('/enviar/{id}',[PedidoController::class,'enviar']);
+    Route::delete('/{id}' ,[PedidoController::class,'destroy']);
     Route::prefix('detalle')->group( function (){
+        Route::get('admin/{id}' ,[DetallePedidoController::class,'getPedido']);
         Route::get('/{id}' ,[DetallePedidoController::class,'show']);
         Route::post('/',[DetallePedidoController::class,'store']);
+        Route::delete('/{id}',[DetallePedidoController::class,'destroy']);
     });
 });
 Route::prefix('formaPago')->group( function (){

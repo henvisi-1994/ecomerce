@@ -16,4 +16,10 @@ export class DetallePedidoService {
   getCart(id_cliente:any){
     return this.http.get(`${this.API_URI}pedido/detalle/${id_cliente}`);
   }
+  getDetalle(id_pedido:number){
+    return this.http.get(`${this.API_URI}pedido/detalle/admin/${id_pedido}`);
+  }
+  deleteDetalle(id_detalle_ped:number){
+    return this.http.delete(`${this.API_URI}pedido/detalle/${id_detalle_ped}`);
+  }
 }

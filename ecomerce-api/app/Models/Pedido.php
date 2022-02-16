@@ -13,7 +13,7 @@ class Pedido extends Model
     protected $table = 'pedido';
     protected $primaryKey = 'id_pedido';
     protected $fillable = [
-        'cantidad',
+        'total',
         'fecha_inicio',
         'fecha_ult_mod',
         'fecha_registro_ped',
