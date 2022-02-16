@@ -18,6 +18,15 @@ export class AuthService {
   estaLogeado(): boolean {
     return !!localStorage.getItem('token');
   }
+  tipoUser(): string{
+    if (localStorage.getItem('id_cliente') != undefined) {
+      return 'Cliente'
+    } else if(localStorage.getItem('id_empleado') != undefined){
+      return 'Empleado'
+    }else{
+      return ''
+    }
+  }
   getToken() {
     return localStorage.getItem('token');
   }

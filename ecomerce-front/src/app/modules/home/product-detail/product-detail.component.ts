@@ -1,3 +1,4 @@
+import { AuthService } from './../../../data/services/api/auth.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDetallePedido } from './detalle-pedido.metadata';
 import { DetallePedidoService } from './../../../data/services/api/detalle-pedido.service';
@@ -33,7 +34,9 @@ export class ProductDetailComponent implements OnInit {
     cantidad: 1,
   }
   forpagos: any = [];
+  isAuth: any;
   constructor(
+    private authService: AuthService,
     private productService: ProductoService,
     private formaPagoservice: FormaPagoService,
     private pedidoservice: PedidoService,
@@ -45,6 +48,7 @@ export class ProductDetailComponent implements OnInit {
   closeResult: string | undefined;
   @ViewChild('ConfirmDialog', { static: false }) modal: ElementRef | undefined;
   ngOnInit(): void {
+    this.isAuth=this.authService.estaLogeado();
     this.route.paramMap.subscribe(params => {
       if (params.has('id')) {
         this.productService.getProducto(params.get("id")).subscribe(producto => this.producto = producto);
@@ -86,8 +90,8 @@ export class ProductDetailComponent implements OnInit {
       precio_prod = precio;
     }
     this.pedido.total = precio_prod;
-    let id_pedido_sotorage = parseInt(localStorage.getItem('id_pedido') + ' ');
     if (localStorage.getItem('id_pedido',) != undefined) {
+      let id_pedido_sotorage = parseInt(localStorage.getItem('id_pedido') + ' ');
       this.saveDetallePedido(id_pedido_sotorage);
     } else {
       this.pedidoservice.savePedido(this.pedido).subscribe((res: any) => {

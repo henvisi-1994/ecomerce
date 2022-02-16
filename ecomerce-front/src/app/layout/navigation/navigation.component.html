@@ -34,7 +34,7 @@
           <h5><a routerLink="/login" ><i class="hd-dign"></i>Iniciar sesion</a></h5>
         </div>
         <div class="head-signin" *ngIf="isAuth">
-          <h5><a routerLink="/logout" ><i class="hd-dign"></i>Cerrar Sesion</a></h5>
+          <h5><a (click)="logout()"><i class="hd-dign"></i>Cerrar Sesion</a></h5>
         </div>
                    <div class="clearfix"> </div>
       </div>

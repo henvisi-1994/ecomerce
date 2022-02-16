@@ -15,9 +15,15 @@ export class NoAuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ) : boolean{
     if (this.authService.estaLogeado()) {
-      this.router.navigate(['admin'],{
-        queryParams:{returnUrl: state.url}
-      });
+      switch(this.authService.tipoUser()){
+        case 'Cliente':
+          this.router.navigate(['/']);
+          break;
+          case 'Empleado':
+            this.router.navigate(['admin']);
+            break;
+      }
+
       return false;
     } else {
       return true;
