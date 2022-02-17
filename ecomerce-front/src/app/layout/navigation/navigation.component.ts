@@ -16,7 +16,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
     this.isAuth = this.authService.estaLogeado();
     if ((this.authService.tipoUser()) == 'Empleado') {
-      this.isempleado = false;
+      this.isempleado = true;
     }
     this.getCategorias()
   }

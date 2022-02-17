@@ -8,5 +8,5 @@ nomb_contac_bod:string;
 fechaini_bod:string;
 fechafin_bod:string;
 id_ciudad:number;
-id_direcion:number;
+id_direccion:number;
 }

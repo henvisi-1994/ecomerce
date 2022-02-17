@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        //['index','noticias']
+        $this->middleware('auth:sanctum')->except(['register','login']);
+    }
     public function register(Request $request)
     {
         $validateData = $request->validate([

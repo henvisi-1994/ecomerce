@@ -18,6 +18,6 @@ class Envio extends Model
        'fecha_registro_env',
        'ciudad_origen',
        'ciudad_destino',
-       'pedido_id_pedido'
+       'id_pedido'
     ];
 }

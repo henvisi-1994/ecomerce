@@ -18,4 +18,7 @@ export class PedidoService {
   enviarPedido(id_pedido:number){
     return this.http.put(`${this.API_URI}pedido/enviar/${id_pedido}`,null);
   }
+  pagarPedido(id_pedido:number){
+    return this.http.put(`${this.API_URI}pedido/pagar/${id_pedido}`,null);
+  }
 }

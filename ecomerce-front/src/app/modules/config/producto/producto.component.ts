@@ -2,6 +2,10 @@ import { ProductoService } from './../../../data/services/api/producto.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import { IProducto } from './producto.metadata'
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { BodegaService } from '@data/services/api/bodega.service';
+import { CategoriaService } from '@data/services/api/categoria.service';
+import { EmpresaService } from '@data/services/api/empresa.service';
+import { MarcaService } from '@data/services/api/marca.service';
 
 @Component({
   selector: 'app-producto',
@@ -39,131 +43,32 @@ export class ProductoComponent implements OnInit {
   }
   productos: any = [];
 
-  bodegas = [
-    {
-      id_prod: 1,
-      nombre_bod: 'Bodega 1',
-      estado_prod: 'A',
-      codbarra_prod: '2222222',
-      descripcion_prod: '0999999',
-      present_prod: '',
-      precio_prod: '2021-08-03',
-      stockmin_prod: '2022-08-03',
-      id_bod: 1,
-      id_marca: 2,
-    },
-    {
-      id_prod: 2,
-      nombre_bod: 'Bodega  2',
-      estado_prod: 'A',
-      codbarra_prod: '2222222',
-      descripcion_prod: '099999999',
-      present_prod: '',
-      precio_prod: '2021-07-03',
-      stockmin_prod: '2022-07-03',
-      id_bod: 2,
-      id_marca: 2,
-    },
-    {
-      id_prod: 3,
-      nombre_bod: 'Bodega 3',
-      estado_prod: 'A',
-      codbarra_prod: '565656565',
-      descripcion_prod: '0989898989',
-      present_prod: '',
-      precio_prod: '2021-08-09',
-      stockmin_prod: '2022-08-02',
-      id_bod: 1,
-      id_marca: 1,
-    },
-  ]
-  marcas = [
-    {
-      id_marca: 2,
-      nomb_marca: 'Marca 2',
-      observ_marca: '',
-      estado_marca: 'I',
-    },
-    {
-      id_marca: 3,
-      nomb_marca: 'Marca 3',
-      observ_marca: '',
-      estado_marca: 'A',
-    },
-    {
-      id_marca: 4,
-      nomb_marca: 'Marca 4',
-      observ_marca: '',
-      estado_marca: 'A',
-    },
-  ]
-  categorias = [
-    {
-      id_cat: 1,
-      nomb_cat: 'categoria 1',
-      observ_cat: '',
-      estado_cat: 'I',
-    },
-    {
-      id_cat: 2,
-      nomb_cat: 'categoria 2',
-      observ_cat: '',
-      estado_cat: 'A',
-    },
-    {
-      id_cat: 3,
-      nomb_cat: 'categoria 3',
-      observ_cat: '',
-      estado_cat: 'A',
-    },
-    {
-      id_cat: 4,
-      nomb_cat: 'categoria 4',
-      observ_cat: '',
-      estado_cat: 'A',
-    },
-    {
-      id_cat: 5,
-      nomb_cat: 'categoria 5',
-      observ_cat: '',
-      estado_cat: 'A',
-    },
-  ]
-  empresas = [
-    {
-      id_empresa: 1,
-      razon_social: 'Emp1',
-      codigo_envio: 'EMP001',
-      nombre_comercial: 'Empresa 1',
-      ruc: '074545454545001',
-      fecha_inicio: '2021-02-03',
-      fecha_fin: '2022-02-03',
-    },
-    {
-      id_empresa: 2,
-      razon_social: 'Emp2',
-      codigo_envio: 'EMP002',
-      nombre_comercial: 'Empresa 2',
-      ruc: '074545454545001',
-      fecha_inicio: '2021-02-03',
-      fecha_fin: '2022-02-03',
-    },
-    {
-      id_empresa: 3,
-      razon_social: 'Emp3',
-      codigo_envio: 'EMP003',
-      nombre_comercial: 'Empresa 3',
-      ruc: '074545454545001',
-      fecha_inicio: '2021-02-03',
-      fecha_fin: '2022-02-03',
-    },
-  ]
+  bodegas:any = [];
+  marcas:any = [  ]
+  categorias:any = [ ]
+  empresas:any = [ ]
   @ViewChild('productoModal', { static: false }) modal: ElementRef | undefined
   edit = false
-  constructor(private modalProducto: NgbModal, private productService: ProductoService) { }
+  constructor(private modalProducto: NgbModal, private productService: ProductoService,private bodegaservice:BodegaService,private categoriasaservice:CategoriaService,private empresaservice:EmpresaService, private marcaservice:MarcaService ){ }
 
   ngOnInit(): void {
     this.getProductos();
+    this.getBodegas();
+    this.getCategorias();
+    this.getEmpresas();
+    this.getMarcas();
+  }
+  getBodegas(){
+    this.bodegaservice.getallBodegas().subscribe(bodegas=> this.bodegas=bodegas);
+  }
+  getCategorias(){
+    this.categoriasaservice.getallCategorias().subscribe(categorias=> this.categorias=categorias);
+  }
+  getEmpresas(){
+    this.empresaservice.getallEmpresas().subscribe(empresas=> this.empresas=empresas);
+  }
+  getMarcas() {
+    this.marcaservice.getallMarcas().subscribe(marcas => this.marcas = marcas);
   }
   public onFileChange(event: any) {
     if (event.target.files && event.target.files.length > 0) {

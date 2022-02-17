@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Envio;
 use App\Models\EstadoPedido;
 use App\Models\Pedido;
 use Carbon\Carbon;
@@ -51,6 +52,9 @@ class PedidoController extends Controller
 
         ]);
         Pedido::create([
+            'fecha_inicio'=>Carbon::now(),
+            'fecha_ult_mod'=>Carbon::now(),
+            'fecha_registro_ped'=>Carbon::now(),
             'total' => $validateData['total'],
             'estado_ped' => $validateData['estado_ped'],
             'id_cliente' => $validateData['id_cliente'],
@@ -58,6 +62,11 @@ class PedidoController extends Controller
         ]);
         $data = Pedido::latest('id_pedido')->first();
         EstadoPedido::create(  ['estado_inicial' => 'P', 'estado_actual' =>'P', 'estado_final' => 'P','fecha_registro'=> Carbon::now(),'id_pedido'=>$data->id_pedido]);
+        Envio::create(['fecha_inicio_ped'=> Carbon::now(), 'fecha_fin_ped'=> Carbon::now(),
+        'fecha_registro_env'=> Carbon::now(), 'fecha_fin_ped',
+        'ciudad_origen'=>1,
+        'ciudad_destino'=>1,
+        'id_pedido'=>$data->id_pedido]);
         return $data;
     }
 
@@ -107,6 +116,14 @@ class PedidoController extends Controller
         ->where('id_pedido', $id)
         ->update(
             ['estado_ped' => 'A']
+        );
+    }
+    public function Pagar($id)
+    {
+        DB::table('pedido')
+        ->where('id_pedido', $id)
+        ->update(
+            ['estado_ped' => 'P']
         );
     }
      public function enviar($id)

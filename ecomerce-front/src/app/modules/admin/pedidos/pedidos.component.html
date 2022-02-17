@@ -27,6 +27,7 @@
       <td>{{pedido.total}}</td>
       <td>
         <div *ngIf="pedido.estado_ped=='I'" class="badge badge-danger">Pendiente</div>
+        <div *ngIf="pedido.estado_ped=='P'" class="badge badge-success">Pagado</div>
         <div *ngIf="pedido.estado_ped=='E'" class="badge badge-warning">Enviado</div>
         <div *ngIf="pedido.estado_ped=='R'" class="badge badge-success">Recivido</div>
       </td>
@@ -35,9 +36,7 @@
         <button class="btn btn-info" (click)="getDetalle(pedido.id_pedido)"><i class="fa fa-info"></i></button>
         &nbsp;
         <!-- Elimina producto obteniendo id desde arreglo a NgModel de producto -->
-        <button class="btn btn-warning" (click)="enviarPedido(pedido.id_pedido)"><i class="fa fa-check"></i></button>
-        &nbsp;
-        <button class="btn btn-danger"><i class="fa fa fa-trash-alt"></i></button>
+        <button *ngIf="pedido.estado_ped=='P'"  class="btn btn-warning" (click)="enviarPedido(pedido.id_pedido)"><i class="fa fa-check"></i></button>
       </td>
     </tr>
   </tbody>

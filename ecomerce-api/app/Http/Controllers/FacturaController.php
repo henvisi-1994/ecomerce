@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class FacturaController extends Controller
 {
+    public function __construct()
+    {
+        //['index','noticias']
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      *

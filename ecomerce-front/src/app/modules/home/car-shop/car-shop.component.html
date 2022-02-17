@@ -21,6 +21,33 @@
           <li><span class="item_price">{{producto.cantidad}}</span></li>
         <div class="clearfix"> </div>
       </ul>
+      <div class="row" *ngIf="productos.length>0">
+        <!-- accepted payments column -->
+        <div class="col-6">
+
+        </div>
+        <!-- /.col -->
+        <div class="col-6">
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th style="width:50%">Subtotal:</th>
+                <td>${{subtotal}}</td>
+              </tr>
+              <tr>
+                <th>IVA (12%)</th>
+                <td>${{IVA}}</td>
+              </tr>
+              <tr>
+                <th>Total:</th>
+                <td>${{total}}</td>
+              </tr>
+            </table>
+          </div>
+          <button class="btn btn-primary"(click)="pagarPedido(productos[0].id_pedido)">Pagar</button>
+        </div>
+        <!-- /.col -->
+      </div>
 
     </div>
     </div>

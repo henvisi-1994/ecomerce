@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class BodegaController extends Controller
 {
+    public function __construct()
+    {
+        //['index','noticias']
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +47,7 @@ class BodegaController extends Controller
     {
         $v = $this->validate(request(), [
             'nombre_bod' => 'required',
-            'id_direcion' => 'required',
+            'id_direccion' => 'required',
             'telef_bod' => 'required',
             'cel_bod' => 'required',
             'estado_bod' => 'required',
@@ -54,7 +59,7 @@ class BodegaController extends Controller
             $bodegas = new Bodega();
             $bodegas->id_ciudad = $request->input('id_ciudad');
             $bodegas->nombre_bod = $request->input('nombre_bod');
-            $bodegas->id_direccion = $request->input('id_direcion');
+            $bodegas->id_direccion = $request->input('id_direccion');
             $bodegas->telef_bod = $request->input('telef_bod');
             $bodegas->cel_bod = $request->input('cel_bod');
             $bodegas->estado_bod = $request->input('estado_bod');

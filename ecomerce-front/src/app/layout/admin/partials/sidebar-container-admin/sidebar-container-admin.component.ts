@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar-container-admin',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarContainerAdminComponent implements OnInit {
 user:any;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     try {
@@ -18,6 +19,10 @@ user:any;
     }
 
 
+  }
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/']);
   }
 
 }

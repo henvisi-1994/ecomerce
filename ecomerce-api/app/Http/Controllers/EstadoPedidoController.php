@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class EstadoPedidoController extends Controller
 {
+    public function __construct()
+    {
+        //['index','noticias']
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      *
