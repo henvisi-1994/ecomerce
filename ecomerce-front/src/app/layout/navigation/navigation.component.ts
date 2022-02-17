@@ -9,18 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private authService: AuthService,private categoriasaservice:CategoriaService) { }
+  constructor(private authService: AuthService, private categoriasaservice: CategoriaService) { }
   isAuth = false;
-  categorias:any = [];
+  isempleado: boolean = false;
+  categorias: any = [];
   ngOnInit(): void {
-    this.isAuth=this.authService.estaLogeado();
+    this.isAuth = this.authService.estaLogeado();
+    if ((this.authService.tipoUser()) == 'Empleado') {
+      this.isempleado = false;
+    }
     this.getCategorias()
   }
-  getCategorias(){
-    this.categoriasaservice.getallCategorias().subscribe(categorias=> this.categorias=categorias);
+  getCategorias() {
+    this.categoriasaservice.getallCategorias().subscribe(categorias => this.categorias = categorias);
   }
-  logout(){
+  logout() {
     localStorage.clear();
-    this.  isAuth = false;
+    this.isAuth = false;
   }
 }

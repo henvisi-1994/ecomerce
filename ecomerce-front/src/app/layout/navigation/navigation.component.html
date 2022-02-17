@@ -22,7 +22,7 @@
           <h3>
             <img src="assets/images/cart.png" alt=""/>
             <div class="total">
-            <span class="simpleCart_total"><span class="badge badge-danger">1</span></span></div>
+           <!--<span class="simpleCart_total"><span class="badge badge-danger">1</span></span>--></div>
             </h3>
           </a>
           <p>
@@ -32,6 +32,9 @@
         </div>
         <div class="head-signin" *ngIf="!isAuth">
           <h5><a routerLink="/login" ><i class="hd-dign"></i>Iniciar sesion</a></h5>
+        </div>
+        <div class="head-signin" *ngIf="isempleado">
+          <h5><a routerLink="/admin" ><i class="hd-dign"></i>Panel de Administracion</a></h5>
         </div>
         <div class="head-signin" *ngIf="isAuth">
           <h5><a (click)="logout()"><i class="hd-dign"></i>Cerrar Sesion</a></h5>

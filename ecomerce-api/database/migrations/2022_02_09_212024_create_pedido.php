@@ -15,7 +15,7 @@ class CreatePedido extends Migration
     {
         Schema::create('pedido', function (Blueprint $table) {
             $table->id('id_pedido');
-            $table->integer('cantidad');
+            $table->double('total');
             $table->date('fecha_inicio');
             $table->date('fecha_ult_mod');
             $table->date('fecha_registro_ped');

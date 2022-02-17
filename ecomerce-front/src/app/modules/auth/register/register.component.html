@@ -1,48 +1,70 @@
 <div class="hold-transition register-page">
-<div class="register-box">
-  <div class="card card-outline card-primary">
-    <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
-    </div>
-    <div class="card-body">
-      <p class="login-box-msg">Registro</p>
-
-      <form >
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name"  name="name" [(ngModel)]="user.name">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+  <div class="register-box">
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <a href="../../index2.html" class="h1"><b>EPTECH</b></a>
+      </div>
+      <div class="card-body">
+        <p class="login-box-msg">Registro</p>
+        <form >
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="">Nombres</label>
+                <input type="text" name="nombre_persona" [(ngModel)]="persona.nombre_persona" class="form-control"
+                  placeholder="Ingrese nombre de la cliente">
+              </div>
+              <div class="form-group">
+                <label for="">Apellidos</label>
+                <input type="text" name="apellido_persona" [(ngModel)]="persona.apellido_persona" class="form-control"
+                  placeholder="Ingrese apellidos del cliente">
+              </div>
+              <div class="form-group">
+                <label for="">Tipo de Identificacion</label>
+                <select name="tipoidentificacion" id="" [(ngModel)]="persona.id_tipo_ident" class="form-control" >
+                  <option  *ngFor="let tipoIdentificacion  of tiposIdentificacion" value="{{tipoIdentificacion.id_tipo_ident}}">{{tipoIdentificacion.nombre_tipo_ident}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="">DNI</label>
+                <input type="text" name="dni" [(ngModel)]="persona.dni" class="form-control"
+                  placeholder="Ingrese numero de dni">
+              </div>
+              <div class="form-group">
+                <label for="">email</label>
+                <input type="email" name="email" [(ngModel)]="user.email" class="form-control"
+                  placeholder="Ingrese su email">
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email"   [(ngModel)]="user.email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+            <div class="col">
+              <div class="form-group">
+                <label for="">Empresa</label>
+                <select name="empresa" id="" [(ngModel)]="user.id_empresa" class="form-control" >
+                  <option  *ngFor="let empresa of empresas" value="{{empresa.id_empresa}}">{{empresa.nombre_comercial		}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="">Direccion</label>
+                <select name="direccion" id="" [(ngModel)]="user.id_direccion" class="form-control" >
+                  <option  *ngFor="let direcion of direcciones" value="{{direcion.id_direccion}}">{{direcion.direcion		}}</option>
+                </select>
+              </div>
+              <div  class="form-group">
+                <label for="">Contraseña</label>
+                <input type="password" class="form-control" placeholder="Password"  name="password"  [(ngModel)]="user.password">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                  </div>
+                </div>
+              </div>
             </div>
+           <button type="submit" class="btn btn-primary btn-block" (click)="saveUser()">Register</button>
           </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password"  name="password"  [(ngModel)]="user.password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-         <!-- /.col -->
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block" (click)="saveUser()">Register</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-      <a href="login.html" class="text-center">I already have a membership</a>
-    </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
-</div>
+        </form>
+        <a routerLink="/login"  class="text-center">I already have a membership</a>
+      </div>
+      <!-- /.form-box -->
+    </div><!-- /.card -->
+  </div>
+  </div>

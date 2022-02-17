@@ -1,3 +1,4 @@
+import { IUserRegister } from './../../../modules/auth/register/userRegister.metadata';
 import { IUser } from './../../../modules/user/user/user.metadata';
 import { environment } from './../../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   API_URI = environment.uri; // URL de Backend
   constructor(private http: HttpClient) { }
-  register(newUser: IUser){
+  register(newUser: IUserRegister){
     return this.http.post(`${this.API_URI}register`,newUser);
   }
   login(newUser: IUser){

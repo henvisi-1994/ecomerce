@@ -20,6 +20,7 @@ class CreatePersona extends Migration
             $table->string('dni');
             $table->unsignedBigInteger('id_tipo_ident');
             $table->foreign('id_tipo_ident')->references('id_tipo_ident')->on('tipo_identificacion')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -19,6 +19,7 @@ class CreateCiudad extends Migration
             $table->unsignedBigInteger('id_provincia');
             $table->char('estado_ciudad',1);
             $table->foreign('id_provincia')->references('id_provincia')->on('provincia')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

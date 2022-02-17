@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  uri:'https://storeepapi.online//',
+  //uri:'http://localhost:8000/',
+ uri:'https://storeepapi.online/',
 };

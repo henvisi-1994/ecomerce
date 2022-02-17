@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Empleado;
+use App\Models\Persona;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,15 +16,33 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validateData = $request->validate([
-            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
+        $persona = Persona::where(
+            'id_persona',
+            $request->id_persona
+        )->first();
+        $nombre = $persona->nombre_persona;
+        $apellido = $persona->apellido_persona;
+        $username = $nombre . ' ' . $apellido;
         $user = User::create([
-            'name' => $validateData['name'],
+            'name' => $username,
             'email' => $validateData['email'],
             'password' => Hash::make($validateData['password']),
+            'estado_user'=>'A'
         ]);
+        $usuario = User::latest('id')->first();
+        $clientes = new Cliente();
+        $clientes->id_empresa = $request->input('id_empresa');
+        $clientes->id_direccion = $request->input('id_direccion');
+        $clientes->id_persona = $request->input('id_persona');
+        $clientes->tipo_cli = $request->input('tipo_cli');
+        $clientes->estado_cli = 'A';
+        $clientes->fecha_inicio =  Carbon::now();
+        $clientes->fecha_fin =  Carbon::now();
+        $clientes->id_usu = $usuario ->id;
+        $clientes->save();
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'access_token' => $token,

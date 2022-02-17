@@ -17,6 +17,7 @@ class CreatePais extends Migration
           $table->id('id_pais');
           $table->string('nombre_pais');
           $table->char('estado_pais',1);
+          $table->timestamps();
         });
     }
 

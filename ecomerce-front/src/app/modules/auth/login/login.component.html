@@ -3,11 +3,10 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+        <a href="/" class="h1"><b>EPTECH</b></a>
       </div>
       <div class="card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-
+        <p class="login-box-msg">Inicio de Sesion</p>
         <form >
           <div class="input-group mb-3">
             <input type="email" class="form-control" placeholder="Email"  name="email"   [(ngModel)]="user.email">
@@ -28,20 +27,14 @@
           <div class="row">
             <!-- /.col -->
             <div class="col-12">
-              <button type="submit" class="btn btn-primary btn-block"  (click)="loginUser()">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block"  (click)="loginUser()">Iniciar Sesion</button>
             </div>
             <!-- /.col -->
           </div>
         </form>
-
-
-        <!-- /.social-auth-links -->
-
-        <p class="mb-1">
-          <a href="forgot-password.html">I forgot my password</a>
-        </p>
+       <!-- /.social-auth-links -->
         <p class="mb-0">
-          <a href="register.html" class="text-center">Register a new membership</a>
+          <a routerLink="/register"class="text-center">Registrarse</a>
         </p>
       </div>
       <!-- /.card-body -->

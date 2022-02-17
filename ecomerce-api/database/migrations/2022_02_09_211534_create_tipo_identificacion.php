@@ -17,7 +17,7 @@ class CreateTipoIdentificacion extends Migration
            $table->id('id_tipo_ident');
            $table->string('nombre_tipo_ident');
            $table->char('estado_tipo_ident',1);
-
+           $table->timestamps();
         });
     }
 

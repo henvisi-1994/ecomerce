@@ -22,9 +22,11 @@ class CreateCliente extends Migration
             $table->unsignedBigInteger('id_persona');
             $table->unsignedBigInteger('id_empresa');
             $table->unsignedBigInteger('id_direccion');
+            $table->unsignedBigInteger('id_usu');
             $table->foreign('id_persona')->references('id_persona')->on('persona')->onDelete('cascade');
             $table->foreign('id_empresa')->references('id_empresa')->on('empresa')->onDelete('cascade');
             $table->foreign('id_direccion')->references('id_direccion')->on('direccion')->onDelete('cascade');
+            $table->foreign('id_usu')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

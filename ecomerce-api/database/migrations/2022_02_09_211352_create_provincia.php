@@ -19,6 +19,7 @@ class CreateProvincia extends Migration
             $table->unsignedBigInteger('id_pais');
             $table->char('estado_prod',1);
             $table->foreign('id_pais')->references('id_pais')->on('pais')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

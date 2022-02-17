@@ -17,6 +17,8 @@ class CreateDetallePedido extends Migration
             $table->id('id_detalle_ped');
             $table->unsignedBigInteger('id_prod');
             $table->unsignedBigInteger('id_pedido');
+            $table->integer('cantidad');
+            $table->double('total_detalle');
             $table->foreign('id_prod')->references('id_prod')->on('producto')->onDelete('cascade');
             $table->foreign('id_pedido')->references('id_pedido')->on('pedido')->onDelete('cascade');
         });
