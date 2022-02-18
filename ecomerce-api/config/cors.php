@@ -17,17 +17,9 @@ return [
 
     'paths' => [
         'api/*',
-        'login',
         'logout',
         'sanctum/csrf-cookie'
     ],
-    'allowed_methods' => ['*'],
-
-    'allowed_origins' => ['*'],
-
-    'allowed_origins_patterns' => [],
-
-    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 
@@ -36,3 +28,5 @@ return [
     'supports_credentials' => true,
 
 ];
+
+
