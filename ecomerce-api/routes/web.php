@@ -40,7 +40,7 @@ Route::prefix('productos')->group( function (){
     Route::get('/{id}' ,[ProductoController::class,'show']);
     Route::get('/categoria/{id}' ,[ProductoController::class,'getProductoCategoria']);
     Route::post('/' ,[ProductoController::class,'store']);
-    Route::put('/{id}' ,[ProductoController::class,'update']);
+    Route::post('/update/{id}' ,[ProductoController::class,'update']);
     Route::delete('/{id}' ,[ProductoController::class,'destroy']);
 });
 Route::prefix('categorias')->group( function (){

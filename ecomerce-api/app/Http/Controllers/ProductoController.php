@@ -170,6 +170,9 @@ class ProductoController extends Controller
                 $path_imagen = $imagen->store('public/producto');
                 $path_imagen = str_replace("public/", "", $path_imagen);
                 $image_name = $url.'storage/'.$path_imagen;
+            }else{
+            $producto= Producto::where('id_prod',$id)->first();
+            $image_name=$producto->imagen_prod;
             }
             $id_empresa  =  $request->input('id_empresa');
             $id_fec =  $request->input('id_fec');
@@ -198,10 +201,11 @@ class ProductoController extends Controller
                 ->where('id_prod', $id)
                 ->update(
                     [
-                        'id_empresa' => $id_empresa, 'id_fec' => $id_fec, 'id_bod' => $id_bod, 'codigo_prod' => $codigo_prod, 'codbarra_prod' => $codbarra_prod,
-                        'descripcion_prod' => $descripcion_prod, 'id_marca' => $id_marca, 'id_cat' => $id_cat, 'present_prod' => $present_prod,  'precio_prod' => $precio_prod,
-                        'stock_prod' => $stock_prod,  'stockmin_prod' => $stockmin_prod,  'stockmax_prod' => $stockmax_prod, 'fechaing_prod'  => $fechaing_prod,  'fechaelab_prod' => $fechaelab_prod, 'fechacad_prod' => $fechacad_prod, 'aplicaiva_prod' => $aplicaiva_prod, 'aplicaice_prod' => $aplicaice_prod, 'util_prod' => $util_prod,  'comision_prod' => $comision_prod, 'imagen_prod' => $imagen_prod,
-                        'observ_prod' => $observ_prod, 'estado_prod' => $estado_prod ]
+                        'codigo_prod' => $codigo_prod, 'codbarra_prod' => $codbarra_prod, 'descripcion_prod' => $descripcion_prod, 'present_prod' => $present_prod, 'precio_prod' => $precio_prod,
+                        'stockmin_prod' => $stockmin_prod, 'id_marca' => $id_marca, 'id_cat' => $id_cat, 'present_prod' => $present_prod,  'precio_prod' => $precio_prod,
+                        'stock_prod' => $stock_prod,  'stockmin_prod' => $stockmin_prod,  'stockmax_prod' => $stockmax_prod, 'stock_prod'  => $stock_prod,  'fechaing_prod' => $fechaing_prod, 'fechaelab_prod' => $fechaelab_prod,
+                         'fechacad_prod' => $fechacad_prod, 'aplicaiva_prod' => $aplicaiva_prod, 'aplicaice_prod' => $aplicaice_prod,  'util_prod' => $util_prod, 'comision_prod' => $comision_prod,'imagen_prod'=>$imagen_prod,
+                        'observ_prod' => $observ_prod, 'estado_prod' => $estado_prod,'id_bod'=>$id_bod,'id_marca' =>$id_marca,'id_cat'=>$id_cat,'id_empresa'=>$id_empresa]
                 );
             return;
         } else {
