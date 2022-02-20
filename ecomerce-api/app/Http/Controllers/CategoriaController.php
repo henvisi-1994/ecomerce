@@ -11,7 +11,7 @@ class CategoriaController extends Controller
     public function __construct()
     {
         //['index','noticias']
-        $this->middleware('auth:sanctum')->except(['index','show']);
+        $this->middleware('auth:sanctum')->except(['index','show','top']);
     }
     /**
      * Display a listing of the resource.
@@ -23,6 +23,13 @@ class CategoriaController extends Controller
         $categorias = DB::table('categoria as c')
             ->orderBy('c.id_cat', 'desc')
             ->get();
+        return $categorias;
+    }
+    public function top()
+    {
+        $categorias = DB::table('categoria as c')
+            ->orderBy('c.id_cat', 'desc')
+            ->get()->take(10);
         return $categorias;
     }
 

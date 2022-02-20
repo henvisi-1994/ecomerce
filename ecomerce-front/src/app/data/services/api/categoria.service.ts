@@ -12,6 +12,9 @@ export class CategoriaService {
   getallCategorias(){
     return this.http.get(`${this.API_URI}categorias`);
   }
+  getTopCategoria(){
+    return this.http.get(`${this.API_URI}categorias/top`);
+  }
   saveCategoria(newCategoria: ICategoria){
     return this.http.post(`${this.API_URI}categorias`,newCategoria);
   }

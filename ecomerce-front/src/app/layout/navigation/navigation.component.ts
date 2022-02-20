@@ -21,7 +21,7 @@ export class NavigationComponent implements OnInit {
     this.getCategorias()
   }
   getCategorias() {
-    this.categoriasaservice.getallCategorias().subscribe(categorias => this.categorias = categorias);
+    this.categoriasaservice.getTopCategoria().subscribe(categorias => this.categorias = categorias);
   }
   logout() {
     localStorage.clear();
