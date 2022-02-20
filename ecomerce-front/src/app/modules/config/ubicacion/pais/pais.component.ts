@@ -2,6 +2,7 @@ import { PaisService } from './../../../../data/services/api/pais.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { IPais } from './pais.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pais',
@@ -67,6 +68,11 @@ export class PaisComponent implements OnInit {
       this.modalPais.dismissAll();
       this.getPaises();
       this.limpiar();
+      Swal.fire({
+        title:'Pais',
+        text:'Pais Actualizado Exitosamente',
+        icon:'success'
+      });
     })
 
   }
@@ -75,6 +81,11 @@ export class PaisComponent implements OnInit {
       this.modalPais.dismissAll();
       this.getPaises();
       this.limpiar();
+      Swal.fire({
+        title:'Pais',
+        text:'Pais Creado Exitosamente',
+        icon:'success'
+      });
     })
   }
   private limpiar() {

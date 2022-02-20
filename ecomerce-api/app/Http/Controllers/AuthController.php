@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Direcion;
 use App\Models\Empleado;
 use App\Models\Persona;
 use App\Models\User;
@@ -38,9 +39,21 @@ class AuthController extends Controller
             'estado_user'=>'A'
         ]);
         $usuario = User::latest('id')->first();
+        $direccion = new Direcion();
+        $direccion->direcion = $request->input('direcion');
+        $direccion->calle = $request->input('calle');
+        $direccion->numero = $request->input('numero');
+        $direccion->piso = $request->input('piso');
+        $direccion->telefono = $request->input('telefono');
+        $direccion->movil = $request->input('movil');
+        $direccion->estado_direccion = 'A';
+        $direccion->id_ciudad	 = $request->input('id_ciudad');
+        $direccion->save();
+        $direccion_last = Direcion::latest('id_direccion')->first();
+
         $clientes = new Cliente();
         $clientes->id_empresa = $request->input('id_empresa');
-        $clientes->id_direccion = $request->input('id_direccion');
+        $clientes->id_direccion =  $direccion_last->id_direccion;
         $clientes->id_persona = $request->input('id_persona');
         $clientes->tipo_cli = $request->input('tipo_cli');
         $clientes->estado_cli = 'A';

@@ -3,6 +3,7 @@ import { DireccionService } from './../../../../data/services/api/direccion.serv
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { IDireccion } from './direccion.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-direccion',
@@ -84,6 +85,11 @@ export class DireccionComponent implements OnInit {
       this.modalDireccion.dismissAll();
       this.getDireciones();
       this.limpiar();
+      Swal.fire({
+        title:'Dirección',
+        text:'Dirección Creada Exitosamente',
+        icon:'success'
+      });
     })
 
   }
@@ -92,6 +98,11 @@ export class DireccionComponent implements OnInit {
       this.modalDireccion.dismissAll();
       this.getDireciones();
       this.limpiar();
+      Swal.fire({
+        title:'Dirección',
+        text:'Dirección Creada Exitosamente',
+        icon:'success'
+      });
     })
   }
   private limpiar() {

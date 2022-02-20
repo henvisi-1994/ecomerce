@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   public loginUser() {
     this.authService.login(this.user).subscribe((res: any) => {
       localStorage.setItem('token', res.access_token);

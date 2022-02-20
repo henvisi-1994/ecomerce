@@ -51,16 +51,16 @@ class DirecionController extends Controller
             'id_ciudad' => 'required',
         ]);
         if ($v) {
-            $ciudad = new Direcion();
-            $ciudad->direcion = $request->input('direcion');
-            $ciudad->calle = $request->input('calle');
-            $ciudad->numero = $request->input('numero');
-            $ciudad->piso = $request->input('piso');
-            $ciudad->telefono = $request->input('telefono');
-            $ciudad->movil = $request->input('movil');
-            $ciudad->estado_direccion = $request->input('estado_direccion');
-            $ciudad->id_ciudad	 = $request->input('id_ciudad');
-            $ciudad->save();
+            $direccion = new Direcion();
+            $direccion->direcion = $request->input('direcion');
+            $direccion->calle = $request->input('calle');
+            $direccion->numero = $request->input('numero');
+            $direccion->piso = $request->input('piso');
+            $direccion->telefono = $request->input('telefono');
+            $direccion->movil = $request->input('movil');
+            $direccion->estado_direccion = $request->input('estado_direccion');
+            $direccion->id_ciudad	 = $request->input('id_ciudad');
+            $direccion->save();
             return;
         } else {
             return back()->withInput($request->all());

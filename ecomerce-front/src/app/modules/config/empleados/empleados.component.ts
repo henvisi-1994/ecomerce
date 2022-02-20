@@ -7,6 +7,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { IPersona } from './../../../data/interfaces/persona.metadata';
 import { IEmpleado } from './empleado.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-empleados',
@@ -98,6 +99,12 @@ export class EmpleadosComponent implements OnInit {
 
       this.limpiar();
       this.modalEmpleado.dismissAll();
+      Swal.fire({
+        title:'Empleado',
+        text:'Empleado Actualizado Exitosamente',
+        icon:'success'
+      });
+
 
     }
     public storeEmpleado() {
@@ -111,6 +118,11 @@ export class EmpleadosComponent implements OnInit {
       this.modalEmpleado.dismissAll();
       this.getEmpleados();
       this.limpiar();
+      Swal.fire({
+        title:'Empleado',
+        text:'Empleado Creado Exitosamente',
+        icon:'success'
+      });
     })
   }
     private limpiar(){

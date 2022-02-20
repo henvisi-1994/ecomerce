@@ -2,6 +2,7 @@ import { CategoriaService } from './../../../data/services/api/categoria.service
 import { ICategoria } from './categoria.metadata';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-categoria',
@@ -68,6 +69,11 @@ export class CategoriaComponent implements OnInit {
       this.modalCategoria.dismissAll();
       this.getCategorias();
       this.limpiar();
+      Swal.fire({
+        title:'Categoria',
+        text:'Categoria Actualizada Exitosamente',
+        icon:'success'
+      });
     })
 
   }
@@ -76,6 +82,11 @@ export class CategoriaComponent implements OnInit {
       this.modalCategoria.dismissAll();
       this.getCategorias();
       this.limpiar();
+      Swal.fire({
+        title:'Categoria',
+        text:'Categoria Creada Exitosamente',
+        icon:'success'
+      });
     })
   }
   private limpiar(){

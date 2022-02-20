@@ -4,6 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { ICargo } from './cargo.metadata'
 import { CargoService } from '@data/services/api/cargo.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cargo',
@@ -85,6 +86,11 @@ export class CargoComponent implements OnInit {
       this.modalCargo.dismissAll();
       this.getCargos();
       this.limpiar();
+      Swal.fire({
+        title:'Cargo',
+        text:'Cargo Actualizado Exitosamente',
+        icon:'success'
+      });
     })
   }
   public storeCargo() {
@@ -92,6 +98,11 @@ export class CargoComponent implements OnInit {
       this.modalCargo.dismissAll();
       this.getCargos();
       this.limpiar();
+      Swal.fire({
+        title:'Cargo',
+        text:'Cargo Creado Exitosamente',
+        icon:'success'
+      });
     })
   }
   private limpiar() {

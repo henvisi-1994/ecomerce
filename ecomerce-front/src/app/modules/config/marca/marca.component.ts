@@ -2,6 +2,7 @@ import { MarcaService } from '../../../data/services/api/marca.service';
 import { IMarca } from './marca.metadata';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-marca',
@@ -65,6 +66,11 @@ export class MarcaComponent implements OnInit {
   }
   public updateMarca() {
     this.marcaservice.updateMarca(this.marca).subscribe((res: any) => {
+      Swal.fire({
+        title:'Marca',
+        text:'Marca Actualizada Exitosamente',
+        icon:'success'
+      });
       this.modalMarca.dismissAll();
       this.geMarcas();
       this.limpiar();
@@ -73,6 +79,11 @@ export class MarcaComponent implements OnInit {
   }
   public storeMarca() {
     this.marcaservice.saveMarca(this.marca).subscribe((res: any) => {
+      Swal.fire({
+        title:'Marca',
+        text:'Marca Creada Exitosamente',
+        icon:'success'
+      });
       this.modalMarca.dismissAll();
       this.geMarcas();
       this.limpiar();

@@ -8,6 +8,7 @@ import { IPersona } from './../../../data/interfaces/persona.metadata';
 import { ICliente } from './cliente.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ThisReceiver } from '@angular/compiler';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-clientes',
@@ -102,6 +103,11 @@ getDireciones() {
       this.modalCliente.dismissAll();
       this.getClientes();
       this.limpiar();
+      Swal.fire({
+        title:'Cliente',
+        text:'Cliente Actualizado Exitosamente',
+        icon:'success'
+      });
     })
 
   }
@@ -117,6 +123,11 @@ getDireciones() {
       this.modalCliente.dismissAll();
       this.getClientes();
       this.limpiar();
+      Swal.fire({
+        title:'Cliente',
+        text:'Cliente Creado Exitosamente',
+        icon:'success'
+      });
     })
   }
   private limpiar(){

@@ -8,5 +8,11 @@ export interface IUserRegister{
   estado_cli: string;
   id_persona: number;
   id_empresa: number;
-  id_direccion: number;
+  direcion:string;
+  calle:string;
+  numero:string;
+  piso:string;
+  telefono:string;
+  movil:string;
+  id_ciudad:number;
 }

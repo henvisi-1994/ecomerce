@@ -3,6 +3,7 @@ import { CiudadService } from './../../../../data/services/api/ciudad.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ICiudad } from './ciudad.metadata';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ciudad',
@@ -74,6 +75,11 @@ export class CiudadComponent implements OnInit {
       this.modalCiudad.dismissAll();
       this.getCiudades();
       this.limpiar();
+      Swal.fire({
+        title:'Ciudad',
+        text:'Ciudad Actualizada Exitosamente',
+        icon:'success'
+      });
     })
 
   }
@@ -82,6 +88,11 @@ export class CiudadComponent implements OnInit {
       this.modalCiudad.dismissAll();
       this.getCiudades();
       this.limpiar();
+      Swal.fire({
+        title:'Ciudad',
+        text:'Ciudad Creada Exitosamente',
+        icon:'success'
+      });
     })
   }
   private limpiar() {

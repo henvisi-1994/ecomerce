@@ -6,6 +6,7 @@ import { BodegaService } from '@data/services/api/bodega.service';
 import { CategoriaService } from '@data/services/api/categoria.service';
 import { EmpresaService } from '@data/services/api/empresa.service';
 import { MarcaService } from '@data/services/api/marca.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-producto',
@@ -155,6 +156,11 @@ export class ProductoComponent implements OnInit {
       this.modalProducto.dismissAll();
       this.getProductos();
       this.limpiar();
+      Swal.fire({
+        title:'Producto',
+        text:'Producto Actualizado Exitosamente',
+        icon:'success'
+      });
     })
   }
   public storeProducto() {
@@ -164,6 +170,11 @@ export class ProductoComponent implements OnInit {
       this.modalProducto.dismissAll();
       this.getProductos();
       this.limpiar();
+      Swal.fire({
+        title:'Producto',
+        text:'Producto Creado Exitosamente',
+        icon:'success'
+      });
     })
   }
   convertir(value: string) {

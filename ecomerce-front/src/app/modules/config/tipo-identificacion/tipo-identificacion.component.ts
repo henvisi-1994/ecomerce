@@ -2,6 +2,7 @@ import { TipoIdentificacionService } from './../../../data/services/api/tipo-ide
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ITipoIdentificacion } from './tipoIdentificacion.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tipo-identificacion',
@@ -66,6 +67,11 @@ export class TipoIdentificacionComponent implements OnInit {
       this.modalTipoIdentificacion.dismissAll();
       this.getTipoIdentificaciones();
       this.limpiar();
+      Swal.fire({
+        title:'Tipo de Identificación',
+        text:'Tipo de Identificación Actualizado Exitosamente',
+        icon:'success'
+      });
     })
 
   }
@@ -74,6 +80,11 @@ export class TipoIdentificacionComponent implements OnInit {
       this.modalTipoIdentificacion.dismissAll();
       this.getTipoIdentificaciones();
       this.limpiar();
+      Swal.fire({
+        title:'Tipo de Identificación',
+        text:'Tipo de Identificación Creado Exitosamente',
+        icon:'success'
+      });
     })
   }
   private limpiar() {

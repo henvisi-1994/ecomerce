@@ -7,10 +7,30 @@ use App\Models\EstadoPedido;
 use App\Models\Pedido;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Nette\Utils\Strings;
+use PayPal\Api\Amount;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
 
 class PedidoController extends Controller
 {
+    private  $apiContext ;
+    public function __construct()
+    {
+       $payPalConfig = Config::get('paypal');
+       $this->apiContext = new ApiContext(
+        new OAuthTokenCredential(
+           $payPalConfig['client_id'],     // ClientID
+           $payPalConfig['sercret']     // ClientSecret
+        )
+);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -51,6 +71,7 @@ class PedidoController extends Controller
             'id_formapago' => 'required',
 
         ]);
+
         Pedido::create([
             'fecha_inicio'=>Carbon::now(),
             'fecha_ult_mod'=>Carbon::now(),
@@ -120,11 +141,46 @@ class PedidoController extends Controller
     }
     public function Pagar($id)
     {
-        DB::table('pedido')
-        ->where('id_pedido', $id)
-        ->update(
-            ['estado_ped' => 'P']
-        );
+        $payer = new Payer();
+        $payer->setPaymentMethod('paypal');
+        $pedido = Pedido::where('id_pedido',$id)->first();
+        $precio=$pedido->total;
+        $amount = new Amount();
+        $amount->setTotal( $precio);
+        $amount->setCurrency('USD');
+
+        $transaction = new Transaction();
+        $transaction->setAmount($amount);
+
+        $callbackUrl = url('/pedido/status');
+
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls->setReturnUrl( $callbackUrl)
+            ->setCancelUrl( $callbackUrl);
+
+        $payment = new Payment();
+
+        $payment->setIntent('sale')
+            ->setPayer($payer)
+            ->setTransactions(array($transaction))
+            ->setRedirectUrls($redirectUrls);
+            try {
+                $payment->create($this->apiContext );
+                //echo $payment;
+                return redirect()->away($payment->getApprovalLink() );
+
+            }
+            catch (\PayPal\Exception\PayPalConnectionException $ex) {
+                return $ex->getData();
+            }
+               DB::table('pedido')
+                ->where('id_pedido', $id)
+                ->update(
+                    ['estado_ped' => 'P']
+                );
+    }
+    public function status(Request $request){
+        dd( $request->all());
     }
      public function enviar($id)
     {

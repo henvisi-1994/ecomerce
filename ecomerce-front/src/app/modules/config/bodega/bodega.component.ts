@@ -1,3 +1,4 @@
+
 import { BodegaService } from './../../../data/services/api/bodega.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -5,7 +6,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IBodega } from './bodega.metadata';
 import { CiudadService } from '@data/services/api/ciudad.service';
 import { DireccionService } from '@data/services/api/direccion.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-bodega',
   templateUrl: './bodega.component.html',
@@ -93,6 +94,11 @@ export class BodegaComponent implements OnInit {
       this.modalBodega.dismissAll();
       this.getBodegas();
       this.limpiar();
+      Swal.fire({
+        title:'Bodega',
+        text:'Bodega Actualizada Exitosamente',
+        icon:'success'
+      });
     })
   }
   public storeBodega() {
@@ -100,6 +106,11 @@ export class BodegaComponent implements OnInit {
       this.modalBodega.dismissAll();
       this.getBodegas();
       this.limpiar();
+      Swal.fire({
+        title:'Bodega',
+        text:'Bodega Creada Exitosamente',
+        icon:'success'
+      });
     })
   }
   private limpiar() {

@@ -3,6 +3,7 @@ import { PaisService } from './../../../../data/services/api/pais.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { IProvincia } from './provincia.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-provincia',
@@ -74,6 +75,11 @@ export class ProvinciaComponent implements OnInit {
         this.modalProvincia.dismissAll();
         this.getProvincias();
         this.limpiar();
+        Swal.fire({
+          title:'Provincia',
+          text:'Provincia Actualizado Exitosamente',
+          icon:'success'
+        });
       })
 
     }
@@ -82,6 +88,11 @@ export class ProvinciaComponent implements OnInit {
         this.modalProvincia.dismissAll();
         this.getProvincias();
         this.limpiar();
+        Swal.fire({
+          title:'Provincia',
+          text:'Provincia Creada Exitosamente',
+          icon:'success'
+        });
       })
     }
     private limpiar() {
