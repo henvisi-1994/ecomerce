@@ -37,6 +37,7 @@ Route::get('/', function () {
 });
 Route::prefix('productos')->group( function (){
     Route::get('/' ,[ProductoController::class,'index']);
+    Route::get('/top' ,[ProductoController::class,'getProductoTop']);
     Route::get('/{id}' ,[ProductoController::class,'show']);
     Route::get('/categoria/{id}' ,[ProductoController::class,'getProductoCategoria']);
     Route::post('/' ,[ProductoController::class,'store']);

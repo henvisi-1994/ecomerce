@@ -36,7 +36,7 @@ categorias:any=[];
     })
   }
   public getProductos() {
-    this.productService.getallProductos().subscribe(r => { this.productos = r; })
+    this.productService.gettopProductos().subscribe(r => { this.productos = r; })
   }
   getCategorias() {
     this.categoriasaservice.getallCategorias().subscribe(categorias => this.categorias = categorias);

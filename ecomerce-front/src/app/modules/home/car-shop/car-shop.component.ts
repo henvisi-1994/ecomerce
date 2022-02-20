@@ -29,12 +29,13 @@ export class CarShopComponent implements OnInit {
     let id_cliente = localStorage.getItem('id_cliente');
     this.detallepedidoservice.deleteDetalle(id_detalle_ped).subscribe(res => {
       this.detallepedidoservice.getCart(id_cliente).subscribe(productos => this.productos = productos);
+      this.getpedidos();
     })
   }
   pagarPedido(id_pedido: number) {
     this.pedidoservices.pagarPedido(id_pedido).subscribe((res: any) => {
       alert('Gracias por compar en StoreEP')
-      this.  getpedidos();
+      this.getpedidos();
     })
   }
   getpedidos(){

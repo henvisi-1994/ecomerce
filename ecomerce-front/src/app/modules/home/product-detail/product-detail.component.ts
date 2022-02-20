@@ -8,6 +8,7 @@ import { FormaPagoService } from './../../../data/services/api/forma-pago.servic
 import { ProductoService } from './../../../data/services/api/producto.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class ProductDetailComponent implements OnInit {
   }
   forpagos: any = [];
   isAuth: any;
+  productos: any = [];
   constructor(
     private authService: AuthService,
     private productService: ProductoService,
@@ -48,13 +50,14 @@ export class ProductDetailComponent implements OnInit {
   closeResult: string | undefined;
   @ViewChild('ConfirmDialog', { static: false }) modal: ElementRef | undefined;
   ngOnInit(): void {
-    this.isAuth=this.authService.estaLogeado();
+    this.isAuth = this.authService.estaLogeado();
     this.route.paramMap.subscribe(params => {
       if (params.has('id')) {
         this.productService.getProducto(params.get("id")).subscribe(producto => this.producto = producto);
       }
 
     })
+    this.getProductos();
     this.getFormaPagos();
   }
   // Boton para abrir ventana modal
@@ -78,29 +81,45 @@ export class ProductDetailComponent implements OnInit {
   getFormaPagos() {
     this.formaPagoservice.getallFormaPago().subscribe(r => { this.forpagos = r; })
   }
+  public getProductos() {
+    this.productService.getallProductos().subscribe(r => { this.productos = r; })
+  }
   savePedido(id_prod: number, precio: number, aplica_iva: any) {
-    let id_cli = localStorage.getItem('id_cliente');
-    this.pedido.id_cliente = Number.parseInt(id_cli + '');
-    this.pedido.estado_ped = 'I';
-    this.detallePedido.id_prod = id_prod;
-    let precio_prod = 0;
-    if (aplica_iva === 1) {
-      precio_prod = this.calcularIva(precio);
+    let productos = this.productos.filter((producto: { id_prod: number; }) => {
+      return producto.id_prod === id_prod;
+    });
+
+    if (productos.length == 0) {
+      let id_cli = localStorage.getItem('id_cliente');
+      this.pedido.id_cliente = Number.parseInt(id_cli + '');
+      this.pedido.estado_ped = 'I';
+      this.detallePedido.id_prod = id_prod;
+      let precio_prod = 0;
+      if (aplica_iva === 1) {
+        precio_prod = this.calcularIva(precio);
+      } else {
+        precio_prod = precio;
+      }
+      this.pedido.total = precio_prod;
+      if (localStorage.getItem('id_pedido',) != undefined) {
+        let id_pedido_sotorage = parseInt(localStorage.getItem('id_pedido') + ' ');
+        this.saveDetallePedido(id_pedido_sotorage);
+      } else {
+        this.pedidoservice.savePedido(this.pedido).subscribe((res: any) => {
+          let id_pedido = res.id_pedido;
+          localStorage.setItem('id_pedido', id_pedido);
+          this.saveDetallePedido(id_pedido);
+        })
+      }
     } else {
-      precio_prod = precio;
+      Swal.fire({
+        title:'Producto',
+        text:'El producto que desea agreagar ya se encuentra en su carrito de compras, porfavor elija otro producto',
+        icon:'error'
+      });
     }
-    this.pedido.total = precio_prod;
-    if (localStorage.getItem('id_pedido',) != undefined) {
-      let id_pedido_sotorage = parseInt(localStorage.getItem('id_pedido') + ' ');
-      this.saveDetallePedido(id_pedido_sotorage);
-    } else {
-      this.pedidoservice.savePedido(this.pedido).subscribe((res: any) => {
-        let id_pedido = res.id_pedido;
-        localStorage.setItem('id_pedido', id_pedido);
-        this.saveDetallePedido(id_pedido);
-      })
-    }
-    /* */
+
+
   }
   calcularIva(precio: number) {
     let iva = precio * 0.12;
@@ -118,6 +137,7 @@ export class ProductDetailComponent implements OnInit {
     } else {
       this.router.navigate(['/cart']);
       localStorage.removeItem('id_pedido');
+      this.confirmDialog.dismissAll();
     }
   }
 

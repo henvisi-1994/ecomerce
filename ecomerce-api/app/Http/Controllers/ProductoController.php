@@ -11,7 +11,7 @@ class ProductoController extends Controller
     public function __construct()
     {
         //['index','noticias']
-        $this->middleware('auth:sanctum')->except(['index','show','getProductoCategoria']);
+        $this->middleware('auth:sanctum')->except(['index','show','getProductoCategoria','getProductoTop']);
     }
     /**
      * Display a listing of the resource.
@@ -110,13 +110,12 @@ class ProductoController extends Controller
         ->get();
     return  $productos;
 }
-public function getProductoCategoriaTop($id){
+public function getProductoTop(){
     $productos = DB::table('producto as prod')
     ->join('empresa', 'prod.id_empresa', '=', 'empresa.id_empresa')
     ->join('marca', 'prod.id_marca', '=', 'marca.id_marca')
     ->join('categoria', 'prod.id_cat', '=', 'categoria.id_cat')
     ->join('bodega', 'prod.id_bod', '=', 'bodega.id_bod')
-    ->where('prod.id_cat',$id)
     ->orderBy("prod.id_prod", "desc")
     ->get() ->take(10);
 return  $productos;
