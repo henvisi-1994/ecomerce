@@ -37,9 +37,9 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="">DNI</label>
+            <label for="">Número de Identificación</label>
             <input type="text" name="dni" [(ngModel)]="persona.dni" class="form-control"
-              placeholder="Ingrese numero de dni">
+              placeholder="Ingrese numero de identificacion">
           </div>
           <div class="form-group">
             <label for="">email</label>
@@ -52,16 +52,52 @@
               placeholder="Ingrese tipo de cliente">
           </div>
           <div class="form-group">
-            <label for="">Empresa</label>
-            <select name="empresa" id="" [(ngModel)]="cliente.id_empresa" class="form-control" >
-              <option  *ngFor="let empresa of empresas" value="{{empresa.id_empresa}}">{{empresa.nombre_comercial		}}</option>
+            <label for="">Pais</label>
+            <select name="pais" id="" [(ngModel)]="id_pais" class="form-control"  (change)="onChangePais($event.target)">
+              <option  *ngFor="let pais of paises" value="{{pais.id_pais}}">{{pais.nombre_pais}}</option>
+            </select>
+          </div>
+          <div *ngIf="id_pais>0" class="form-group">
+            <label for="">Provincia</label>
+            <select name="provincia" id="" [(ngModel)]="id_provincia" class="form-control"  (change)="onChangeProvincia($event.target)">
+              <option  *ngFor="let provincia of provincias" value="{{provincia.id_provincia}}">{{provincia.nombre_provincia	}}</option>
+            </select>
+          </div>
+          <div *ngIf="id_provincia>0" class="form-group">
+            <label for="">Ciudad</label>
+            <select name="ciudad" id="" [(ngModel)]="cliente.id_ciudad" class="form-control" >
+              <option  *ngFor="let ciudad of ciudades" value="{{ciudad.id_ciudad}}">{{ciudad.nombre_ciudad}}</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="">Direccion</label>
-            <select name="direccion" id="" [(ngModel)]="cliente.id_direccion" class="form-control" >
-              <option  *ngFor="let direcion of direcciones" value="{{direcion.id_direccion}}">{{direcion.direcion		}}</option>
-            </select>
+            <label for="">Direcccion</label>
+            <input type="text" name="direccion" [(ngModel)]="cliente.direcion" class="form-control"
+              placeholder="Ingrese numero de dni">
+          </div>
+          <div class="form-group">
+            <label for="">Calle principal</label>
+            <input type="text" name="calle_principal" [(ngModel)]="cliente.calle" class="form-control"
+              placeholder="Ingrese numero de dni">
+          </div>
+          <div class="form-group">
+            <label for="">Número de Calle</label>
+            <input type="text" name="num_calle" [(ngModel)]="cliente.numero" class="form-control"
+              placeholder="Ingrese numero de dni">
+          </div>
+          <div class="form-group">
+            <label for="">Piso</label>
+            <input type="text" name="piso" [(ngModel)]="cliente.piso" class="form-control"
+              placeholder="Ingrese numero de dni">
+          </div>
+          <div class="form-group">
+            <label for="">Telefono</label>
+            <input type="text" name="telefono" [(ngModel)]="cliente.telefono" class="form-control"
+              placeholder="Ingrese numero de dni">
+          </div>
+          <div class="form-group">
+            <label for="">Movil</label>
+            <input type="text" name="movil" [(ngModel)]="cliente.movil" class="form-control"
+              placeholder="Ingrese numero de dni">
           </div>
           <div class="form-group">
             <label for="">Fecha de Inicio</label>

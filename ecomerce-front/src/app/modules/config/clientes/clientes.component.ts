@@ -1,3 +1,5 @@
+import { ProvinciaService } from './../../../data/services/api/provincia.service';
+import { environment } from './../../../../environments/environment.prod';
 import { TipoIdentificacionService } from './../../../data/services/api/tipo-identificacion.service';
 import { PersonaService } from './../../../data/services/api/persona.service';
 import { DireccionService } from './../../../data/services/api/direccion.service';
@@ -9,6 +11,8 @@ import { ICliente } from './cliente.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ThisReceiver } from '@angular/compiler';
 import Swal from 'sweetalert2';
+import { PaisService } from '@data/services/api/pais.service';
+import { CiudadService } from '@data/services/api/ciudad.service';
 
 @Component({
   selector: 'app-clientes',
@@ -25,9 +29,18 @@ cliente:ICliente={
   email:'',
   estado_cli: '',
   id_persona: 0,
-  id_empresa: 0,
-  id_direccion: 0
+  id_empresa: environment.id_empresa,
+  direcion: '',
+  calle: '',
+  numero: '',
+  piso: '',
+  telefono: '',
+  movil: '',
+  id_ciudad: 0
 }
+id_pais:number=0;
+id_provincia:number=0;
+id_ciudad:number=0;
 clientes:any=[];
 persona:IPersona={
   id_persona:0,
@@ -39,16 +52,31 @@ persona:IPersona={
 empresas:any = [];
 direcciones:any=[];
 tiposIdentificacion:any=[];
+paises:any=[];
+ciudades:any=[];
+ciudades_data:any=[];
+provincias:any=[];
+provincias_data:any=[];
 
 @ViewChild('clienteModal', { static: false }) modal: ElementRef | undefined;
 edit = false;
-constructor(private modalCliente: NgbModal,private clienteservice: ClienteService, private empresaservice:EmpresaService, private direccionesservice: DireccionService, private personaservice:PersonaService, private tipoidentificacionservice:TipoIdentificacionService) { }
+constructor(private modalCliente: NgbModal,
+  private clienteservice: ClienteService,
+  private empresaservice:EmpresaService,
+  private direccionesservice: DireccionService,
+  private personaservice:PersonaService,
+  private paisservice:PaisService,
+  private ciudadservice:CiudadService,
+  private provinciaservice: ProvinciaService,
+  private tipoidentificacionservice:TipoIdentificacionService) { }
 
 ngOnInit(): void {
   this.getClientes();
-  this.getDireciones();
   this.getEmpresas();
   this.getTipoIdentificaciones();
+  this.getPaises();
+  this.getProvincias();
+  this.getCiudades();
 }
 getTipoIdentificaciones() {
   this.tipoidentificacionservice.getallTipoIdentificaciones().subscribe(tiposIdentificacion => this.tiposIdentificacion = tiposIdentificacion);
@@ -59,9 +87,18 @@ getClientes(){
 getEmpresas(){
   this.empresaservice.getallEmpresas().subscribe(empresas=> this.empresas=empresas);
 }
-getDireciones() {
-  this.direccionesservice.getallDirecciones().subscribe(direcciones => this.direcciones = direcciones);
+ //Ubicacion
+ public getPaises(){
+  this.paisservice.getallPaises().subscribe(paises => this.paises = paises);
 }
+
+getCiudades() {
+  this.ciudadservice.getallCiudades().subscribe(ciudades => this.ciudades_data = ciudades);
+}
+public getProvincias(){
+  this.provinciaservice.getallProvinciaes().subscribe(provincias => this.provincias_data = provincias);
+}
+
   // Boton para abrir ventana modal
   open(content: any) {
     this.modalCliente.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -136,4 +173,19 @@ getDireciones() {
     this.cliente.fecha_inicio = "",
       this.cliente.estado_cli = "";
   }
+  onChangePais(event:any){
+    let id_pais=event.value
+     let result = this.provincias_data.filter((provincia: string | any)=> {
+       return provincia.id_pais=id_pais;
+     });
+     this.provincias= result;
+   }
+   onChangeProvincia(event:any){
+     let id_provincia=event.value
+      let result = this.ciudades_data.filter((ciudad: string | any)=> {
+        return ciudad.id_provincia=id_provincia;
+      });
+      this.ciudades= result;
+    }
+
 }

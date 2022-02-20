@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Direcion;
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -60,6 +61,17 @@ class ClienteController extends Controller
                 'id_persona',
                 $request->id_persona
             )->first();
+            $direccion = new Direcion();
+            $direccion->direcion = $request->input('direcion');
+            $direccion->calle = $request->input('calle');
+            $direccion->numero = $request->input('numero');
+            $direccion->piso = $request->input('piso');
+            $direccion->telefono = $request->input('telefono');
+            $direccion->movil = $request->input('movil');
+            $direccion->estado_direccion = 'A';
+            $direccion->id_ciudad	 = $request->input('id_ciudad');
+            $direccion->save();
+            $direccion_last = Direcion::latest('id_direccion')->first();
             $nombre = $persona->nombre_persona;
             $apellido = $persona->apellido_persona;
             $dni = $persona->dni;
@@ -72,7 +84,7 @@ class ClienteController extends Controller
             $usuario = User::latest('id')->first();
             $clientes = new Cliente();
             $clientes->id_empresa = $request->input('id_empresa');
-            $clientes->id_direccion = $request->input('id_direccion');
+            $clientes->id_direccion =$direccion_last->id_direccion;
             $clientes->id_persona = $request->input('id_persona');
             $clientes->tipo_cli = $request->input('tipo_cli');
             $clientes->estado_cli = $request->input('estado_cli');

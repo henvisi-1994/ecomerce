@@ -3,9 +3,16 @@ export interface ICliente {
   tipo_cli: string;
   fecha_inicio: string;
   fecha_fin: string;
-  email:string;
+  email: string;
   estado_cli: string;
   id_persona: number;
-  id_empresa: number;
-  id_direccion: number;
+  id_empresa:number;
+  direcion: string,
+  calle: string,
+  numero: string,
+  piso: string,
+  telefono: string,
+  movil: string,
+  id_ciudad: number
+
 }
