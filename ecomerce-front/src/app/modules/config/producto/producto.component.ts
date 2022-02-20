@@ -7,6 +7,7 @@ import { CategoriaService } from '@data/services/api/categoria.service';
 import { EmpresaService } from '@data/services/api/empresa.service';
 import { MarcaService } from '@data/services/api/marca.service';
 import Swal from 'sweetalert2';
+import { environment } from 'environments/environment.prod';
 
 @Component({
   selector: 'app-producto',
@@ -40,7 +41,7 @@ export class ProductoComponent implements OnInit {
     id_bod: 0,
     id_marca: 0,
     id_cat: 0,
-    id_empresa: 0,
+    id_empresa:  environment.id_empresa,
   }
   productos: any = [];
 

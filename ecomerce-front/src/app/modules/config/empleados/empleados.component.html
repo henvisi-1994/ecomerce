@@ -47,12 +47,6 @@
               placeholder="Ingrese su email">
           </div>
           <div class="form-group">
-            <label for="">Empresa</label>
-            <select name="empresa" id="" [(ngModel)]="empleado.id_empresa" class="form-control" >
-              <option  *ngFor="let empresa of empresas" value="{{empresa.id_empresa}}">{{empresa.nombre_comercial		}}</option>
-            </select>
-          </div>
-          <div class="form-group">
             <label for="">Cargo</label>
             <select name="cargo" id="" [(ngModel)]="empleado.id_cargo" class="form-control" >
               <option  *ngFor="let cargo of cargos" value="{{cargo.id_cargo}}">{{cargo.nomb_cargo}}</option>

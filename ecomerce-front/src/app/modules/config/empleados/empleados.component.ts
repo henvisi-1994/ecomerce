@@ -8,6 +8,7 @@ import { IPersona } from './../../../data/interfaces/persona.metadata';
 import { IEmpleado } from './empleado.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Swal from 'sweetalert2';
+import { environment } from 'environments/environment.prod';
 
 @Component({
   selector: 'app-empleados',
@@ -18,7 +19,7 @@ export class EmpleadosComponent implements OnInit {
   closeResult: string | undefined;
   empleado:IEmpleado={
     id_empleado:0,
-    id_empresa:0,
+    id_empresa: environment.id_empresa,
     id_usu:0,
     id_cargo:0,
      id_persona:0,

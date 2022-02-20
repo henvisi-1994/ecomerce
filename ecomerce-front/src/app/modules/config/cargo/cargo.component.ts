@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment.prod';
 import { EmpresaService } from './../../../data/services/api/empresa.service';
 import { EmpleadoService } from './../../../data/services/api/empleado.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
@@ -15,7 +16,7 @@ export class CargoComponent implements OnInit {
   closeResult: string | undefined
   cargo: ICargo = {
     id_cargo: 0,
-    id_emp: '',
+    id_emp:  environment.id_empresa,
     nomb_cargo: '',
     observ_cargo: '',
     estado_cargo: '',

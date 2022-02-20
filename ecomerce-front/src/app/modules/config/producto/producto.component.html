@@ -132,12 +132,6 @@
               <option  *ngFor="let categoria of categorias" value="{{categoria.id_cat}}">{{categoria.nomb_cat	}}</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="">Empresa</label>
-            <select name="bodega" id="" [(ngModel)]="producto.id_empresa" class="form-control" >
-              <option  *ngFor="let empresa of empresas" value="{{empresa.id_empresa}}">{{empresa.nombre_comercial		}}</option>
-            </select>
-          </div>
         </form>
       </div>
       <div class="modal-footer">
