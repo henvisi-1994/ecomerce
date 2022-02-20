@@ -13,23 +13,25 @@ use Nette\Utils\Strings;
 use PayPal\Api\Amount;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Exception\PayPalConnectionException;
 
 class PedidoController extends Controller
 {
-    private  $apiContext ;
+    private $apiContext;
     public function __construct()
     {
-       $payPalConfig = Config::get('paypal');
-       $this->apiContext = new ApiContext(
-        new OAuthTokenCredential(
-           $payPalConfig['client_id'],     // ClientID
-           $payPalConfig['sercret']     // ClientSecret
-        )
-);
+        $payPalConfig = Config::get('paypal');
+        $this->apiContext = new ApiContext(
+            new OAuthTokenCredential(
+                $payPalConfig['client_id'], // ClientID
+                $payPalConfig['sercret'] // ClientSecret
+            )
+        );
     }
     /**
      * Display a listing of the resource.
@@ -41,9 +43,9 @@ class PedidoController extends Controller
         $productos = DB::table('pedido as ped')
             ->join('cliente', 'ped.id_cliente', '=', 'cliente.id_cliente')
             ->join('persona', 'cliente.id_persona', '=', 'persona.id_persona')
-            ->orderBy("ped.id_pedido", "desc")
+            ->orderBy('ped.id_pedido', 'desc')
             ->get();
-        return  $productos;
+        return $productos;
     }
 
     /**
@@ -69,25 +71,34 @@ class PedidoController extends Controller
             'estado_ped' => 'required|string|max:1',
             'id_cliente' => 'required',
             'id_formapago' => 'required',
-
         ]);
 
         Pedido::create([
-            'fecha_inicio'=>Carbon::now(),
-            'fecha_ult_mod'=>Carbon::now(),
-            'fecha_registro_ped'=>Carbon::now(),
+            'fecha_inicio' => Carbon::now(),
+            'fecha_ult_mod' => Carbon::now(),
+            'fecha_registro_ped' => Carbon::now(),
             'total' => $validateData['total'],
             'estado_ped' => $validateData['estado_ped'],
             'id_cliente' => $validateData['id_cliente'],
             'id_formapago' => $validateData['id_formapago'],
         ]);
         $data = Pedido::latest('id_pedido')->first();
-        EstadoPedido::create(  ['estado_inicial' => 'P', 'estado_actual' =>'P', 'estado_final' => 'P','fecha_registro'=> Carbon::now(),'id_pedido'=>$data->id_pedido]);
-        Envio::create(['fecha_inicio_ped'=> Carbon::now(), 'fecha_fin_ped'=> Carbon::now(),
-        'fecha_registro_env'=> Carbon::now(), 'fecha_fin_ped',
-        'ciudad_origen'=>1,
-        'ciudad_destino'=>1,
-        'id_pedido'=>$data->id_pedido]);
+        EstadoPedido::create([
+            'estado_inicial' => 'P',
+            'estado_actual' => 'P',
+            'estado_final' => 'P',
+            'fecha_registro' => Carbon::now(),
+            'id_pedido' => $data->id_pedido,
+        ]);
+        Envio::create([
+            'fecha_inicio_ped' => Carbon::now(),
+            'fecha_fin_ped' => Carbon::now(),
+            'fecha_registro_env' => Carbon::now(),
+            'fecha_fin_ped',
+            'ciudad_origen' => 1,
+            'ciudad_destino' => 1,
+            'id_pedido' => $data->id_pedido,
+        ]);
         return $data;
     }
 
@@ -134,19 +145,17 @@ class PedidoController extends Controller
     public function destroy($id)
     {
         DB::table('pedido')
-        ->where('id_pedido', $id)
-        ->update(
-            ['estado_ped' => 'A']
-        );
+            ->where('id_pedido', $id)
+            ->update(['estado_ped' => 'A']);
     }
     public function Pagar($id)
     {
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
-        $pedido = Pedido::where('id_pedido',$id)->first();
-        $precio=$pedido->total;
+        $pedido = Pedido::where('id_pedido', $id)->first();
+        $precio = $pedido->total;
         $amount = new Amount();
-        $amount->setTotal( $precio);
+        $amount->setTotal($precio);
         $amount->setCurrency('USD');
 
         $transaction = new Transaction();
@@ -155,44 +164,59 @@ class PedidoController extends Controller
         $callbackUrl = url('/pedido/status');
 
         $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl( $callbackUrl)
-            ->setCancelUrl( $callbackUrl);
+        $redirectUrls->setReturnUrl($callbackUrl)->setCancelUrl($callbackUrl);
 
         $payment = new Payment();
 
-        $payment->setIntent('sale')
+        $payment
+            ->setIntent('sale')
             ->setPayer($payer)
-            ->setTransactions(array($transaction))
+            ->setTransactions([$transaction])
             ->setRedirectUrls($redirectUrls);
-            try {
-                $payment->create($this->apiContext );
-                //echo $payment;
-                return redirect()->away($payment->getApprovalLink() );
+        try {
+            $payment->create($this->apiContext);
+            //echo $payment;
+            return redirect()->away($payment->getApprovalLink());
+        } catch (PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+        DB::table('pedido')
+            ->where('id_pedido', $id)
+            ->update(['estado_ped' => 'P']);
+    }
+    public function status(Request $request)
+    {
+        $paymentid = $request->input('paymentid');
+        $payerId = $request->input('PayerID');
+        $token = $request->input('token');
+        if (!$paymentid || $payerId) {
+            return 'Pago fallido';
+        }
+        $payment = Payment::get($paymentid,$this->apiContext);
 
-            }
-            catch (\PayPal\Exception\PayPalConnectionException $ex) {
-                return $ex->getData();
-            }
-               DB::table('pedido')
-                ->where('id_pedido', $id)
-                ->update(
-                    ['estado_ped' => 'P']
-                );
+        $execution = new PaymentExecution();
+        $execution->setPayerId($payerId);
+
+        $result = $payment->execute($execution,$this->apiContext);
+        $status ='';
+        if ($result->getState() === 'approved') {
+           $status ='Gracias, El pago atravez de Paypal se ha realizado correctamente';
+        }else{
+            $status ='Lo sentimos, El pago atravez de Paypal se ha podido realizar correctamente';
+        }
+        return $status;
     }
-    public function status(Request $request){
-        dd( $request->all());
-    }
-     public function enviar($id)
+    public function enviar($id)
     {
         DB::table('estado_pedido')
-        ->where('id_pedido', $id)
-        ->update(
-            ['estado_inicial' => 'P', 'estado_actual' =>'E', 'estado_final' => 'P']
-        );
+            ->where('id_pedido', $id)
+            ->update([
+                'estado_inicial' => 'P',
+                'estado_actual' => 'E',
+                'estado_final' => 'P',
+            ]);
         DB::table('pedido')
-        ->where('id_pedido', $id)
-        ->update(
-            ['estado_ped' => 'E']
-        );
+            ->where('id_pedido', $id)
+            ->update(['estado_ped' => 'E']);
     }
 }
