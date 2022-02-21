@@ -13,5 +13,8 @@ export class PersonaService {
   savePersonas(newPersonas: IPersona){
     return this.http.post(`${this.API_URI}persona`,newPersonas);
   }
+  updatePersona(newpersona: IPersona){
+    return this.http.put(`${this.API_URI}persona/${newpersona.id_persona}`,newpersona);
+  }
 
 }

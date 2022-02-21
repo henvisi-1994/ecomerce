@@ -110,9 +110,19 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
+       $id_empresa  =  $request->input('id_empresa');
+        $id_usu  =  $request->input('id_usu');
+        $id_cargo  =  $request->input('id_cargo');
+        $id_persona  =  $request->input('id_persona');
+        $estado_empl  =  $request->input('estado_empl');
+        $email= $request->input('email');
+        $id_usu= $request->input('id_usu');
         DB::table('empleado')
             ->where('id_empleado', $id)
-            ->update($request->all());
+            ->update(['id_empresa'=>$id_empresa,'id_usu'=>$id_usu,'id_cargo'=>$id_cargo,'id_persona'=>$id_persona,'estado_empl'=>$estado_empl]);
+            DB::table('users')
+            ->where('id', $id_usu)
+            ->update(['email'=>$email]);
         return;
     }
 

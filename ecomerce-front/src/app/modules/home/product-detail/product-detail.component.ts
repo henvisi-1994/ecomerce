@@ -43,6 +43,7 @@ export class ProductDetailComponent implements OnInit {
     private formaPagoservice: FormaPagoService,
     private pedidoservice: PedidoService,
     private detallePedidoservice: DetallePedidoService,
+    private detallepedidoservice:DetallePedidoService,
     private confirmDialog: NgbModal,
     private router: Router,
     private route: ActivatedRoute
@@ -82,7 +83,8 @@ export class ProductDetailComponent implements OnInit {
     this.formaPagoservice.getallFormaPago().subscribe(r => { this.forpagos = r; })
   }
   public getProductos() {
-    this.productService.getallProductos().subscribe(r => { this.productos = r; })
+    let id_cliente = localStorage.getItem('id_cliente');
+    this.detallepedidoservice.getCart(id_cliente).subscribe(productos =>{ this.productos = productos  });
   }
   savePedido(id_prod: number, precio: number, aplica_iva: any) {
     let productos = this.productos.filter((producto: { id_prod: number; }) => {

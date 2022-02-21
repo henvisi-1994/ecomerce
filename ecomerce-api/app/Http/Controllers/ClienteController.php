@@ -142,7 +142,20 @@ class ClienteController extends Controller
             $estado_cli = $request->input('estado_cli');
             $fecha_inicio = $request->input('fecha_inicio');
             $fecha_fin = $request->input('fecha_fin');
-
+            $id_direccion= $request->input('id_direccion');
+            $direcion  =  $request->input('direcion');
+            $calle  =  $request->input('calle');
+            $numero  =  $request->input('numero');
+            $piso  =  $request->input('piso');
+            $telefono  =  $request->input('telefono');
+            $movil  =  $request->input('movil');
+            $id_ciudad	  =  $request->input('id_ciudad	');
+            $estado_direccion  =  $request->input('estado_direccion');
+            $email= $request->input('email');
+            $id_usu= $request->input('id_usu');
+            DB::table('direccion')
+            ->where('id_direccion',  $id_direccion)
+            ->update(['direcion'=>$direcion,'calle'=>$calle,'numero'=>$numero,'piso'=>$piso,'telefono'=>$telefono,'movil'=>$movil,'id_ciudad'=>$id_ciudad,'estado_direccion'=>$estado_direccion]);
             DB::table('cliente')
                 ->where('id_cliente', $id)
                 ->update([
@@ -153,6 +166,9 @@ class ClienteController extends Controller
                     'id_empresa' => $id_empresa,
                     'id_persona' => $id_persona,
                 ]);
+                DB::table('users')
+                ->where('id', $id_usu)
+                ->update(['email'=>$email]);
             return;
         } else {
             return back()->withInput($request->all());

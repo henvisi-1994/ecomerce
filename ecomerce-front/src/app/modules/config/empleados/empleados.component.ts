@@ -9,6 +9,7 @@ import { IEmpleado } from './empleado.metadata';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Swal from 'sweetalert2';
 import { environment } from 'environments/environment.prod';
+import { UsuarioService } from '@data/services/api/usuario.service';
 
 @Component({
   selector: 'app-empleados',
@@ -39,13 +40,21 @@ export class EmpleadosComponent implements OnInit {
   tiposIdentificacion:any=[];
   @ViewChild('empleadoModal', { static: false }) modal: ElementRef | undefined;
   edit = false;
-  constructor(private modalEmpleado: NgbModal,private cargoservice: CargoService,private empresaservice:EmpresaService,private personaservice:PersonaService,private empleadoService: EmpleadoService ,private tipoidentificacionservice:TipoIdentificacionService) { }
+  users: any=[];
+  constructor(private modalEmpleado: NgbModal,
+    private cargoservice: CargoService,
+    private empresaservice:EmpresaService,
+    private personaservice:PersonaService,
+    private empleadoService: EmpleadoService ,
+    private tipoidentificacionservice:TipoIdentificacionService,
+    private userservice:UsuarioService) { }
 
   ngOnInit(): void {
     this.getEmpleados();
     this.getTipoIdentificaciones();
     this.geEmpresas();
     this.getCargos();
+    this.getUsers();
   }
   getTipoIdentificaciones() {
     this.tipoidentificacionservice.getallTipoIdentificaciones().subscribe(tiposIdentificacion => this.tiposIdentificacion = tiposIdentificacion);
@@ -58,6 +67,9 @@ export class EmpleadosComponent implements OnInit {
   }
   getCargos() {
     this.cargoservice.getallCargos().subscribe(cargos => this.cargos = cargos);
+  }
+  getUsers(){
+    this.userservice.getallUsuarios().subscribe(users => this.users = users);
   }
     // Boton para abrir ventana modal
     open(content: any) {
@@ -78,13 +90,20 @@ export class EmpleadosComponent implements OnInit {
       }
     }
     public editEmpleado(empleado: any) {
+      let resultUser = this.users.filter((usuario: string | any) => {
+        return usuario.id === empleado.id_usu;
+      });
+      console.log(resultUser);
+      let usuario = resultUser[0];
       this.empleado.id_empleado = empleado.id_empleado;
       this.empleado.id_empresa = empleado.id_empresa;
       this.empleado.id_usu = empleado.id_usu,
       this.empleado.id_cargo = empleado.id_cargo,
       this.empleado.id_persona = empleado.id_persona,
+      this.empleado.email= usuario.email;
       this.persona.nombre_persona=empleado.nombre_persona,
       this.persona.apellido_persona=empleado.apellido_persona,
+      this.persona.id_tipo_ident= empleado.id_tipo_ident;
       this.persona.dni=empleado.dni;
         this.empleado.estado_empl = empleado.estado_empl;
       this.edit = true;
@@ -97,16 +116,20 @@ export class EmpleadosComponent implements OnInit {
       (this.edit ? this.updateEmpleado() : this.storeEmpleado());
     }
     public updateEmpleado() {
-
-      this.limpiar();
-      this.modalEmpleado.dismissAll();
-      Swal.fire({
-        title:'Empleado',
-        text:'Empleado Actualizado Exitosamente',
-        icon:'success'
+      this.personaservice.updatePersona(this.persona).subscribe((res: any) => {
+        this.actualizarEmpleado();
       });
-
-
+    }
+    public actualizarEmpleado(){
+      this.empleadoService.updateEmpleado(this.empleado).subscribe((res: any) => {
+        this.limpiar();
+        this.modalEmpleado.dismissAll();
+        Swal.fire({
+          title:'Empleado',
+          text:'Empleado Actualizado Exitosamente',
+          icon:'success'
+        });
+      })
     }
     public storeEmpleado() {
       this.personaservice.savePersonas(this.persona).subscribe((res: any) => {

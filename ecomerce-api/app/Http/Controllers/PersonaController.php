@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Persona;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PersonaController extends Controller
 {
@@ -92,7 +93,9 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('persona')
+        ->where('id_persona', $id)
+        ->update($request->all());
     }
 
     /**

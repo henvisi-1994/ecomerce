@@ -198,7 +198,6 @@ return  $productos;
             $image_name=$producto->imagen_prod;
             }
             $id_empresa  =  $request->input('id_empresa');
-            $id_fec =  $request->input('id_fec');
             $id_bod =  $request->input('id_bod');
             $codigo_prod =  $request->input('codigo_prod');
             $codbarra_prod =  $request->input('codbarra_prod');
