@@ -82,14 +82,14 @@ export class RegisterComponent implements OnInit {
   onChangePais(event:any){
    let id_pais=event.value
     let result = this.provincias_data.filter((provincia: string | any)=> {
-      return provincia.id_pais  === id_pais;
+      return provincia.id_pais  == id_pais;
     });
     this.provincias= result;
   }
   onChangeProvincia(event:any){
     let id_provincia=event.value
      let result = this.ciudades_data.filter((ciudad: string | any)=> {
-       return ciudad.id_provincia === id_provincia;
+       return ciudad.id_provincia == id_provincia;
      });
      this.ciudades= result;
    }
