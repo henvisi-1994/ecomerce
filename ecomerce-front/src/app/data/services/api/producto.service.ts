@@ -14,6 +14,9 @@ export class ProductoService {
   getallProductos() {
     return this.http.get(`${this.API_URI}productos`);
   }
+  getActivoProductos() {
+    return this.http.get(`${this.API_URI}productos/activo`);
+  }
   gettopProductos() {
     return this.http.get(`${this.API_URI}productos/top`);
   }

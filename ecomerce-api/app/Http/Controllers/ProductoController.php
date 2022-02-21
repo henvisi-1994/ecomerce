@@ -11,7 +11,7 @@ class ProductoController extends Controller
     public function __construct()
     {
         //['index','noticias']
-        $this->middleware('auth:sanctum')->except(['index','show','getProductoCategoria','getProductoTop']);
+        $this->middleware('auth:sanctum')->except(['index','show','getProductoCategoria','getProductoTop','getProductActivos']);
     }
     /**
      * Display a listing of the resource.
@@ -28,6 +28,17 @@ class ProductoController extends Controller
             ->orderBy("prod.id_prod", "desc")
             ->get();
         return  $productos;
+    }
+    public function getProductActivos(){
+        $productos = DB::table('producto as prod')
+        ->join('empresa', 'prod.id_empresa', '=', 'empresa.id_empresa')
+        ->join('marca', 'prod.id_marca', '=', 'marca.id_marca')
+        ->join('categoria', 'prod.id_cat', '=', 'categoria.id_cat')
+        ->join('bodega', 'prod.id_bod', '=', 'bodega.id_bod')
+        ->where('estado_prod','A')
+        ->orderBy("prod.id_prod", "desc")
+        ->get();
+        return $productos;
     }
 
     /**
@@ -106,6 +117,7 @@ class ProductoController extends Controller
         ->join('categoria', 'prod.id_cat', '=', 'categoria.id_cat')
         ->join('bodega', 'prod.id_bod', '=', 'bodega.id_bod')
         ->where('prod.id_cat',$id)
+        ->where('estado_prod','A')
         ->orderBy("prod.id_prod", "desc")
         ->get();
     return  $productos;
@@ -117,6 +129,7 @@ public function getProductoTop(){
     ->join('categoria', 'prod.id_cat', '=', 'categoria.id_cat')
     ->join('bodega', 'prod.id_bod', '=', 'bodega.id_bod')
     ->orderBy("prod.id_prod", "desc")
+    ->where('estado_prod','A')
     ->get() ->take(10);
 return  $productos;
 }

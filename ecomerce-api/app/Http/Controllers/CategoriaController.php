@@ -11,7 +11,7 @@ class CategoriaController extends Controller
     public function __construct()
     {
         //['index','noticias']
-        $this->middleware('auth:sanctum')->except(['index','show','top']);
+        $this->middleware('auth:sanctum')->except(['index','show','top','getActivas']);
     }
     /**
      * Display a listing of the resource.
@@ -25,9 +25,18 @@ class CategoriaController extends Controller
             ->get();
         return $categorias;
     }
+    public function getActivas()
+    {
+        $categorias = DB::table('categoria as c')
+        ->where('estado_cat','A')
+            ->orderBy('c.id_cat', 'desc')
+            ->get();
+        return $categorias;
+    }
     public function top()
     {
         $categorias = DB::table('categoria as c')
+        ->where('estado_cat','A')
             ->orderBy('c.id_cat', 'desc')
             ->get()->take(10);
         return $categorias;

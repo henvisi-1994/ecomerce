@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   }
   public getProductos(){
     console.log('Ingreso')
-    this.productService.getallProductos().subscribe(r=>{
+    this.productService.getActivoProductos().subscribe(r=>{
 
         this.productos= r;
 

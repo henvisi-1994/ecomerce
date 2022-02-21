@@ -12,6 +12,9 @@ export class CategoriaService {
   getallCategorias(){
     return this.http.get(`${this.API_URI}categorias`);
   }
+  getActivaCategorias(){
+    return this.http.get(`${this.API_URI}categorias/activa`);
+  }
   getTopCategoria(){
     return this.http.get(`${this.API_URI}categorias/top`);
   }

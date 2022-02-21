@@ -39,7 +39,7 @@ categorias:any=[];
     this.productService.gettopProductos().subscribe(r => { this.productos = r; })
   }
   getCategorias() {
-    this.categoriasaservice.getallCategorias().subscribe(categorias => this.categorias = categorias);
+    this.categoriasaservice.getActivaCategorias().subscribe(categorias => this.categorias = categorias);
   }
 
 }

@@ -37,6 +37,7 @@ Route::get('/', function () {
 });
 Route::prefix('productos')->group( function (){
     Route::get('/' ,[ProductoController::class,'index']);
+    Route::get('/activo' ,[ProductoController::class,'getProductActivos']);
     Route::get('/top' ,[ProductoController::class,'getProductoTop']);
     Route::get('/{id}' ,[ProductoController::class,'show']);
     Route::get('/categoria/{id}' ,[ProductoController::class,'getProductoCategoria']);
@@ -46,6 +47,7 @@ Route::prefix('productos')->group( function (){
 });
 Route::prefix('categorias')->group( function (){
     Route::get('/' ,[CategoriaController::class,'index']);
+    Route::get('/activa' ,[CategoriaController::class,'getActivas']);
     Route::get('/top' ,[CategoriaController::class,'top']);
     Route::post('/' ,[CategoriaController::class,'store']);
     Route::put('/{id}' ,[CategoriaController::class,'update']);
