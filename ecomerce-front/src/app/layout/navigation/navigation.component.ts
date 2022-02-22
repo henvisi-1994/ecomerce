@@ -27,4 +27,10 @@ export class NavigationComponent implements OnInit {
     localStorage.clear();
     this.isAuth = false;
   }
+   pulsar(e:any) {
+    if (e.keyCode === 13 && !e.shiftKey) {
+        e.preventDefault();
+alert('enter')
+    }
+}
 }

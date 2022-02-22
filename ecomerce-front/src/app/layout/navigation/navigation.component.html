@@ -7,6 +7,12 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="search">
+      <div class="search-text">
+        <input class="serch" type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"(keypress)="pulsar"/>
+    </div>
+    </div>
+
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
