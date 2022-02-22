@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <div class="search">
       <div class="search-text">
-        <input class="serch" type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"(keypress)="pulsar"/>
+        <input class="serch" type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"(keypress)="pulsar($event)" [(ngModel)]="search" />
     </div>
     </div>
 

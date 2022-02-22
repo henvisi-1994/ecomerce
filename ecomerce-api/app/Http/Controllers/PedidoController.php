@@ -27,13 +27,13 @@ class PedidoController extends Controller
     private $apiContext;
     public function __construct()
     {
-        /*$payPalConfig = Config::get('paypal');
+        $payPalConfig = Config::get('paypal');
         $this->apiContext = new ApiContext(
             new OAuthTokenCredential(
                 $payPalConfig['client_id'], // ClientID
                 $payPalConfig['sercret'] // ClientSecret
             )
-        );*/
+        );
     }
     /**
      * Display a listing of the resource.
@@ -188,7 +188,7 @@ class PedidoController extends Controller
             $msj->subject('Comprobante de Pago');
             $msj->attachData($pdf->output(),$nombre_archivo);
         });
-/*        $payer = new Payer();
+        $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         $pedido = Pedido::where('id_pedido', $id)->first();
         $precio = $pedido->total;
@@ -221,7 +221,7 @@ class PedidoController extends Controller
     }
     public function status(Request $request)
     {
-        /*$paymentid = $request->input('paymentid');
+        $paymentid = $request->input('paymentid');
         $payerId = $request->input('PayerID');
         $token = $request->input('token');
         if (!$paymentid || $payerId) {
@@ -239,7 +239,7 @@ class PedidoController extends Controller
         }else{
             $status ='Lo sentimos, El pago atravez de Paypal se ha podido realizar correctamente';
         }
-        return $status;*/
+        return $status;
     }
     public function enviar($id)
     {
