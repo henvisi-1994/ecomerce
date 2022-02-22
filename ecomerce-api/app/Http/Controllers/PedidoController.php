@@ -19,19 +19,21 @@ use PayPal\Api\Transaction;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConnectionException;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Mail;
 
 class PedidoController extends Controller
 {
     private $apiContext;
     public function __construct()
     {
-        $payPalConfig = Config::get('paypal');
+        /*$payPalConfig = Config::get('paypal');
         $this->apiContext = new ApiContext(
             new OAuthTokenCredential(
                 $payPalConfig['client_id'], // ClientID
                 $payPalConfig['sercret'] // ClientSecret
             )
-        );
+        );*/
     }
     /**
      * Display a listing of the resource.
@@ -150,7 +152,43 @@ class PedidoController extends Controller
     }
     public function Pagar($id)
     {
-        $payer = new Payer();
+        DB::table('pedido')
+        ->where('id_pedido', $id)
+        ->update(['estado_ped' => 'P']);
+        $pedido = DB::table('pedido')
+        ->join('forma_pago', 'pedido.id_formapago', '=', 'forma_pago.id_formapago')
+        ->where('pedido.id_pedido',$id)
+        ->first();
+        $detalle = DB::table('detalle_pedido')
+        ->join('producto', 'detalle_pedido.id_prod', '=', 'producto.id_prod')
+        ->where('detalle_pedido.id_pedido',$id)
+        ->get();
+        $cliente = DB::select('SELECT persona.nombre_persona,persona.apellido_persona,persona.dni,users.email,direccion.direcion from
+        cliente inner join persona on cliente.id_persona=persona.id_persona
+        inner JOIN users ON cliente.id_usu=users.id
+        INNER JOIN direccion ON cliente.id_direccion=direccion.id_direccion
+        where id_cliente = :id', ['id' => $pedido->id_cliente])[0];
+        $num_comprobante=$pedido->id_pedido;
+        $email=$cliente->email;
+        $nomb_usuario=$cliente->nombre_persona.' '.$cliente->apellido_persona;
+        $credenciales = [
+            'forma_pago'=>$pedido->nomb_formapago,
+            'cliente' => $cliente,
+            'fecha' => $pedido->fecha_registro_ped,
+            'num_comprobante' => $num_comprobante,
+            'precio' => $pedido->total,
+            'detalle'=>$detalle
+        ];
+        $nombre_archivo=$num_comprobante.'.pdf';
+        $pdf = PDF::loadView('comprobante_pdf', $credenciales);
+        $pdf->setPaper('a4', 'portrait');
+        /*->save(storage_path('app/public/comprobante/') . $nombre_archivo);*/
+        Mail::send('comprobante', $credenciales, function ($msj) use ($email, $nomb_usuario,$pdf,$nombre_archivo) {
+            $msj->to($email, $nomb_usuario);
+            $msj->subject('Comprobante de Pago');
+            $msj->attachData($pdf->output(),$nombre_archivo);
+        });
+/*        $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         $pedido = Pedido::where('id_pedido', $id)->first();
         $precio = $pedido->total;
@@ -179,14 +217,11 @@ class PedidoController extends Controller
             return redirect()->away($payment->getApprovalLink());
         } catch (PayPalConnectionException $ex) {
             return $ex->getData();
-        }
-        DB::table('pedido')
-            ->where('id_pedido', $id)
-            ->update(['estado_ped' => 'P']);
+        }*/
     }
     public function status(Request $request)
     {
-        $paymentid = $request->input('paymentid');
+        /*$paymentid = $request->input('paymentid');
         $payerId = $request->input('PayerID');
         $token = $request->input('token');
         if (!$paymentid || $payerId) {
@@ -204,7 +239,7 @@ class PedidoController extends Controller
         }else{
             $status ='Lo sentimos, El pago atravez de Paypal se ha podido realizar correctamente';
         }
-        return $status;
+        return $status;*/
     }
     public function enviar($id)
     {
